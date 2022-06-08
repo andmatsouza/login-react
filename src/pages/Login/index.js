@@ -35,6 +35,7 @@ export const Login = () => {
           mensagem: response.data.mensagem,*/
           loading: false
         });
+        localStorage.setItem('token', JSON.stringify(response.data.token));
         return navegate("/dasboard");
 
       } catch (error) {
