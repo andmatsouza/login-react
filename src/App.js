@@ -7,13 +7,15 @@ import {
 } from "react-router-dom";
 
 import { Login } from './pages/Login';
+import { Dasboard } from './pages/Dasboard';
 
 function App() {
   return (
     <div>
       <Router>
         <Routes>
-            <Route path='/' element={<Login />} />
+            <Route exact path='/' element={<Login />} />
+            <Route path='/dasboard' element={<Dasboard />} />
         </Routes>
       </Router>
       
