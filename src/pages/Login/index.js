@@ -1,12 +1,17 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 //substituiu a useHistory
 import { useNavigate } from "react-router-dom";
 
 import  api from '../../config/configApi';
 
+import { Context } from '../../Context/AuthContext';
+
 export const Login = () => {
 
   const navegate = useNavigate();
+
+  const { authenticated } = useContext(Context);
+  console.log("Situação do usuário na página de login: " + authenticated);
 
     const [user, setUser] = useState({
       email: '',
