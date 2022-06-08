@@ -10,7 +10,7 @@ export const Login = () => {
 
   const navegate = useNavigate();
 
-  const { authenticated } = useContext(Context);
+  const { authenticated, signIn } = useContext(Context);
   console.log("Situação do usuário na página de login: " + authenticated);
 
     const [user, setUser] = useState({
@@ -33,34 +33,35 @@ export const Login = () => {
         loading: true,
       });
 
-      try {
-        const response = await api.post("/login", user);
-        setStatus({
-          /*type: 'success',
-          mensagem: response.data.mensagem,*/
-          loading: false
-        });
-        localStorage.setItem('token', JSON.stringify(response.data.token));
-        return navegate("/dasboard");
 
-      } catch (error) {
-        if(error.response){
-           //console.log(error.response);
-           setStatus({
-             type: 'error',
-             mensagem: error.response.data.mensagem,
-             loading: false
-           });
-
-         }else{
-           //console.log("Erro: tente mais tarde");
-           setStatus({
-             type: 'error',
-             mensagem: "Erro: tente mais tarde",
-             loading: false
-           });
-         }         
-      }     
+      await api.post("/login", user)
+            .then((response) => {
+                //console.log(response);
+                setStatus({
+                    /*type: 'success',
+                    mensagem: response.data.mensagem,*/
+                    loading: false
+                });
+                localStorage.setItem('token', JSON.stringify(response.data.token));
+                signIn(true);
+                return navegate("/dasboard");
+            }).catch((err) => {
+                if (err.response) {
+                    //console.log(err.response);
+                    setStatus({
+                        type: 'error',
+                        mensagem: err.response.data.mensagem,
+                        loading: false
+                    });
+                } else {
+                    //console.log("Erro: tente mais tarde");
+                    setStatus({
+                        type: 'error',
+                        mensagem: "Erro: tente mais tarde!",
+                        loading: false
+                    });
+                }
+            });    
       
     }
 
@@ -75,7 +76,7 @@ export const Login = () => {
           <input type="email" name="email" placeholder="Digite o e-mail" onChange={valorInput} /><br /><br />
 
           <label>Senha: </label>
-          <input type="password" name="password" placeholder="Digite a senha" onChange={valorInput} /><br /><br />
+          <input type="password" name="password" placeholder="Digite a senha" autoComplete="on" onChange={valorInput} /><br /><br />
 
           
           {status.loading ? <button type="submit" disabled>Acessando...</button> : <button type="submit">Acessar</button>}
