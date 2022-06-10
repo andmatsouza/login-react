@@ -1,52 +1,69 @@
-import React, {createContext, useEffect, useState} from "react";
-
-import api from '../config/configApi';
+import React, { createContext, useEffect, useState } from "react";
+//precisa importar a api antes do context
+import api from "../config/configApi";
 
 const Context = createContext();
 
-function AuthProvider({children}) {
+function AuthProvider({ children }) {
+  const [authenticated, setAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-    const [authenticated, setAuthenticated] = useState(false);
-    const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const getLogin = async () => {
+      const token = localStorage.getItem("token");
 
-    useEffect(() => {
-
-      const getLogin = async () => {
-          const token = localStorage.getItem('token');
-          
-
-
-          if(token){
-            api.defaults.headers.Authorization = `Bearer ${(token)}`;
-            setAuthenticated(true);
-          };
-
-          setLoading(false);
+      if (token && valUser()) {
+        api.defaults.headers.Authorization = `Bearer ${token}`;
+        setAuthenticated(true);
       }
 
-      getLogin();
+      setLoading(false);
+    };
 
-    },[]);
+    getLogin();
+  }, []);
 
-    async function signIn(sit) {
-      setAuthenticated(true);
-    }
+  const valUser = async () => {
+    const valueToken = localStorage.getItem("token");
 
-    function handleLogout() {
-      setAuthenticated(false);
-      localStorage.removeItem('token');
-      api.defaults.headers.Authorization = undefined;
-    }
+    const headers = {
+      headers: {
+        Authorization: "Bearer" + valueToken,
+      },
+    };
 
-    if(loading){
-      return <h1>Carregando...</h1>
-    }
+    await api
+      .get("/val-token", headers)
+      .then(() => {
+        return true;
+      })
+      .catch(() => {
+        setAuthenticated(false);
+        localStorage.removeItem("token");
+        api.defaults.headers.Authorization = undefined;
+        return false;
+      });
+  };
 
-  return(
-    <Context.Provider value={{authenticated, signIn, handleLogout}}>
-        {children}
+  async function signIn(sit) {
+    setAuthenticated(true);
+  }
+
+  function handleLogout() {
+    setAuthenticated(false);
+    localStorage.removeItem("token");
+    api.defaults.headers.Authorization = undefined;
+  }
+
+  if (loading) {
+    return <h1>Carregando...</h1>;
+  }
+
+  return (
+    <Context.Provider value={{ authenticated, signIn, handleLogout }}>
+      {children}
     </Context.Provider>
-  )
+  );
 }
 
-export {Context, AuthProvider};
+export { Context, AuthProvider };
