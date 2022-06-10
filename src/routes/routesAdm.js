@@ -11,7 +11,7 @@ import { Login } from "../pages/Login";
 import { Dasboard } from "../pages/Dasboard";
 import { Users } from "../pages/Users";
 
-function CustomRoute({ children }) {
+function PrivateRoute({ children }) {
   const { authenticated } = useContext(Context);
   return authenticated ? children : <Navigate to="/" />;  
 }
@@ -23,17 +23,17 @@ export default function RoutesAdm() {
       <Route        
         path="/dasboard"
         element={
-          <CustomRoute>
+          <PrivateRoute>
             <Dasboard />
-          </CustomRoute>
+          </PrivateRoute>
         }        
       />
       <Route        
         path="/users"
         element={
-          <CustomRoute>
+          <PrivateRoute>
             <Users />
-          </CustomRoute>
+          </PrivateRoute>
         }        
       />
     </Routes>
