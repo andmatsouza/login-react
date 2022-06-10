@@ -38,7 +38,7 @@ export const Login = () => {
             .then((response) => {
                 //console.log(response);
                 setStatus({
-                    /*type: 'success',
+                   /* type: 'success',
                     mensagem: response.data.mensagem,*/
                     loading: false
                 });
@@ -46,7 +46,7 @@ export const Login = () => {
                 signIn(true);
                 return navegate("/dasboard");
             }).catch((err) => {
-                if (err.response) {
+                if (err.response.data.erro) {
                     //console.log(err.response);
                     setStatus({
                         type: 'error',
