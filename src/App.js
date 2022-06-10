@@ -1,8 +1,8 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 
-import { Login } from "./pages/Login";
-import { Dasboard } from "./pages/Dasboard";
+import Route from "./routes/routesAdm";
+
 import { AuthProvider } from "./Context/AuthContext";
 
 function App() {
@@ -10,10 +10,7 @@ function App() {
     <div>
       <AuthProvider>
         <Router>
-          <Routes>
-            <Route exact path="/" element={<Login />} />
-            <Route path="/dasboard" element={<Dasboard />} />
-          </Routes>
+          <Route />
         </Router>
       </AuthProvider>
     </div>
