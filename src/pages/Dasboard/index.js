@@ -2,16 +2,18 @@ import React, {useContext} from "react";
 
 import {Context} from '../../Context/AuthContext';
 
-export const Dasboard = () => {
-  
-  const token = localStorage.getItem('token');
+import { Link } from "react-router-dom";
+
+export const Dasboard = () => {  
 
  const { authenticated, handleLogout } = useContext(Context);
  console.log("Situação do usuário na página dashboard: " + authenticated);
   return(
     <div>
+      <Link to="/dasboard">Dasboard</Link><br />
+      <Link to="/users" reloadDocument>Usuários</Link><br />
       <h1>Dasboard</h1>
-      <p>Token: {token}</p>
+      
       <button type="button" onClick={handleLogout}>Sair</button>
     </div>
   );

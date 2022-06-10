@@ -8,6 +8,8 @@ function AuthProvider({ children }) {
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  
+
   useEffect(() => {
     const getLogin = async () => {
       const token = localStorage.getItem("token");
