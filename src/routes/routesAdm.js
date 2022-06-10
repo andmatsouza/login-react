@@ -9,6 +9,7 @@ import { Context } from "../Context/AuthContext";
 
 import { Login } from "../pages/Login";
 import { Dasboard } from "../pages/Dasboard";
+import { Users } from "../pages/Users";
 
 function CustomRoute({ children }) {
   const { authenticated } = useContext(Context);
@@ -25,7 +26,15 @@ export default function RoutesAdm() {
           <CustomRoute>
             <Dasboard />
           </CustomRoute>
-        }
+        }        
+      />
+      <Route        
+        path="/users"
+        element={
+          <CustomRoute>
+            <Users />
+          </CustomRoute>
+        }        
       />
     </Routes>
   );

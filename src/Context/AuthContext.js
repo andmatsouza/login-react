@@ -28,12 +28,11 @@ function AuthProvider({ children }) {
 
     const headers = {
       headers: {
-        Authorization: "Bearer" + valueToken,
+        Authorization: "Bearer " + valueToken,
       },
     };
 
-    await api
-      .get("/val-token", headers)
+    await api.get("/val-token", headers)
       .then(() => {
         return true;
       })

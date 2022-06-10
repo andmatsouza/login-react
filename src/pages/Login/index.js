@@ -42,7 +42,7 @@ export const Login = () => {
                     mensagem: response.data.mensagem,*/
                     loading: false
                 });
-                localStorage.setItem('token', JSON.stringify(response.data.token));
+                localStorage.setItem('token', response.data.token);
                 signIn(true);
                 return navegate("/dasboard");
             }).catch((err) => {
