@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 import api from '../../config/configApi';
 
@@ -58,7 +58,14 @@ export const AddUser = () => {
       <Link to="/users" reloadDocument>Usuários</Link><br />    
       <h1>Cadastrar Usuário</h1>
       {status.type === 'error' ? <p>{status.mensagem}</p> : ""}
-      {status.type === 'success' ? <p>{status.mensagem}</p>: ""}
+      {status.type === 'success' ?
+
+      <Navigate to="/users" state={{
+        type: "success",
+        mensagem: status.mensagem
+      }} />
+
+     : ""}
       <form onSubmit={addUser}>
         <label>Nome:</label>
         <input type="text" name="name" placeholder="Nome completo do usuário" onChange={valueInput} /><br /><br />
@@ -70,7 +77,7 @@ export const AddUser = () => {
         <input type="password" name="password" placeholder="Senha para acessar o sistema" autoComplete="on" onChange={valueInput} /><br /><br />
 
 
-        <button type="submit">Cadasrar</button>
+        <button type="submit">Cadastrar</button>
       </form>
     </div>
   )
