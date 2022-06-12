@@ -52,6 +52,7 @@ export const Users = () => {
       <Link to="/users" reloadDocument>Usuários</Link><br />      
       
       <h1>Listar Usuários</h1>
+      <Link to="/add-user">Cadastrar</Link><br /><hr /> 
       {status.type === "erro" ? <p>{status.mensagem}</p> : ""}
       {data.map((user) => (
         <div key={user.id}>

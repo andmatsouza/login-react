@@ -10,6 +10,7 @@ import { Context } from "../Context/AuthContext";
 import { Login } from "../pages/Login";
 import { Dasboard } from "../pages/Dasboard";
 import { Users } from "../pages/Users";
+import { AddUser } from "../pages/AddUser";
 
 function PrivateRoute({ children }) {
   const { authenticated } = useContext(Context);
@@ -33,6 +34,14 @@ export default function RoutesAdm() {
         element={
           <PrivateRoute>
             <Users />
+          </PrivateRoute>
+        }        
+      />
+      <Route        
+        path="/add-user"
+        element={
+          <PrivateRoute>
+            <AddUser />
           </PrivateRoute>
         }        
       />
