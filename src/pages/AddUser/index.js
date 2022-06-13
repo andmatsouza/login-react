@@ -57,7 +57,7 @@ export const AddUser = () => {
        <Link to="/dasboard">Dasboard</Link><br />      
       <Link to="/users" reloadDocument>Usuários</Link><br />    
       <h1>Cadastrar Usuário</h1>
-      <Link to="/users" reloadDocument>Listar</Link><br /> 
+      <Link to="/users" reloadDocument><button type="button">Listar</button></Link><br /> 
       {status.type === 'error' ? <p style={{color: "#ff0000"}}>{status.mensagem}</p> : ""}
       {status.type === 'success' ?
 
@@ -67,6 +67,7 @@ export const AddUser = () => {
       }} />
 
      : ""}
+     <hr />
       <form onSubmit={addUser}>
         <label>Nome:</label>
         <input type="text" name="name" placeholder="Nome completo do usuário" onChange={valueInput} /><br /><br />

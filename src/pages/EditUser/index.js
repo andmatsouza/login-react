@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link, Navigate } from "react-router-dom";
 
 import api from "../../config/configApi";
+import { servDeleteUser } from "../../service/servDeleteUser";
 
 export const EditUser = () => {
   const { id } = useParams();
@@ -27,7 +28,7 @@ export const EditUser = () => {
       .put("/user", { id, name, password }, headers)
       .then((response) => {
         setStatus({
-          type: "success",
+          type: "redSuccess",
           mensagem: response.data.mensagem,
         });
       })
@@ -61,7 +62,7 @@ export const EditUser = () => {
             setEmail(response.data.user.email);
           } else {
             setStatus({
-              type: "warning",
+              type: "redWarning",
               mensagem: "Erro: Usuário não encontrado!",
             });
           }
@@ -69,12 +70,12 @@ export const EditUser = () => {
         .catch((err) => {
           if (err.response.data.erro) {
             setStatus({
-              type: "warning",
+              type: "redWarning",
               mensagem: err.response.data.mensagem,
             });
           } else {
             setStatus({
-              type: "warning",
+              type: "redWarning",
               mensagem: "Erro: Tente mais tarde!",
             });
           }
@@ -82,6 +83,30 @@ export const EditUser = () => {
     };
     getUser();
   }, [id]);
+
+  const deleteUser = async (idUser) => {
+    const response = await servDeleteUser(idUser);
+    if(response){
+
+      if(response.type === "success"){
+        setStatus({
+          type: 'redSuccess',
+          mensagem: response.mensagem
+        });
+      }else{
+        setStatus({
+          type: 'erro',
+          mensagem: response.mensagem
+        })
+      }
+
+    }else{
+      setStatus({
+        type: 'erro',
+        mensagem: 'Erro: tente mais tarde!'
+      })
+    }
+  }
 
   return (
     <div>
@@ -93,12 +118,14 @@ export const EditUser = () => {
       <br />
       <h1>Editar Ususário</h1>
 
-      <Link to="/users" reloadDocument>
-        Listar
+      <Link to="/users" reloadDocument><button type="button">Listar</button></Link>{" "}
+      <Link to={"/view-user/" + id} reloadDocument><button type="button">Visualizar</button>{" "}
+      <Link to={"#"}><button type="button" onClick={() => deleteUser(id)}>Apagar</button> </Link><br />
+        
       </Link>
       <br />
 
-      {status.type === "warning" ? (
+      {status.type === "redWarning" ? (
         <Navigate
           to="/users"
           state={{
@@ -110,7 +137,7 @@ export const EditUser = () => {
         ""
       )}
 
-      {status.type === "success" ? (
+      {status.type === "redSuccess" ? (
         <Navigate
           to="/users"
           state={{

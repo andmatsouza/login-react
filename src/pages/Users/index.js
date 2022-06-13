@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
-import api from "../../config/configApi";
 import { Link, useLocation } from "react-router-dom";
+
+import {servDeleteUser} from '../../service/servDeleteUser';
+import api from "../../config/configApi";
+
 
 export const Users = () => {
 
@@ -51,34 +54,20 @@ export const Users = () => {
   
   const deleteUser = async (idUser) => {
 
-    const headers = {
-      herders: {
-        Authorizaton: "Bearer " + localStorage.getItem("token"),
-      },
-    };    
+    const response = await servDeleteUser(idUser);    
 
-
-    await api.delete("/user/" + idUser, headers )
-    .then((response) => {
+    if(response){
       setStatus({
-        type: "success",
-        mensagem: response.data.mensagem,
+        type: response.type,
+        mensagem: response.mensagem
       });
       getUsers();
-
-    }).catch((err) => {
-      if (err.response.data.erro) {        
-        setStatus({
-          type: "erro",
-          mensagem: err.response.data.mensagem,
-        });
-      } else {
-        setStatus({
-          type: "erro",
-          mensagem: "Erro: Tente mais tarde!",
-        });
-      }
-    })
+    }else{
+      setStatus({
+        type: "erro",
+        mensagem: "Erro: Tente mais tarde!",
+      }); 
+    }    
   }
   
 
@@ -88,9 +77,10 @@ export const Users = () => {
       <Link to="/users" reloadDocument>Usuários</Link><br />      
       
       <h1>Listar Usuários</h1>
-      <Link to="/add-user">Cadastrar</Link><br /><hr /> 
+      <Link to="/add-user"><button type="button">Cadastrar</button></Link><br />
       {status.type === "erro" ? <p style={{color: "#ff0000"}}>{status.mensagem}</p> : ""}
       {status.type === "success" ? <p style={{color: "green"}}>{status.mensagem}</p> : ""}
+      <hr /> 
       {data.map((user) => (
         <div key={user.id}>
           <span>{user.id}</span>
@@ -99,9 +89,9 @@ export const Users = () => {
           <br />
           <span>{user.email}</span>
           <br /><br />
-          <Link to={"/view-user/" + user.id}><button type="button">Visualizar</button></Link><br /><br />
-          <Link to={"/edit-user/" + user.id}><button type="button">Editar</button></Link><br /><br />
-          <Link to={"#" + user.id}><button type="button" onClick={() => deleteUser(user.id)}>Apagar</button></Link><br /><br />
+          <Link to={"/view-user/" + user.id}><button type="button">Visualizar</button></Link>{" "}
+          <Link to={"/edit-user/" + user.id}><button type="button">Editar</button></Link>{" "}
+          <Link to={"#" + user.id}><button type="button" onClick={() => deleteUser(user.id)}>Apagar</button></Link>{" "}
           <hr />
         </div>
       ))}
