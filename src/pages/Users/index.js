@@ -67,8 +67,9 @@ export const Users = () => {
           <span>{user.name}</span>
           <br />
           <span>{user.email}</span>
-          <br />
-          <Link to={"/view-user/" + user.id}><button type="button">Visualizar</button></Link><br />
+          <br /><br />
+          <Link to={"/view-user/" + user.id}><button type="button">Visualizar</button></Link><br /><br />
+          <Link to={"/edit-user/" + user.id}><button type="button">Editar</button></Link><br /><br />
           <hr />
         </div>
       ))}
