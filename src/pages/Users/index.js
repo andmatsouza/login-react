@@ -4,8 +4,9 @@ import { Link, useLocation } from "react-router-dom";
 
 export const Users = () => {
 
+  //recebe o state que vem do redirecionamento de outra página, através do componente Navigate.
   const {state} = useLocation();
-  console.log(state);
+  //console.log(state);
 
   const [data, setData] = useState([]);
   const [status, setStatus] = useState({
@@ -57,8 +58,8 @@ export const Users = () => {
       
       <h1>Listar Usuários</h1>
       <Link to="/add-user">Cadastrar</Link><br /><hr /> 
-      {status.type === "erro" ? <p>{status.mensagem}</p> : ""}
-      {status.type === "success" ? <p>{status.mensagem}</p> : ""}
+      {status.type === "erro" ? <p style={{color: "#ff0000"}}>{status.mensagem}</p> : ""}
+      {status.type === "success" ? <p style={{color: "green"}}>{status.mensagem}</p> : ""}
       {data.map((user) => (
         <div key={user.id}>
           <span>{user.id}</span>
@@ -67,6 +68,7 @@ export const Users = () => {
           <br />
           <span>{user.email}</span>
           <br />
+          <Link to={"/view-user/" + user.id}><button type="button">Visualizar</button></Link><br />
           <hr />
         </div>
       ))}

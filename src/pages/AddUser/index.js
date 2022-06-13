@@ -57,7 +57,8 @@ export const AddUser = () => {
        <Link to="/dasboard">Dasboard</Link><br />      
       <Link to="/users" reloadDocument>Usuários</Link><br />    
       <h1>Cadastrar Usuário</h1>
-      {status.type === 'error' ? <p>{status.mensagem}</p> : ""}
+      <Link to="/users" reloadDocument>Listar</Link><br /> 
+      {status.type === 'error' ? <p style={{color: "#ff0000"}}>{status.mensagem}</p> : ""}
       {status.type === 'success' ?
 
       <Navigate to="/users" state={{
