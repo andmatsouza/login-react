@@ -49,6 +49,37 @@ export const Users = () => {
   }, []);
 
   
+  const deleteUser = async (idUser) => {
+
+    const headers = {
+      herders: {
+        Authorizaton: "Bearer " + localStorage.getItem("token"),
+      },
+    };    
+
+
+    await api.delete("/user/" + idUser, headers )
+    .then((response) => {
+      setStatus({
+        type: "success",
+        mensagem: response.data.mensagem,
+      });
+      getUsers();
+
+    }).catch((err) => {
+      if (err.response.data.erro) {        
+        setStatus({
+          type: "erro",
+          mensagem: err.response.data.mensagem,
+        });
+      } else {
+        setStatus({
+          type: "erro",
+          mensagem: "Erro: Tente mais tarde!",
+        });
+      }
+    })
+  }
   
 
   return (
@@ -70,6 +101,7 @@ export const Users = () => {
           <br /><br />
           <Link to={"/view-user/" + user.id}><button type="button">Visualizar</button></Link><br /><br />
           <Link to={"/edit-user/" + user.id}><button type="button">Editar</button></Link><br /><br />
+          <Link to={"#" + user.id}><button type="button" onClick={() => deleteUser(user.id)}>Apagar</button></Link><br /><br />
           <hr />
         </div>
       ))}
