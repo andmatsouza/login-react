@@ -12,6 +12,7 @@ export const Dasboard = () => {
     <div>
       <Link to="/dasboard">Dasboard</Link><br />
       <Link to="/users" reloadDocument>Usuários</Link><br />
+      <Link to="/view-profile">Perfil</Link><br />
       <h1>Dasboard</h1>
       
       <button type="button" onClick={handleLogout}>Sair</button>
