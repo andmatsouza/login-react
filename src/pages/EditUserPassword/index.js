@@ -5,11 +5,12 @@ import * as yup from 'yup';
 import api from "../../config/configApi";
 import { servDeleteUser } from "../../service/servDeleteUser";
 
-export const EditUser = () => {
+export const EditUserPassword = () => {
   const { id } = useParams();
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");  
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState("");
   const [status, setStatus] = useState({
     type: "",
     mensagem: "",
@@ -27,7 +28,7 @@ export const EditUser = () => {
     };
 
     await api
-      .put("/user", { id, name, email }, headers)
+      .put("/user-senha", { id, password }, headers)
       .then((response) => {
         setStatus({
           type: "redSuccess",
@@ -84,33 +85,17 @@ export const EditUser = () => {
         });
     };
     getUser();
-  }, [id]);
-
-  /*function validate() {
-    if(!name) return setStatus({type: 'erro', mensagem: "Erro: Necessário preencher o campo nome!"
-    });
-    if(!email) return setStatus({type: 'erro', mensagem: "Erro: Necessário preencher o campo email!"
-    });
-    if(!password) return setStatus({type: 'erro', mensagem: "Erro: Necessário preencher o campo senha!"
-    });
-    if (password < 6) return setStatus({type: 'erro', mensagem: "Erro: A senha precisa ter pelo menos seis caracteres!"
-  });
-
-    return true;
-  }*/
+  }, [id]); 
 
   async function validate() {
-    let schema = yup.object({     
-      email: yup.string("Erro: Necessário preencher o campo e-mail!")
-      .email("Erro: Necessário preencher o campo e-mail!")
-      .required("Erro: Necessário preencher o campo e-mail!"),
-      name: yup.string("Erro: Necessário preencher o campo nome!")
-      .required("Erro: Necessário preencher o campo nome!")
-      
+    let schema = yup.object({
+      password: yup.string("Erro: Necessário preencher o campo senha!")
+      .required("Erro: Necessário preencher o campo senha!")
+      .min(6,"Erro: A senha deve ter no mínimo 6 caracteres!"),      
     });
     
   try {
-    await schema.validate({name, email });
+    await schema.validate({ password });
     return true;
 } catch (err) {      
     setStatus({type: 'erro', mensagem: err.errors });
@@ -192,27 +177,20 @@ export const EditUser = () => {
       <hr />
 
       <form onSubmit={editUser}>
-        <label>Nome*:</label>
-        <input
-          type="text"
-          name="name"
-          placeholder="Nome completo do usuário"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <br />
-        <br />
 
-        <label>E-mail*:</label>
+      <label>Nome:{name}</label><br />
+      <label>E-mail:{email}</label><br /><br />
+       
+        <label>Senha*:</label>
         <input
-          type="email"
-          name="email"
-          placeholder="Melhor e-mail do usuário"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          type="password"
+          name="password"
+          placeholder="Senha para acessar o sistema"
+          autoComplete="on"
+          onChange={(e) => setPassword(e.target.value)}
         />
         <br />
-        <br />       
+        <br />
 
         * Compo obrigatório <br /><br />
 

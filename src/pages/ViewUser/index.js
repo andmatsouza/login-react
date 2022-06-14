@@ -86,6 +86,9 @@ export const ViewUser = (props) => {
       <Link to={"/edit-user/" + data.id}>
         <button type="button">Editar</button>
       </Link>{" "}
+      <Link to={"/edit-user-password/" + data.id}>
+        <button type="button">Editar Senha</button>
+      </Link>{" "}
       <Link to={"#"}>
         <button type="button" onClick={() => deleteUser(data.id)}>
           Apagar

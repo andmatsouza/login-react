@@ -13,6 +13,7 @@ import { Users } from "../pages/Users";
 import { AddUser } from "../pages/AddUser";
 import { ViewUser } from "../pages/ViewUser";
 import { EditUser } from "../pages/EditUser";
+import { EditUserPassword } from "../pages/EditUserPassword";
 
 function PrivateRoute({ children }) {
   const { authenticated } = useContext(Context);
@@ -23,7 +24,8 @@ export default function RoutesAdm() {
   return (
     <Routes>
       <Route exact path="/" element={<Login />} />
-      <Route        
+      <Route
+        exact        
         path="/dasboard"
         element={
           <PrivateRoute>
@@ -31,7 +33,8 @@ export default function RoutesAdm() {
           </PrivateRoute>
         }        
       />
-      <Route        
+      <Route
+        exact        
         path="/users"
         element={
           <PrivateRoute>
@@ -39,7 +42,8 @@ export default function RoutesAdm() {
           </PrivateRoute>
         }        
       />
-      <Route        
+      <Route
+        exact        
         path="/add-user"
         element={
           <PrivateRoute>
@@ -47,7 +51,8 @@ export default function RoutesAdm() {
           </PrivateRoute>
         }        
       />
-       <Route        
+       <Route
+        exact        
         path="/view-user/:id"
         element={
           <PrivateRoute>
@@ -55,7 +60,8 @@ export default function RoutesAdm() {
           </PrivateRoute>
         }        
       />
-      <Route        
+      <Route
+        exact        
         path="/edit-user/:id"
         element={
           <PrivateRoute>
@@ -63,6 +69,16 @@ export default function RoutesAdm() {
           </PrivateRoute>
         }        
       />
+      <Route
+        exact        
+        path="/edit-user-password/:id"
+        element={
+          <PrivateRoute>
+            <EditUserPassword />
+          </PrivateRoute>
+        }        
+      />
+      
     </Routes>
   );
 }
