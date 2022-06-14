@@ -12,12 +12,20 @@ export const Users = () => {
   //console.log(state);
 
   const [data, setData] = useState([]);
+  const [page, setPage] = useState("");
+  const [lastPage, setLastPage] = useState("");
+
   const [status, setStatus] = useState({
     type: state ? state.type : "",
     mensagem: state ? state.mensagem : "",
   });
 
-  const getUsers = async () => {
+  const getUsers = async (page) => {
+    if(page === undefined){
+      page = 1
+    }
+    setPage(page);
+
     const headers = {
       herders: {
         Authorizaton: "Bearer " + localStorage.getItem("token"),
@@ -25,10 +33,10 @@ export const Users = () => {
     };    
 
     await api
-      .get("/users", headers)
-      .then((response) => {
-       // console.log(response);
+      .get("/users/" + page , headers)
+      .then((response) => {       
         setData(response.data.users);
+        setLastPage(response.data.lastPage);       
       })
       .catch((err) => {
        // console.log(err.response);
@@ -95,6 +103,16 @@ export const Users = () => {
           <hr />
         </div>
       ))}
+
+        {page !== 1 ? <button type="button" onClick={() => getUsers(1)}>Primeira</button> : <button type="button" disabled>Primeira</button> }{" "}
+
+        {page !== 1 ? <button type="button" onClick={() => getUsers(page - 1)}>{page -1}</button> : ""}{" "}
+
+        <button type="button" disabled>{page}</button>{" "}
+
+        {page + 1 <= lastPage ? <button type="button" onClick={() => getUsers(page + 1)}>{page + 1}</button> : ""}{" "}
+
+      {page !== lastPage ? <button type="button" onClick={() => getUsers(lastPage)}>Última</button> : <button type="button" disabled>Última</button>}{" "}
     </>
   );
 };
