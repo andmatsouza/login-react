@@ -21,7 +21,9 @@ export const AddUser = () => {
 
     const addUser = async e => {
       e.preventDefault();
-      console.log(user);
+
+      if (!validate()) return;
+     
 
       const headers = {
         'headers': {
@@ -50,6 +52,19 @@ export const AddUser = () => {
           });
         }
       })
+    }
+
+    function validate() {
+      if(!user.name) return setStatus({type: 'error', mensagem: "Erro: Necessário preencher o campo nome!"
+      });
+      if(!user.email) return setStatus({type: 'error', mensagem: "Erro: Necessário preencher o campo email!"
+      });
+      if(!user.password) return setStatus({type: 'error', mensagem: "Erro: Necessário preencher o campo senha!"
+      });
+      if (user.password < 6) return setStatus({type: 'error', mensagem: "Erro: A senha precisa ter pelo menos seis caracteres!"
+    });
+
+      return true;
     }
 
   return(

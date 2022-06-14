@@ -18,6 +18,8 @@ export const EditUser = () => {
   const editUser = async (e) => {
     e.preventDefault();
 
+    if(!validate()) return;
+
     const headers = {
       herders: {
         Authorizaton: "Bearer " + localStorage.getItem("token"),
@@ -83,6 +85,19 @@ export const EditUser = () => {
     };
     getUser();
   }, [id]);
+
+  function validate() {
+    if(!name) return setStatus({type: 'erro', mensagem: "Erro: Necessário preencher o campo nome!"
+    });
+    if(!email) return setStatus({type: 'erro', mensagem: "Erro: Necessário preencher o campo email!"
+    });
+    if(!password) return setStatus({type: 'erro', mensagem: "Erro: Necessário preencher o campo senha!"
+    });
+    if (password < 6) return setStatus({type: 'erro', mensagem: "Erro: A senha precisa ter pelo menos seis caracteres!"
+  });
+
+    return true;
+  }
 
   const deleteUser = async (idUser) => {
     const response = await servDeleteUser(idUser);
