@@ -60,16 +60,9 @@ export const ViewProfile = () => {
      <Link to="/edit-profile">
         <button type="button">Editar</button>
       </Link>{" "}
-       {/*<Link to={"/edit-user/" + data.id}>
-        <button type="button">Editar</button>
+       <Link to={"/edit-profile-password"}>
+        <button type="button">Editar a Senha</button>
       </Link>{" "}
-      <Link to={"/edit-user-password/" + data.id}>
-        <button type="button">Editar Senha</button>
-  </Link>{" "}*/}     
-      
-
-     
-
 
       {status.type === "redErro" ? (
         <Navigate
