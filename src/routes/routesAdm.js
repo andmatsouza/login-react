@@ -15,6 +15,7 @@ import { ViewUser } from "../pages/ViewUser";
 import { EditUser } from "../pages/EditUser";
 import { EditUserPassword } from "../pages/EditUserPassword";
 import { ViewProfile } from "../pages/ViewProfile";
+import { EditProfile } from "../pages/EditProfile";
 
 function PrivateRoute({ children }) {
   const { authenticated } = useContext(Context);
@@ -85,6 +86,15 @@ export default function RoutesAdm() {
         element={
           <PrivateRoute>
             <ViewProfile />
+          </PrivateRoute>
+        }        
+      />
+      <Route
+        exact        
+        path="/edit-profile"
+        element={
+          <PrivateRoute>
+            <EditProfile />
           </PrivateRoute>
         }        
       />

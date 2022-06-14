@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate,  useLocation } from "react-router-dom";
 
 import {Menu} from '../../components/Menu';
 import api from "../../config/configApi";
 
 export const ViewProfile = () => {
+
+   //recebe o state que vem do redirecionamento de outra página, através do componente Navigate.
+   const {state} = useLocation();
   const [data, setData] = useState("");
+    
   const [status, setStatus] = useState({
-    type: "",
-    mensagem: "",
-  });  
+    type: state ? state.type : "",
+    mensagem: state ? state.mensagem : "",
+  });
+
 
   useEffect(() => {
     const getUser = async () => {
@@ -52,10 +57,10 @@ export const ViewProfile = () => {
     <div>
      <Menu />
       <h1>Perfil</h1>
-      {/*<Link to="/users">
-        <button type="button">Listar</button>
+     <Link to="/edit-profile">
+        <button type="button">Editar</button>
       </Link>{" "}
-      <Link to={"/edit-user/" + data.id}>
+       {/*<Link to={"/edit-user/" + data.id}>
         <button type="button">Editar</button>
       </Link>{" "}
       <Link to={"/edit-user-password/" + data.id}>
