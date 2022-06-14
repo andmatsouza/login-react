@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
+import {Menu} from '../../components/Menu';
 import api from "../../config/configApi";
 
 export const ViewProfile = () => {
@@ -49,12 +50,7 @@ export const ViewProfile = () => {
 
   return (
     <div>
-      <Link to="/dasboard">Dasboard</Link>
-      <br />
-      <Link to="/users" reloadDocument>
-        Usuários
-      </Link>
-      <br />
+     <Menu />
       <h1>Perfil</h1>
       {/*<Link to="/users">
         <button type="button">Listar</button>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams, Navigate } from "react-router-dom";
 
+import {Menu} from '../../components/Menu';
 import { servDeleteUser } from "../../service/servDeleteUser";
 import api from "../../config/configApi";
 
@@ -73,12 +74,7 @@ export const ViewUser = (props) => {
 
   return (
     <div>
-      <Link to="/dasboard">Dasboard</Link>
-      <br />
-      <Link to="/users" reloadDocument>
-        Usuários
-      </Link>
-      <br />
+      <Menu />
       <h1>Detalhes do Usuário</h1>
       <Link to="/users">
         <button type="button">Listar</button>

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import * as yup from 'yup';
 
+import {Menu} from '../../components/Menu';
+
 import api from '../../config/configApi';
 
 
@@ -99,8 +101,7 @@ export const AddUser = () => {
 
   return(
     <div>
-       <Link to="/dasboard">Dasboard</Link><br />      
-      <Link to="/users" reloadDocument>Usuários</Link><br />    
+       <Menu />  
       <h1>Cadastrar Usuário</h1>
       <Link to="/users" reloadDocument><button type="button">Listar</button></Link><br /> 
       {status.type === 'error' ? <p style={{color: "#ff0000"}}>{status.mensagem}</p> : ""}

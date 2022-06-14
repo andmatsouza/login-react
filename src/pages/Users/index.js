@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
+import {Menu} from '../../components/Menu';
 import {servDeleteUser} from '../../service/servDeleteUser';
 import api from "../../config/configApi";
 
@@ -81,8 +82,7 @@ export const Users = () => {
 
   return (
     <>
-      <Link to="/dasboard">Dasboard</Link><br />      
-      <Link to="/users" reloadDocument>Usuários</Link><br />      
+      <Menu />    
       
       <h1>Listar Usuários</h1>
       <Link to="/add-user"><button type="button">Cadastrar</button></Link><br />
