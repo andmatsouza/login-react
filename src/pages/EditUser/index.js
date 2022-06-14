@@ -25,7 +25,7 @@ export const EditUser = () => {
     };
 
     await api
-      .put("/user", { id, name, password }, headers)
+      .put("/user", { id, name, email, password }, headers)
       .then((response) => {
         setStatus({
           type: "redSuccess",
@@ -158,7 +158,7 @@ export const EditUser = () => {
       <hr />
 
       <form onSubmit={editUser}>
-        <label>Nome:</label>
+        <label>Nome*:</label>
         <input
           type="text"
           name="name"
@@ -169,7 +169,7 @@ export const EditUser = () => {
         <br />
         <br />
 
-        <label>E-mail:</label>
+        <label>E-mail*:</label>
         <input
           type="email"
           name="email"
@@ -180,7 +180,7 @@ export const EditUser = () => {
         <br />
         <br />
 
-        <label>Senha:</label>
+        <label>Senha*:</label>
         <input
           type="password"
           name="password"
@@ -190,6 +190,8 @@ export const EditUser = () => {
         />
         <br />
         <br />
+
+        * Compo obrigatório <br /><br />
 
         <button type="submit">Salvar</button>
       </form>
