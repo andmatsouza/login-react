@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
+import * as yup from 'yup';
 
 import api from '../../config/configApi';
 
@@ -22,7 +23,7 @@ export const AddUser = () => {
     const addUser = async e => {
       e.preventDefault();
 
-      if (!validate()) return;
+      if (!(await validate())) return;
      
 
       const headers = {
@@ -54,7 +55,7 @@ export const AddUser = () => {
       })
     }
 
-    function validate() {
+    /*function validate() {
       if(!user.name) return setStatus({type: 'error', mensagem: "Erro: Necessário preencher o campo nome!"
       });
       if(!user.email) return setStatus({type: 'error', mensagem: "Erro: Necessário preencher o campo email!"
@@ -65,6 +66,35 @@ export const AddUser = () => {
     });
 
       return true;
+    }*/
+
+    async function validate() {
+      let schema = yup.object({
+        password: yup.string("Erro: Necessário preencher o campo senha!")
+        .required("Erro: Necessário preencher o campo senha!")
+        .min(6,"Erro: A senha deve ter no mínimo 6 caracteres!"),
+        email: yup.string("Erro: Necessário preencher o campo e-mail!")
+        .email("Erro: Necessário preencher o campo e-mail!")
+        .required("Erro: Necessário preencher o campo e-mail!"),
+        name: yup.string("Erro: Necessário preencher o campo nome!")
+        .required("Erro: Necessário preencher o campo nome!")
+        
+      });
+      
+    try {
+      await schema.validate({
+        name: user.name,
+        email: user.email,
+        password: user.password,
+      });
+      return true;
+  } catch (err) {      
+      setStatus({
+        type: 'error',
+        mensagem: err.errors 
+      });
+      return false;
+  }
     }
 
   return(

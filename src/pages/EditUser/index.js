@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link, Navigate } from "react-router-dom";
+import * as yup from 'yup';
 
 import api from "../../config/configApi";
 import { servDeleteUser } from "../../service/servDeleteUser";
@@ -18,7 +19,7 @@ export const EditUser = () => {
   const editUser = async (e) => {
     e.preventDefault();
 
-    if(!validate()) return;
+    if (!(await validate())) return;
 
     const headers = {
       herders: {
@@ -86,7 +87,7 @@ export const EditUser = () => {
     getUser();
   }, [id]);
 
-  function validate() {
+  /*function validate() {
     if(!name) return setStatus({type: 'erro', mensagem: "Erro: Necessário preencher o campo nome!"
     });
     if(!email) return setStatus({type: 'erro', mensagem: "Erro: Necessário preencher o campo email!"
@@ -97,6 +98,28 @@ export const EditUser = () => {
   });
 
     return true;
+  }*/
+
+  async function validate() {
+    let schema = yup.object({
+      password: yup.string("Erro: Necessário preencher o campo senha!")
+      .required("Erro: Necessário preencher o campo senha!")
+      .min(6,"Erro: A senha deve ter no mínimo 6 caracteres!"),
+      email: yup.string("Erro: Necessário preencher o campo e-mail!")
+      .email("Erro: Necessário preencher o campo e-mail!")
+      .required("Erro: Necessário preencher o campo e-mail!"),
+      name: yup.string("Erro: Necessário preencher o campo nome!")
+      .required("Erro: Necessário preencher o campo nome!")
+      
+    });
+    
+  try {
+    await schema.validate({name, email, password });
+    return true;
+} catch (err) {      
+    setStatus({type: 'erro', mensagem: err.errors });
+    return false;
+}
   }
 
   const deleteUser = async (idUser) => {
