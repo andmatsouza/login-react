@@ -8,6 +8,7 @@ import {
 import { Context } from "../Context/AuthContext";
 
 import { Login } from "../pages/Login";
+import { AddUserLogin } from "../pages/AddUserLogin";
 import { Dasboard } from "../pages/Dasboard";
 import { Users } from "../pages/Users";
 import { AddUser } from "../pages/AddUser";
@@ -27,6 +28,7 @@ export default function RoutesAdm() {
   return (
     <Routes>
       <Route exact path="/" element={<Login />} />
+      <Route exact path="/add-user-login" element={<AddUserLogin />} />
       <Route
         exact        
         path="/dasboard"

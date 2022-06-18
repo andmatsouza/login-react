@@ -1,12 +1,15 @@
 import React, {useState, useContext} from "react";
 //substituiu a useHistory
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 import  api from '../../config/configApi';
 
 import { Context } from '../../Context/AuthContext';
 
 export const Login = () => {
+
+  //recebe o state que vem do redirecionamento de outra página, através do componente Navigate.
+  const {state} = useLocation();
 
   const navegate = useNavigate();
 
@@ -16,11 +19,11 @@ export const Login = () => {
     const [user, setUser] = useState({
       email: '',
       password: ''
-    });
+    });    
 
     const [status, setStatus] = useState({
-      type: '',
-      mensagem: '',
+      type: state ? state.type : "",
+      mensagem: state ? state.mensagem : "",
       loading: false,
     })
 
@@ -77,11 +80,10 @@ export const Login = () => {
 
           <label>Senha: </label>
           <input type="password" name="password" placeholder="Digite a senha" autoComplete="on" onChange={valorInput} /><br /><br />
-
           
-          {status.loading ? <button type="submit" disabled>Acessando...</button> : <button type="submit">Acessar</button>}
-
+          {status.loading ? <button type="submit" disabled>Acessando...</button> : <button type="submit">Acessar</button>}<br /><br />
         </form>
+        <Link to="/add-user-login">Cadastrar</Link>
     </div>
   );
 };

@@ -30,15 +30,14 @@ export const AddUser = () => {
 
       const headers = {
         'headers': {
-          'Content-Type': 'application/json',
-          'Authrization': 'Bearer ' + localStorage.getItem('token')
+          'Content-Type': 'application/json'          
         }
       }
 
-      await api.post('/user', user, headers)
+      await api.post('/add-user-login', user, headers)
       .then((response) => {          
           setStatus({
-            type: 'success',
+            type: 'redSuccess',
             mensagem: response.data.mensagem 
           });
       }).catch((err) => {
@@ -105,7 +104,7 @@ export const AddUser = () => {
       <h1>Cadastrar Usuário</h1>
       <Link to="/users" reloadDocument><button type="button">Listar</button></Link><br /> 
       {status.type === 'error' ? <p style={{color: "#ff0000"}}>{status.mensagem}</p> : ""}
-      {status.type === 'success' ?
+      {status.type === 'redSuccess' ?
 
       <Navigate to="/users" state={{
         type: "success",
