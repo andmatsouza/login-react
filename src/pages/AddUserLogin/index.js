@@ -109,9 +109,9 @@ export const AddUserLogin = () => {
 
         * Compo obrigatório <br /><br />
 
-        <button type="submit">Cadastrar</button><br /><br />
-        <Link to="/">Login</Link>
-      </form>    
+        <button type="submit">Cadastrar</button><br /><br />        
+      </form>
+      <Link to="/">Acessar</Link>
     </div>
   );
 };
