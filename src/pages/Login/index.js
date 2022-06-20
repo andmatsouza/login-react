@@ -13,8 +13,7 @@ export const Login = () => {
 
   const navegate = useNavigate();
 
-  const { authenticated, signIn } = useContext(Context);
-  console.log("Situação do usuário na página de login: " + authenticated);
+  const { signIn } = useContext(Context);  
 
     const [user, setUser] = useState({
       email: '',
@@ -83,7 +82,8 @@ export const Login = () => {
           
           {status.loading ? <button type="submit" disabled>Acessando...</button> : <button type="submit">Acessar</button>}<br /><br />
         </form>
-        <Link to="/add-user-login">Cadastrar</Link>
+        <Link to="/add-user-login">Cadastrar</Link>{" - "}
+        <Link to="/recover-password">Esqueceu a senha</Link>
     </div>
   );
 };
