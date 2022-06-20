@@ -9,6 +9,9 @@ import { Context } from "../Context/AuthContext";
 
 import { Login } from "../pages/Login";
 import { AddUserLogin } from "../pages/AddUserLogin";
+import { RecoverPassword } from "../pages/RecoverPassword";
+import { UpdatePassword } from "../pages/UpdatePassword";
+
 import { Dasboard } from "../pages/Dasboard";
 import { Users } from "../pages/Users";
 import { AddUser } from "../pages/AddUser";
@@ -18,6 +21,8 @@ import { EditUserPassword } from "../pages/EditUserPassword";
 import { ViewProfile } from "../pages/ViewProfile";
 import { EditProfile } from "../pages/EditProfile";
 import { EditProfilePassword } from "../pages/EditProfilePassword";
+
+
 
 function PrivateRoute({ children }) {
   const { authenticated } = useContext(Context);
@@ -29,6 +34,9 @@ export default function RoutesAdm() {
     <Routes>
       <Route exact path="/" element={<Login />} />
       <Route exact path="/add-user-login" element={<AddUserLogin />} />
+      <Route exact path="/recover-password" element={<RecoverPassword />} />
+      <Route exact path="/update-password/:key" element={<UpdatePassword />} />
+      
       <Route
         exact        
         path="/dasboard"
