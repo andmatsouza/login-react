@@ -41,8 +41,7 @@ export const AddUser = () => {
             mensagem: response.data.mensagem 
           });
       }).catch((err) => {
-        if (err.response.data.erro) {
-          console.log(err.response.data.mensagem);
+        if (err.response.data.erro) {          
           setStatus({
             type: 'error',
             mensagem: err.response.data.mensagem 
