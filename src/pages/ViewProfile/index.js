@@ -65,6 +65,9 @@ export const ViewProfile = () => {
        <Link to={"/edit-profile-password"}>
         <button type="button">Editar a Senha</button>
       </Link>{" "}
+      <Link to={"/edit-profile-image"}>
+        <button type="button">Editar Imagem</button>
+      </Link>{" "}
 
       {status.type === "redErro" ? (
         <Navigate

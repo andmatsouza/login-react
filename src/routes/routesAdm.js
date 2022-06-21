@@ -21,6 +21,7 @@ import { EditUserPassword } from "../pages/EditUserPassword";
 import { ViewProfile } from "../pages/ViewProfile";
 import { EditProfile } from "../pages/EditProfile";
 import { EditProfilePassword } from "../pages/EditProfilePassword";
+import { EditProfileImage } from "../pages/EditProfileImage";
 
 
 
@@ -115,6 +116,15 @@ export default function RoutesAdm() {
         element={
           <PrivateRoute>
             <EditProfilePassword />
+          </PrivateRoute>
+        }        
+      />
+      <Route
+        exact        
+        path="/edit-profile-image"
+        element={
+          <PrivateRoute>
+            <EditProfileImage />
           </PrivateRoute>
         }        
       />
