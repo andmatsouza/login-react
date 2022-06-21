@@ -68,7 +68,7 @@ export const ViewProfile = () => {
 
       {status.type === "redErro" ? (
         <Navigate
-          to="/login"
+          to="/"
           state={{
             type: "erro",
             mensagem: status.mensagem,

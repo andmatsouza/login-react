@@ -129,7 +129,7 @@ export const EditProfile = () => {
 
       {status.type === "redWarning" ? (
         <Navigate
-          to="/login"
+          to="/"
           state={{
             type: "erro",
             mensagem: status.mensagem,
