@@ -12,6 +12,7 @@ export const ViewUser = (props) => {
     mensagem: "",
   });
   const { id } = useParams();
+  const [endImg, setEndImg] = useState("");
 
   useEffect(() => {
     const getUser = async () => {
@@ -24,6 +25,7 @@ export const ViewUser = (props) => {
         .get("/user/" + id, headers)
         .then((response) => {
           if (response.data.user) {
+            setEndImg(response.data.endImage);
             setData(response.data.user);
           } else {
             setStatus({
@@ -125,6 +127,8 @@ export const ViewUser = (props) => {
       )}
       <hr />
       <span>{data.id}</span>
+      <br />
+      <span>{<img src={endImg} alt="Imagem do usuário" width="150" height="150" />}</span>
       <br />
       <span>{data.name}</span>
       <br />
