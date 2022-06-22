@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams, Navigate } from "react-router-dom";
+import { Link, useParams, Navigate, useLocation } from "react-router-dom";
 
 import {Menu} from '../../components/Menu';
 import { servDeleteUser } from "../../service/servDeleteUser";
 import api from "../../config/configApi";
 
 export const ViewUser = (props) => {
+  
+  //recebe o state que vem do redirecionamento de outra página, através do componente Navigate.
+  const {state} = useLocation();
+
   const [data, setData] = useState("");
   const [status, setStatus] = useState({
-    type: "",
-    mensagem: "",
+    type: state ? state.type : "",
+    mensagem: state ? state.mensagem : "",
   });
   const { id } = useParams();
   const [endImg, setEndImg] = useState("");

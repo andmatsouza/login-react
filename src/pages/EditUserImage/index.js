@@ -12,6 +12,8 @@ export const EditUserImage = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [image, setImage] = useState('');
+    const [endImg, setEndImg] = useState("");
+
     const [status, setStatus] = useState({
       type: "",
       mensagem: "",
@@ -62,6 +64,7 @@ export const EditUserImage = () => {
             if (response.data.user) {
               setName(response.data.user.name);
               setEmail(response.data.user.email);
+              setEndImg(response.data.endImage);
             } else {
               setStatus({
                 type: "redWarning",
@@ -160,7 +163,12 @@ export const EditUserImage = () => {
 
         <label>Imagem*:</label>
         <input type="file" name="image" onChange={e => setImage(e.target.files[0])} /><br /><br />
-        * Compo obrigatório <br />
+
+        {image ? <img src={URL.createObjectURL(image)} alt="Imagem do usuário" width="150" height="150"/> : <img src={endImg} alt="Imagem do usuário" width="150" height="150" />}
+
+        <br /><br />
+
+        * Campo obrigatório <br />
         <br />
         <button type="submit">Salvar</button>
       </form>

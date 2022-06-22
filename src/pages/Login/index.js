@@ -45,6 +45,8 @@ export const Login = () => {
                     loading: false
                 });
                 localStorage.setItem('token', response.data.token);
+                localStorage.setItem('name', response.data.user.name);
+                localStorage.setItem('image', response.data.user.image);
                 signIn(true);
                 return navegate("/dasboard");
             }).catch((err) => {
