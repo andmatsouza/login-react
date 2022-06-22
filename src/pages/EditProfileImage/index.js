@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
-import * as yup from "yup";
 
 import { Menu } from "../../components/Menu";
 import api from "../../config/configApi";
@@ -51,6 +50,8 @@ export const EditProfileImage = () => {
       <Menu />
       <h1>Editar Foto do Perfil</h1>
 
+      <Link to="/view-profile" reloadDocument><button type="button">Perfil</button></Link>{" "}
+
       {status.type === "redSuccess" ? (
         <Navigate
           to="/view-profile"
@@ -68,6 +69,8 @@ export const EditProfileImage = () => {
       ) : (
         ""
       )}
+
+      <hr />
 
       <form onSubmit={editUser}>
         <label>Imagem*:</label>
