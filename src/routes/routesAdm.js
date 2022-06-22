@@ -18,6 +18,7 @@ import { AddUser } from "../pages/AddUser";
 import { ViewUser } from "../pages/ViewUser";
 import { EditUser } from "../pages/EditUser";
 import { EditUserPassword } from "../pages/EditUserPassword";
+import { EditUserImage } from "../pages/EditUserImage";
 import { ViewProfile } from "../pages/ViewProfile";
 import { EditProfile } from "../pages/EditProfile";
 import { EditProfilePassword } from "../pages/EditProfilePassword";
@@ -125,6 +126,15 @@ export default function RoutesAdm() {
         element={
           <PrivateRoute>
             <EditProfileImage />
+          </PrivateRoute>
+        }        
+      />
+       <Route
+        exact        
+        path="/edit-user-image/:id"
+        element={
+          <PrivateRoute>
+            <EditUserImage />
           </PrivateRoute>
         }        
       />
