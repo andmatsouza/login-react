@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link, Navigate } from "react-router-dom";
-import * as yup from "yup";
+import { useParams, Navigate } from "react-router-dom";
+
 
 import { Menu } from "../../components/Menu";
 import api from "../../config/configApi";
 
 export const EditUserImage = () => {
-  const { id } = useParams();
+    const { id } = useParams();
 
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
     const [image, setImage] = useState('');
     const [status, setStatus] = useState({
       type: "",
@@ -46,6 +48,43 @@ export const EditUserImage = () => {
         })
     }
 
+    useEffect(() => {
+      const getUser = async () => {
+        const headers = {
+          herders: {
+            Authorizaton: "Bearer " + localStorage.getItem("token"),
+          },
+        };
+        await api
+          .get("/user/" + id, headers)
+          .then((response) => {
+            if (response.data.user) {
+              setName(response.data.user.name);
+              setEmail(response.data.user.email);
+            } else {
+              setStatus({
+                type: "redWarning",
+                mensagem: "Erro: Usuário não encontrado!",
+              });
+            }
+          })
+          .catch((err) => {
+            if (err.response.data.erro) {
+              setStatus({
+                type: "redWarning",
+                mensagem: err.response.data.mensagem,
+              });
+            } else {
+              setStatus({
+                type: "redWarning",
+                mensagem: "Erro: Tente mais tarde!",
+              });
+            }
+          });
+      };
+      getUser();
+    }, [id]); 
+
   return (
     <div>
       <Menu />
@@ -70,6 +109,10 @@ export const EditUserImage = () => {
       )}
 
       <form onSubmit={editUser}>
+
+      <label>Nome:{name}</label><br />
+      <label>E-mail:{email}</label><br /><br />
+
         <label>Imagem*:</label>
         <input type="file" name="image" onChange={e => setImage(e.target.files[0])} /><br /><br />
         * Compo obrigatório <br />
