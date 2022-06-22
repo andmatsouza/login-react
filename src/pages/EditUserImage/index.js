@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Navigate } from "react-router-dom";
+import { useParams, Link, Navigate } from "react-router-dom";
 
 
 import { Menu } from "../../components/Menu";
 import api from "../../config/configApi";
+import { servDeleteUser } from "../../service/servDeleteUser";
 
 export const EditUserImage = () => {
     const { id } = useParams();
@@ -83,12 +84,54 @@ export const EditUserImage = () => {
           });
       };
       getUser();
-    }, [id]); 
+    }, [id]);
+    
+    const deleteUser = async (idUser) => {
+      const response = await servDeleteUser(idUser);
+      if(response){
+  
+        if(response.type === "success"){
+          setStatus({
+            type: 'redSuccess',
+            mensagem: response.mensagem
+          });
+        }else{
+          setStatus({
+            type: 'erro',
+            mensagem: response.mensagem
+          })
+        }
+  
+      }else{
+        setStatus({
+          type: 'erro',
+          mensagem: 'Erro: tente mais tarde!'
+        })
+      }
+    }
 
   return (
     <div>
       <Menu />
       <h1>Editar Foto do Usuário</h1>
+      <Link to="/users" reloadDocument><button type="button">Listar</button></Link>{" "}
+      <Link to={"/view-user/" + id} reloadDocument><button type="button">Visualizar</button></Link>{" "}
+      <Link to={"#"}><button type="button" onClick={() => deleteUser(id)}>Apagar</button> </Link><br />
+        
+      
+      <br />
+
+      {status.type === "redWarning" ? (
+        <Navigate
+          to="/users"
+          state={{
+            type: "erro",
+            mensagem: status.mensagem,
+          }}
+        />
+      ) : (
+        ""
+      )}
 
       {status.type === "redSuccess" ? (
         <Navigate
@@ -107,6 +150,8 @@ export const EditUserImage = () => {
       ) : (
         ""
       )}
+
+      <hr />
 
       <form onSubmit={editUser}>
 
