@@ -1,19 +1,16 @@
 import React, {useContext, useState} from "react";
 import {Context} from '../../Context/AuthContext'; 
 
-import { Link } from "react-router-dom";
-
-{/*<Link to="/dasboard" reloadDocument>Dasboard</Link><br />
-      <Link to="/users" reloadDocument>Usuários</Link><br />
-      <Link to="/view-profile" reloadDocument>Perfil</Link><br />
-      <Link to="#" onClick={handleLogout}>Sair</Link><br />*/} 
-
 export const Navbar = () => {
 
   const [image] = useState(localStorage.getItem('image'));
   const [name] = useState(localStorage.getItem('name'));
 
   const { handleLogout } = useContext(Context);
+
+  const dropdownUserNavbar = async () => {
+    document.getElementById("dropNavbarUser").classList.toggle("dropdown-menu-action");
+  }
 
   return(    
     
@@ -28,13 +25,16 @@ export const Navbar = () => {
 
       <div className="navbar-content">
         <div className="avatar">
+          <span onClick={() => dropdownUserNavbar()} className="drop-nav-bar-user">
           <img src={image} alt={name} />
-          <div className="dropdown-menu setting">
+          </span>
+          
+          <div id="dropNavbarUser" className="dropdown-menu setting">
             <div className="item"><span className="fas fa-user"></span> Perfil</div>
             <div className="item">
               <span className="fas fa-cog"></span> Configuração
             </div>
-            <div className="item">
+            <div className="item"onClick={handleLogout}>
               <span className="fas fa-sign-out-alt"></span> Sair
             </div>
           </div>

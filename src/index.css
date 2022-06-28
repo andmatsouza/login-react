@@ -297,3 +297,19 @@ body {
   background-color: var(--second-bg-color);
 }
 
+/*Apresenta a msg inteira*/
+.dropdown-menu li:hover .text {
+  white-space: pre-wrap;
+}
+
+.dropdown-menu .item span {
+  margin-right: 15px;
+}
+
+.dropdown-menu.setting {
+  width: 150px;
+}
+
+.dropdown-menu-action {
+  display: block;
+}
