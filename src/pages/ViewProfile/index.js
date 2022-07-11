@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, Navigate,  useLocation } from "react-router-dom";
 
-import {Menu} from '../../components/Menu';
+import { Navbar } from "../../components/Navbar";
+import { Sidebar } from "../../components/Sidebar";
 import api from "../../config/configApi";
 
 export const ViewProfile = () => {
@@ -57,7 +58,9 @@ export const ViewProfile = () => {
 
   return (
     <div>
-     <Menu />
+      <Navbar />
+      <div class="content">
+        <Sidebar active="profile" />    
       <h1>Perfil</h1>
      <Link to="/edit-profile">
         <button type="button">Editar</button>
@@ -96,6 +99,7 @@ export const ViewProfile = () => {
       <br />
       <span>{data.email}</span>
       <br />
+    </div>
     </div>
   );
 };

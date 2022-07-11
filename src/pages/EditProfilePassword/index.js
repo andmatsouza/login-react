@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import * as yup from 'yup';
 
-import {Menu} from '../../components/Menu';
+import { Navbar } from "../../components/Navbar";
+import { Sidebar } from "../../components/Sidebar";
 import api from "../../config/configApi";
 
 export const EditProfilePassword = () => {
@@ -105,7 +106,9 @@ export const EditProfilePassword = () => {
 
   return (
     <div>
-     <Menu />
+    <Navbar />
+      <div class="content">
+        <Sidebar active="profile" /> 
       <h1>Editar Senha</h1>
 
       <Link to="/view-profile" reloadDocument><button type="button">Perfil</button></Link>{" "}
@@ -163,6 +166,7 @@ export const EditProfilePassword = () => {
 
         <button type="submit">Salvar</button>
       </form>
+    </div>
     </div>
   );
 };

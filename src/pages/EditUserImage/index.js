@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link, Navigate } from "react-router-dom";
 
 
-import { Menu } from "../../components/Menu";
+import { Navbar } from "../../components/Navbar";
+import { Sidebar } from "../../components/Sidebar";
 import api from "../../config/configApi";
 import { servDeleteUser } from "../../service/servDeleteUser";
 
@@ -115,7 +116,9 @@ export const EditUserImage = () => {
 
   return (
     <div>
-      <Menu />
+       <Navbar />
+      <div class="content">
+        <Sidebar active="users" />     
       <h1>Editar Foto do Usuário</h1>
       <Link to="/users" reloadDocument><button type="button">Listar</button></Link>{" "}
       <Link to={"/view-user/" + id} reloadDocument><button type="button">Visualizar</button></Link>{" "}
@@ -172,6 +175,7 @@ export const EditUserImage = () => {
         <br />
         <button type="submit">Salvar</button>
       </form>
+    </div>
     </div>
   );
 };

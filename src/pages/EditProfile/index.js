@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import * as yup from 'yup';
 
-import {Menu} from '../../components/Menu';
+import { Navbar } from "../../components/Navbar";
+import { Sidebar } from "../../components/Sidebar";
 import api from "../../config/configApi";
 
 export const EditProfile = () => {
@@ -121,8 +122,9 @@ export const EditProfile = () => {
 
   return (
     <div>
-      <Menu />
-     
+      <Navbar />
+      <div class="content">
+        <Sidebar active="profile" /> 
       <h1>Editar Perfil</h1>
 
       <Link to="/view-profile" reloadDocument><button type="button">Perfil</button></Link>{" "}
@@ -187,6 +189,7 @@ export const EditProfile = () => {
 
         <button type="submit">Salvar</button>
       </form>
+    </div>
     </div>
   );
 };

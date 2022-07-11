@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-import {Menu} from '../../components/Menu';
+import { Navbar } from "../../components/Navbar";
+import { Sidebar } from "../../components/Sidebar";
 import {servDeleteUser} from '../../service/servDeleteUser';
 import api from "../../config/configApi";
 
@@ -80,10 +81,11 @@ export const Users = () => {
   }
   
 
-  return (
-    <>
-      <Menu />    
-      
+  return (    
+      <div>
+       <Navbar />
+      <div class="content">
+        <Sidebar active="users" />     
       <h1>Listar Usuários</h1>
       <Link to="/add-user"><button type="button">Cadastrar</button></Link><br />
       {status.type === "erro" ? <p style={{color: "#ff0000"}}>{status.mensagem}</p> : ""}
@@ -113,6 +115,8 @@ export const Users = () => {
         {page + 1 <= lastPage ? <button type="button" onClick={() => getUsers(page + 1)}>{page + 1}</button> : ""}{" "}
 
       {page !== lastPage ? <button type="button" onClick={() => getUsers(lastPage)}>Última</button> : <button type="button" disabled>Última</button>}{" "}
-    </>
+   
+    </div>
+    </div>
   );
 };

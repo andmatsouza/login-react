@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link, Navigate } from "react-router-dom";
 import * as yup from 'yup';
 
-import {Menu} from '../../components/Menu';
+import { Navbar } from "../../components/Navbar";
+import { Sidebar } from "../../components/Sidebar";
 import api from "../../config/configApi";
 import { servDeleteUser } from "../../service/servDeleteUser";
 
@@ -130,7 +131,9 @@ export const EditUserPassword = () => {
 
   return (
     <div>
-     <Menu />
+     <Navbar />
+      <div class="content">
+        <Sidebar active="users" />  
       <h1>Editar Ususário</h1>
 
       <Link to="/users" reloadDocument><button type="button">Listar</button></Link>{" "}
@@ -192,6 +195,7 @@ export const EditUserPassword = () => {
 
         <button type="submit">Salvar</button>
       </form>
+    </div>
     </div>
   );
 };

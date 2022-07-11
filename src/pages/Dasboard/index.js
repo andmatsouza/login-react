@@ -1,17 +1,16 @@
 import React from "react";
 
 import { Navbar } from "../../components/Navbar";
-import { Menu } from "../../components/Menu";
+import { Sidebar } from "../../components/Sidebar";
 
-export const Dasboard = () => {  
-
- 
- 
-  return(
+export const Dasboard = () => {
+  return (
     <div>
       <Navbar />
-      <Menu />      
-      <h1>Dasboard</h1>      
+      <div class="content">
+        <Sidebar active="dashboard" />
+        <h1>Dasboard</h1>
+      </div>
     </div>
   );
-}
+};

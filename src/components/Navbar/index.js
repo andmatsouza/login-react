@@ -12,11 +12,15 @@ export const Navbar = () => {
     document.getElementById("dropNavbarUser").classList.toggle("dropdown-menu-action");
   }
 
+  const barsSidebar = async () => {    
+    document.getElementById("barsSidebar").classList.toggle("sidebar-active");
+  }
+
   return(    
     
     <nav className="navbar">
-      <div className="navbar-content">
-        <div className="bars">
+      <div className="navbar-content" >
+        <div className="bars" onClick={() => barsSidebar()}>
           <i className="fas fa-bars"></i>
         </div>
         <img src="/logo_telelimp.png" alt="telelimp" className="logo" />

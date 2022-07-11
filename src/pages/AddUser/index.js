@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import * as yup from 'yup';
 
-import {Menu} from '../../components/Menu';
+import { Navbar } from "../../components/Navbar";
+import { Sidebar } from "../../components/Sidebar";
 
 import api from '../../config/configApi';
 
@@ -99,7 +100,9 @@ export const AddUser = () => {
 
   return(
     <div>
-       <Menu />  
+        <Navbar />
+      <div class="content">
+        <Sidebar active="users" />    
       <h1>Cadastrar Usuário</h1>
       <Link to="/users" reloadDocument><button type="button">Listar</button></Link><br /> 
       {status.type === 'error' ? <p style={{color: "#ff0000"}}>{status.mensagem}</p> : ""}
@@ -126,6 +129,7 @@ export const AddUser = () => {
 
         <button type="submit">Cadastrar</button>
       </form>
+    </div>
     </div>
   )
 }
