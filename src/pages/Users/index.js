@@ -92,9 +92,9 @@ export const Users = () => {
             <div className="top-content-adm">
               <span className="title-content">Listar Usuários</span>
               <div className="top-content-adm-right">
-                <button type="button" className="btn-success">
-                  Cadastrar
-                </button>
+                <Link to="/add-user">
+                  <button type="button" className="btn-success">Cadastrar</button>
+                </Link>
               </div>
             </div>
 

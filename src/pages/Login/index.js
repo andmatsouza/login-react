@@ -48,7 +48,7 @@ export const Login = () => {
         localStorage.setItem("name", response.data.user.name);
         localStorage.setItem("image", response.data.user.image);
         signIn(true);
-        return navegate("/dasboard");
+        return navegate("/dasboard");        
       })
       .catch((err) => {
         if (err.response.data.erro) {

@@ -8,17 +8,17 @@ export const Sidebar = (props) => {
 
   return (
     <div id="barsSidebar" className="sidebar">
-      <Link to="/dasboard" className={props.active === "dashboard" ? "sidebar-nav active" : "sidebar-nav"}>
+      <Link to="/dasboard" reloadDocument className={props.active === "dashboard" ? "sidebar-nav active" : "sidebar-nav"}>
         <i className=" icon fas fa-tachometer-alt"></i>
         <span>Dashboard</span>
       </Link>
 
-      <Link to="/users" className={props.active === "users" ? "sidebar-nav active" : "sidebar-nav"}>
+      <Link to="/users" reloadDocument className={props.active === "users" ? "sidebar-nav active" : "sidebar-nav"}>
         <i className="icon fas fa-users"></i>
         <span>Usuários</span>
       </Link>      
 
-      <Link to="/view-profile" className={props.active === "profile" ? "sidebar-nav active" : "sidebar-nav"}>
+      <Link to="/view-profile" reloadDocument className={props.active === "profile" ? "sidebar-nav active" : "sidebar-nav"}>
         <i className="icon fas fa-user"></i>
         <span>Perfil</span>
       </Link>     
