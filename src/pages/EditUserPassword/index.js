@@ -140,17 +140,24 @@ export const EditUserPassword = () => {
               <span className="title-content">Editar Senha do Usuário</span>
               <div className="top-content-adm-right">
                 <Link to="/users" reloadDocument>
-                  <button type="button" className="btn-info">Listar</button>
+                  <button type="button" className="btn-info">
+                    Listar
+                  </button>
                 </Link>{" "}
                 <Link to={"/view-user/" + id} reloadDocument>
-                  <button type="button" className="btn-info">Visualizar</button>{" "}
-                  <Link to={"#"}>
-                    <button type="button" className="btn-danger" onClick={() => deleteUser(id)}>
-                      Apagar
-                    </button>{" "}
-                  </Link>
-                  <br />
-                </Link>
+                  <button type="button" className="btn-info">
+                    Visualizar
+                  </button>
+                </Link>{" "}
+                <Link to={"#"}>
+                  <button
+                    type="button"
+                    className="btn-danger"
+                    onClick={() => deleteUser(id)}
+                  >
+                    Apagar
+                  </button>
+                </Link>{" "}                
               </div>
             </div>
 
@@ -187,7 +194,7 @@ export const EditUserPassword = () => {
             <div className="content-adm">
               <form onSubmit={editUser}>
                 <label>Nome: {name}</label>
-                <br />                
+                <br />
                 <label>E-mail: {email}</label>
                 <br />
                 <br />
@@ -204,8 +211,10 @@ export const EditUserPassword = () => {
                     />
                   </div>
                 </div>
-              
-                <button type="submit" class="btn-success">Salvar</button>
+
+                <button type="submit" class="btn-success">
+                  Salvar
+                </button>
               </form>
             </div>
           </div>

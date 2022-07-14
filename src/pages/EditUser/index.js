@@ -160,15 +160,15 @@ export const EditUser = () => {
                   </button>
                 </Link>{" "}
                 <Link to={"/view-user/" + id} reloadDocument>
-                  <button type="button" className="btn-info">Visualizar</button>{" "}
-                </Link>
+                  <button type="button" className="btn-info">Visualizar</button>
+                </Link>{" "}
                 <Link to={"#"}>
                   <button
                     type="button"
                     className="btn-danger"
                     onClick={() => deleteUser(id)}
-                  >Apagar</button>{" "}
-                </Link>                
+                  >Apagar</button>
+                </Link>{" "}                
               </div>
             </div>
 
