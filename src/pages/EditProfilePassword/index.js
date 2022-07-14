@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
-import * as yup from 'yup';
+import * as yup from "yup";
 
 import { Navbar } from "../../components/Navbar";
 import { Sidebar } from "../../components/Sidebar";
 import api from "../../config/configApi";
 
 export const EditProfilePassword = () => {
-  
-
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [status, setStatus] = useState({
     type: "",
@@ -86,87 +84,102 @@ export const EditProfilePassword = () => {
         });
     };
     getUser();
-  }, []); 
+  }, []);
 
   async function validate() {
     let schema = yup.object({
-      password: yup.string("Erro: Necessário preencher o campo senha!")
-      .required("Erro: Necessário preencher o campo senha!")
-      .min(6,"Erro: A senha deve ter no mínimo 6 caracteres!"),      
+      password: yup
+        .string("Erro: Necessário preencher o campo senha!")
+        .required("Erro: Necessário preencher o campo senha!")
+        .min(6, "Erro: A senha deve ter no mínimo 6 caracteres!"),
     });
-    
-  try {
-    await schema.validate({ password });
-    return true;
-} catch (err) {      
-    setStatus({type: 'erro', mensagem: err.errors });
-    return false;
-}
-  } 
+
+    try {
+      await schema.validate({ password });
+      return true;
+    } catch (err) {
+      setStatus({ type: "erro", mensagem: err.errors });
+      return false;
+    }
+  }
 
   return (
     <div>
-    <Navbar />
+      <Navbar />
       <div class="content">
-        <Sidebar active="profile" /> 
-      <h1>Editar Senha</h1>
+        <Sidebar active="profile" />
 
-      <Link to="/view-profile" reloadDocument><button type="button">Perfil</button></Link>{" "}
-      
+        <div className="wrapper">
+          <div className="row">
+            <div className="top-content-adm">
+              <span className="title-content">Editar Senha do Perfil</span>
+              <div className="top-content-adm-right">
+                <Link to="/view-profile" reloadDocument>
+                  <button type="button" className="btn-info">Perfil</button>
+                </Link>{" "}
+              </div>
+            </div>
 
-      {status.type === "redWarning" ? (
-        <Navigate
-          to="/"
-          state={{
-            type: "erro",
-            mensagem: status.mensagem,
-          }}
-        />
-      ) : (
-        ""
-      )}
+            <div className="alert-content-adm">
+              {status.type === "redWarning" ? (
+                <Navigate
+                  to="/"
+                  state={{
+                    type: "erro",
+                    mensagem: status.mensagem,
+                  }}
+                />
+              ) : (
+                ""
+              )}
+              {status.type === "redSuccess" ? (
+                <Navigate
+                  to="/view-profile"
+                  state={{
+                    type: "success",
+                    mensagem: status.mensagem,
+                  }}
+                />
+              ) : (
+                ""
+              )}
+              {status.type === "erro" ? (
+                <p style={{ color: "#ff0000" }}>{status.mensagem}</p>
+              ) : (
+                ""
+              )}
+            </div>
 
-      {status.type === "redSuccess" ? (
-        <Navigate
-          to="/view-profile"
-          state={{
-            type: "success",
-            mensagem: status.mensagem,
-          }}
-        />
-      ) : (
-        ""
-      )}
+            <div className="content-adm">
+              <form onSubmit={editUser}>
+                <label>Nome: {name}</label>
+                <br />
+                <label>E-mail: {email}</label>
+                <br />
+                <br />
 
-      {status.type === "erro" ? (
-        <p style={{ color: "#ff0000" }}>{status.mensagem}</p>
-      ) : (
-        ""
-      )}
+                <div className="row-input">
+                  <div className="column">
+                    <label className="title-input">Senha:</label>                    
+                    <input
+                      type="password"
+                      name="password"
+                      className="input-adm"
+                      placeholder="Senha para acessar o sistema"
+                      autoComplete="on"
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </div>
+                </div>
 
-      <hr />
-
-      <form onSubmit={editUser}>
-
-      <label>Nome:{name}</label><br />
-      <label>E-mail:{email}</label><br /><br />
-       
-        <label>Senha*:</label>
-        <input
-          type="password"
-          name="password"
-          placeholder="Senha para acessar o sistema"
-          autoComplete="on"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <br />
-        <br />
-
-        * Compo obrigatório <br /><br />
-
-        <button type="submit">Salvar</button>
-      </form>
-    </div>
+                <button type="submit" class="btn-success">
+                  Salvar
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
