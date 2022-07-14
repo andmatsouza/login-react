@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
-import * as yup from 'yup';
+import * as yup from "yup";
 
 import { Navbar } from "../../components/Navbar";
 import { Sidebar } from "../../components/Sidebar";
 import api from "../../config/configApi";
 
 export const EditProfile = () => {
-  
-
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");  
+  const [email, setEmail] = useState("");
   const [status, setStatus] = useState({
     type: "",
     mensagem: "",
@@ -30,7 +28,7 @@ export const EditProfile = () => {
     await api
       .put("/edit-profile", { name, email }, headers)
       .then((response) => {
-        localStorage.setItem('name', name);
+        localStorage.setItem("name", name);
         setStatus({
           type: "redSuccess",
           mensagem: response.data.mensagem,
@@ -102,94 +100,113 @@ export const EditProfile = () => {
   }*/
 
   async function validate() {
-    let schema = yup.object({     
-      email: yup.string("Erro: Necessário preencher o campo e-mail!")
-      .email("Erro: Necessário preencher o campo e-mail!")
-      .required("Erro: Necessário preencher o campo e-mail!"),
-      name: yup.string("Erro: Necessário preencher o campo nome!")
-      .required("Erro: Necessário preencher o campo nome!")
-      
+    let schema = yup.object({
+      email: yup
+        .string("Erro: Necessário preencher o campo e-mail!")
+        .email("Erro: Necessário preencher o campo e-mail!")
+        .required("Erro: Necessário preencher o campo e-mail!"),
+      name: yup
+        .string("Erro: Necessário preencher o campo nome!")
+        .required("Erro: Necessário preencher o campo nome!"),
     });
-    
-  try {
-    await schema.validate({name, email });
-    return true;
-} catch (err) {      
-    setStatus({type: 'erro', mensagem: err.errors });
-    return false;
-}
-  }  
+
+    try {
+      await schema.validate({ name, email });
+      return true;
+    } catch (err) {
+      setStatus({ type: "erro", mensagem: err.errors });
+      return false;
+    }
+  }
 
   return (
     <div>
       <Navbar />
       <div class="content">
-        <Sidebar active="profile" /> 
-      <h1>Editar Perfil</h1>
+        <Sidebar active="profile" />
 
-      <Link to="/view-profile" reloadDocument><button type="button">Perfil</button></Link>{" "}
-      
+        <div className="wrapper">
+          <div className="row">
+            <div className="top-content-adm">
+              <span className="title-content">Editar Perfil</span>
+              <div className="top-content-adm-right">
+                <Link to="/view-profile" reloadDocument>
+                  <button type="button" className="btn-info">
+                    Perfil
+                  </button>
+                </Link>{" "}
+              </div>
+            </div>
 
-      {status.type === "redWarning" ? (
-        <Navigate
-          to="/"
-          state={{
-            type: "erro",
-            mensagem: status.mensagem,
-          }}
-        />
-      ) : (
-        ""
-      )}
+            <div className="alert-content-adm">
+              {status.type === "redWarning" ? (
+                <Navigate
+                  to="/"
+                  state={{
+                    type: "erro",
+                    mensagem: status.mensagem,
+                  }}
+                />
+              ) : (
+                ""
+              )}
+              {status.type === "redSuccess" ? (
+                <Navigate
+                  to="/view-profile"
+                  state={{
+                    type: "success",
+                    mensagem: status.mensagem,
+                  }}
+                />
+              ) : (
+                ""
+              )}
+              {status.type === "erro" ? (
+                <p style={{ color: "#ff0000" }}>{status.mensagem}</p>
+              ) : (
+                ""
+              )}
+            </div>
 
-      {status.type === "redSuccess" ? (
-        <Navigate
-          to="/view-profile"
-          state={{
-            type: "success",
-            mensagem: status.mensagem,
-          }}
-        />
-      ) : (
-        ""
-      )}
+            <div className="content-adm">
+              <form onSubmit={editUser}>
+                <div className="row-input">
+                  <div className="column">
+                    <label className="title-input">Nome</label>
 
-      {status.type === "erro" ? (
-        <p style={{ color: "#ff0000" }}>{status.mensagem}</p>
-      ) : (
-        ""
-      )}
+                    <input
+                      type="text"
+                      name="name"
+                      className="input-adm"
+                      placeholder="Nome completo do usuário"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                    />
+                  </div>
+                </div>
 
-      <hr />
+                <div class="row-input">
+                  <div class="column">
+                    <label class="title-input">E-mail</label>
+                    <input
+                      type="email"
+                      name="email"
+                      className="input-adm"
+                      placeholder="Melhor e-mail do usuário"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </div>
+                </div>
 
-      <form onSubmit={editUser}>
-        <label>Nome*:</label>
-        <input
-          type="text"
-          name="name"
-          placeholder="Nome completo do usuário"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <br />
-        <br />
-
-        <label>E-mail*:</label>
-        <input
-          type="email"
-          name="email"
-          placeholder="Melhor e-mail do usuário"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <br />
-        <br />       
-
-        * Compo obrigatório <br /><br />
-
-        <button type="submit">Salvar</button>
-      </form>
-    </div>
+                <button type="submit" class="btn-success">
+                  Salvar
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
