@@ -306,6 +306,11 @@ body {
   margin-right: 15px;
 }
 
+.dropdown-menu .item a {
+  text-decoration: none;
+  color: var(--bg-color);
+}
+
 .dropdown-menu.setting {
   width: 150px;
 }
@@ -751,4 +756,27 @@ input.input-adm:focus,
 textarea.input-adm:focus {
   outline: none;
   border-color: var(--site-color);
+}
+
+/*Visualizar*/
+
+.content-adm .view-det-adm {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.view-det-adm .view-adm-title {
+  width: 80px;
+  color: var(--fourth-bg-color);
+  font-size: 15px;
+  font-weight: 500;
+  margin-right: 10px;
+}
+
+.view-det-adm .view-adm-info {
+  width: 100%;
+  color: var(--second-bg-color);
+  font-size: 15px;
+  padding: 3px 10px;
 }
