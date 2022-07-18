@@ -14,12 +14,12 @@ export const Sidebar = (props) => {
       </Link>
 
       <Link to="/users" reloadDocument className={props.active === "users" ? "sidebar-nav active" : "sidebar-nav"}>
-        <i className="icon fas fa-users"></i>
+        <i className="icon fa-solid fa-users"></i>
         <span>Usuários</span>
       </Link>
 
        <Link to="/fabricantes" reloadDocument className={props.active === "fabricantes" ? "sidebar-nav active" : "sidebar-nav"}>
-        <i className="icon fas fa-users"></i>
+        <i className="icon fa-solid fa-industry"></i>
         <span>Fabricantes</span>
       </Link>       
 
