@@ -24,6 +24,8 @@ import { EditProfile } from "../pages/EditProfile";
 import { EditProfilePassword } from "../pages/EditProfilePassword";
 import { EditProfileImage } from "../pages/EditProfileImage";
 
+import { AddFabricante } from "../pages/AddFabricante";
+
 
 
 function PrivateRoute({ children }) {
@@ -135,6 +137,15 @@ export default function RoutesAdm() {
         element={
           <PrivateRoute>
             <EditUserImage />
+          </PrivateRoute>
+        }        
+      />
+       <Route
+        exact        
+        path="/add-fabricante"
+        element={
+          <PrivateRoute>
+            <AddFabricante />
           </PrivateRoute>
         }        
       />
