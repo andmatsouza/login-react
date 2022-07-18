@@ -26,6 +26,7 @@ import { EditProfileImage } from "../pages/EditProfileImage";
 
 import { AddFabricante } from "../pages/AddFabricante";
 import { Fabricantes } from "../pages/Fabricantes";
+import { EditFabricante } from "../pages/EditFabricante";
 
 
 
@@ -156,6 +157,15 @@ export default function RoutesAdm() {
         element={
           <PrivateRoute>
             <AddFabricante />
+          </PrivateRoute>
+        }        
+      />
+       <Route
+        exact        
+        path="/edit-fabricante/:id"
+        element={
+          <PrivateRoute>
+            <EditFabricante />
           </PrivateRoute>
         }        
       />

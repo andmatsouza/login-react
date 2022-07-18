@@ -123,6 +123,7 @@ export const Fabricantes = () => {
                       <div id={"actionDropdown" + fabricante.id} class="dropdown-action-item">
                       <Link to={"/view-fabricante/" + fabricante.id}>Visualizar</Link>
                       <Link to={"/edit-fabricante/" + fabricante.id}>Editar</Link>
+                      <Link to={"/add-modelo/" + fabricante.id}>Cadastrar Modelo</Link>
                       <Link to={"#" + fabricante.id} onClick={() => deleteUser(fabricante.id)}>Apagar</Link>
                       </div>
                     </div>
