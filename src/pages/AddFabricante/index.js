@@ -81,7 +81,7 @@ export const AddFabricante = () => {
     <div>
       <Navbar />
       <div class="content">
-        <Sidebar active="users" />
+        <Sidebar active="fabricantes" />
 
         <div class="wrapper">
           <div class="row">
