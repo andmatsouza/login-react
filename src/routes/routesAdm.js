@@ -27,6 +27,9 @@ import { EditProfileImage } from "../pages/EditProfileImage";
 import { AddFabricante } from "../pages/AddFabricante";
 import { Fabricantes } from "../pages/Fabricantes";
 import { EditFabricante } from "../pages/EditFabricante";
+import { ViewFabricante } from "../pages/ViewFabricante";
+
+import { AddModelo } from "../pages/AddModelo";
 
 
 
@@ -166,6 +169,24 @@ export default function RoutesAdm() {
         element={
           <PrivateRoute>
             <EditFabricante />
+          </PrivateRoute>
+        }        
+      />
+       <Route
+        exact        
+        path="/view-fabricante/:id"
+        element={
+          <PrivateRoute>
+            <ViewFabricante />
+          </PrivateRoute>
+        }        
+      />
+      <Route
+        exact        
+        path="/add-modelo/:id"
+        element={
+          <PrivateRoute>
+            <AddModelo />
           </PrivateRoute>
         }        
       />
