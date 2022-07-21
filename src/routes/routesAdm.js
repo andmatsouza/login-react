@@ -31,6 +31,9 @@ import { ViewFabricante } from "../pages/ViewFabricante";
 
 import { AddModelo } from "../pages/AddModelo";
 
+import { AddVeiculo } from "../pages/AddVeiculo";
+import { Veiculos } from "../pages/Veiculos";
+
 
 
 function PrivateRoute({ children }) {
@@ -187,6 +190,24 @@ export default function RoutesAdm() {
         element={
           <PrivateRoute>
             <AddModelo />
+          </PrivateRoute>
+        }        
+      />
+      <Route
+        exact        
+        path="/veiculos"
+        element={
+          <PrivateRoute>
+            <Veiculos />
+          </PrivateRoute>
+        }        
+      />
+      <Route
+        exact        
+        path="/add-veiculo"
+        element={
+          <PrivateRoute>
+            <AddVeiculo />
           </PrivateRoute>
         }        
       />

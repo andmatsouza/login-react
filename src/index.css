@@ -739,6 +739,7 @@ body {
 }
 
 input.input-adm,
+select.select-adm,
 textarea.input-adm {
   width: 100%;
   font-weight: 400;
@@ -757,6 +758,8 @@ textarea.input-adm:focus {
   outline: none;
   border-color: var(--site-color);
 }
+
+
 
 /*Visualizar*/
 

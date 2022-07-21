@@ -21,7 +21,12 @@ export const Sidebar = (props) => {
        <Link to="/fabricantes" reloadDocument className={props.active === "fabricantes" ? "sidebar-nav active" : "sidebar-nav"}>
         <i className="icon fa-solid fa-industry"></i>
         <span>Fabricantes</span>
-      </Link>       
+      </Link>
+
+      <Link to="/veiculos" reloadDocument className={props.active === "veiculos" ? "sidebar-nav active" : "sidebar-nav"}>
+        <i className="icon fa-solid fa-truck"></i>
+        <span>Veículos</span>
+      </Link>        
 
       <Link to="/view-profile" reloadDocument className={props.active === "profile" ? "sidebar-nav active" : "sidebar-nav"}>
         <i className="icon fas fa-user"></i>

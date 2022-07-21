@@ -12,6 +12,7 @@ export const Dasboard = () => {
   const { state } = useLocation();
 
   const [qtdUsuario, setQtdUsuario] = useState("");
+  const [qtdVeiculo, setQtdVeiculo] = useState("");
   //const [page, setPage] = useState("");
 
   
@@ -54,8 +55,44 @@ export const Dasboard = () => {
       });
   };
 
+  const getVeiculos = async (page) => {
+    if (page === undefined) {
+      page = 1;
+    }
+    //setPage(page);
+
+    const headers = {
+      herders: {
+        Authorizaton: "Bearer " + localStorage.getItem("token"),
+      },
+    };
+
+    await api
+      .get("/veiculos/" + page, headers)
+      .then((response) => {
+        setQtdVeiculo(response.data.countVeiculo);
+        
+      })
+      .catch((err) => {
+        // console.log(err.response);
+        if (err.response.data.erro) {
+          //console.log(err.response.data.mensagem);
+          setStatus({
+            type: "erro",
+            mensagem: err.response.data.mensagem,
+          });
+        } else {
+          setStatus({
+            type: "erro",
+            mensagem: "Erro: Tente mais tarde!",
+          });
+        }
+      });
+  };
+
   useEffect(() => {
     getUsers();
+    getVeiculos();
   }, []);
 
 
@@ -82,9 +119,9 @@ export const Dasboard = () => {
             </div>
 
             <div className="box box-second">
-              <span className=" icon fas fa-truck-loading"></span>
-              <span>43</span>
-              <span>Entregas</span>
+              <span className=" icon fa-solid fa-truck"></span>
+              <span>{qtdVeiculo}</span>
+              <span>Veículos</span>
             </div>
 
             <div className="box box-third">
