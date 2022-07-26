@@ -11,7 +11,7 @@ export const AddModelo = () => {
   const { id } = useParams();
   const [modelo, setModelo] = useState({
     nome_modelo: "",
-    fabricante_id: "",   
+    fabricanteId: "",   
   });  
 
   const [status, setStatus] = useState({
@@ -32,7 +32,7 @@ export const AddModelo = () => {
         "Content-Type": "application/json",
       },
     };
-    modelo.fabricante_id = id;
+    modelo.fabricanteId = id;
     await api
       .post("/modelo", modelo, headers)
       .then((response) => {
