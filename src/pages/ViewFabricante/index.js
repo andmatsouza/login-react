@@ -3,7 +3,7 @@ import { Link, useParams, Navigate, useLocation } from "react-router-dom";
 
 import { Navbar } from "../../components/Navbar";
 import { Sidebar } from "../../components/Sidebar";
-import { servDeleteUser } from "../../service/servDeleteUser";
+import { servDeleteModelo } from "../../service/servDeleteUser";
 import api from "../../config/configApi";
 import useDropdownList from "../../hooks/useDropdownList";
 
@@ -59,9 +59,8 @@ export const ViewFabricante = (props) => {
     getFabricante();
   }, [id]);
 
-  const deleteFabricante = async (idUser) => {
-    const response = await servDeleteUser(idUser);
-
+  const deleteModelo = async (idModelo) => {
+    const response = await servDeleteModelo(idModelo);
     if (response) {
       if (response.type === "success") {
         setStatus({
@@ -70,14 +69,14 @@ export const ViewFabricante = (props) => {
         });
       } else {
         setStatus({
-          type: response.type,
+          type: "erro",
           mensagem: response.mensagem,
         });
       }
     } else {
       setStatus({
-        type: "redErro",
-        mensagem: "Erro: Tente mais tarde!",
+        type: "erro",
+        mensagem: "Erro: tente mais tarde!",
       });
     }
   };
@@ -184,8 +183,8 @@ export const ViewFabricante = (props) => {
                       <div id={"actionDropdown" + modelo.id} class="dropdown-action-item">
                       {/*<Link to={"/view-fabricante/" + modelo.id}>Visualizar</Link>
                       <Link to={"/add-modelo/" + modelo.id}>Cadastrar Modelo</Link>*/}
-                      <Link to={"/edit-fabricante/" + modelo.id}>Editar</Link>                      
-                      <Link to={"#" + modelo.id} onClick={() => deleteFabricante(modelo.id)}>Apagar</Link>
+                      <Link to={"/edit-modelo/" + modelo.id}>Editar</Link>                      
+                      <Link to={"#" + modelo.id} onClick={() => deleteModelo(modelo.id)}>Apagar</Link>
                       </div>
                     </div>
                     </td>
