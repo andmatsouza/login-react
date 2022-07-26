@@ -30,6 +30,7 @@ import { EditFabricante } from "../pages/EditFabricante";
 import { ViewFabricante } from "../pages/ViewFabricante";
 
 import { AddModelo } from "../pages/AddModelo";
+import { EditModelo } from "../pages/EditModelo";
 
 import { AddVeiculo } from "../pages/AddVeiculo";
 import { Veiculos } from "../pages/Veiculos";
@@ -190,6 +191,15 @@ export default function RoutesAdm() {
         element={
           <PrivateRoute>
             <AddModelo />
+          </PrivateRoute>
+        }        
+      />
+      <Route
+        exact        
+        path="/edit-modelo/:id"
+        element={
+          <PrivateRoute>
+            <EditModelo />
           </PrivateRoute>
         }        
       />
