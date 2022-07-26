@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 
 import { Navbar } from "../../components/Navbar";
 import { Sidebar } from "../../components/Sidebar";
-import { servDeleteUser } from "../../service/servDeleteUser";
+import { servDeleteVeiculo } from "../../service/servDeleteUser";
 
 import useDropdownList from "../../hooks/useDropdownList";
 
@@ -65,8 +65,8 @@ export const Veiculos = () => {
     getVeiculos();
   }, []);
 
-  const deleteUser = async (idVeiculo) => {
-    const response = await servDeleteUser(idVeiculo);
+  const deleteVeiculo = async (idVeiculo) => {
+    const response = await servDeleteVeiculo(idVeiculo);
 
     if (response) {
       setStatus({
@@ -86,7 +86,7 @@ export const Veiculos = () => {
     <div>
       <Navbar />
       <div className="content">
-        <Sidebar active="fabricantes" />
+        <Sidebar active="veiculos" />
         <div className="wrapper">
           <div className="row">
             <div className="top-content-adm">
@@ -129,7 +129,7 @@ export const Veiculos = () => {
                       <div id={"actionDropdown" + veiculo.id} class="dropdown-action-item">
                       <Link to={"/view-veiculo/" + veiculo.id}>Visualizar</Link>
                       <Link to={"/edit-veiculo/" + veiculo.id}>Editar</Link>                      
-                      <Link to={"#" + veiculo.id} onClick={() => deleteUser(veiculo.id)}>Apagar</Link>
+                      <Link to={"#" + veiculo.id} onClick={() => deleteVeiculo(veiculo.id)}>Apagar</Link>
                       </div>
                     </div>
                     </td>
