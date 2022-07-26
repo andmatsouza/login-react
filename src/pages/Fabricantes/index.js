@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 
 import { Navbar } from "../../components/Navbar";
 import { Sidebar } from "../../components/Sidebar";
-import { servDeleteUser } from "../../service/servDeleteUser";
+import { servDeleteFabricante } from "../../service/servDeleteUser";
 
 import useDropdownList from "../../hooks/useDropdownList";
 
@@ -65,8 +65,8 @@ export const Fabricantes = () => {
     getFabricantes();
   }, []);
 
-  const deleteUser = async (idFabricante) => {
-    const response = await servDeleteUser(idFabricante);
+  const deleteFabricante = async (idFabricante) => {
+    const response = await servDeleteFabricante(idFabricante);
 
     if (response) {
       setStatus({
@@ -107,7 +107,7 @@ export const Fabricantes = () => {
               <thead className="list-head">
                 <tr>
                   <th className="list-head-content">ID</th>
-                  <th className="list-head-content">Nome Fabricante</th>                 
+                  <th className="list-head-content">Fabricantes</th>                 
                   <th className="list-head-content">Ações</th>
                 </tr>
               </thead>
@@ -123,7 +123,7 @@ export const Fabricantes = () => {
                       <div id={"actionDropdown" + fabricante.id} class="dropdown-action-item">
                       <Link to={"/view-fabricante/" + fabricante.id}>Visualizar</Link>
                       <Link to={"/edit-fabricante/" + fabricante.id}>Editar</Link>                      
-                      <Link to={"#" + fabricante.id} onClick={() => deleteUser(fabricante.id)}>Apagar</Link>
+                      <Link to={"#" + fabricante.id} onClick={() => deleteFabricante(fabricante.id)}>Apagar</Link>
                       </div>
                     </div>
                     </td>
