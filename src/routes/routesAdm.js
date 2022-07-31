@@ -34,6 +34,7 @@ import { EditModelo } from "../pages/EditModelo";
 
 import { AddVeiculo } from "../pages/AddVeiculo";
 import { Veiculos } from "../pages/Veiculos";
+import { ViewVeiculo } from "../pages/ViewVeiculo";
 
 
 
@@ -218,6 +219,15 @@ export default function RoutesAdm() {
         element={
           <PrivateRoute>
             <AddVeiculo />
+          </PrivateRoute>
+        }        
+      />
+      <Route
+        exact        
+        path="/view-veiculo/:id"
+        element={
+          <PrivateRoute>
+            <ViewVeiculo />
           </PrivateRoute>
         }        
       />
