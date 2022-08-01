@@ -7,6 +7,8 @@ import { servDeleteModelo } from "../../service/servDeleteUser";
 import api from "../../config/configApi";
 import useDropdownList from "../../hooks/useDropdownList";
 
+const moment = require("moment");
+
 export const ViewVeiculo = (props) => {
 
   const {actionDropdown, closeDropdownAction} = useDropdownList();
@@ -183,10 +185,10 @@ export const ViewVeiculo = (props) => {
                 {abastecimentos.map((abastecimento) => (
                   <tr key={abastecimento.id}>                                     
                     <td className="list-body-content">{abastecimento.posto.nome_posto}</td>
-                    <td className="list-body-content">{abastecimento.data_abastecimento}</td>
+                    <td className="list-body-content">{moment(abastecimento.data_abastecimento).format("DD/MM/YYYY hh:mm:ss")}</td>
                     <td className="list-body-content">{abastecimento.combustivei.nome_combustivel}</td>
                     <td className="list-body-content">{abastecimento.qtd_litro}</td>
-                    <td className="list-body-content">{abastecimento.valor_litro}</td>
+                    <td className="list-body-content">{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(abastecimento.valor_litro)}</td>
                     <td className="list-body-content">{abastecimento.odometro_km}</td>
                     <td className="list-body-content">
                     <div className="dropdown-action">
