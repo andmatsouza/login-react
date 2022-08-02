@@ -36,6 +36,8 @@ import { AddVeiculo } from "../pages/AddVeiculo";
 import { Veiculos } from "../pages/Veiculos";
 import { ViewVeiculo } from "../pages/ViewVeiculo";
 
+import { AddAbastecimento } from "../pages/AddAbastecimento";
+
 
 
 function PrivateRoute({ children }) {
@@ -228,6 +230,15 @@ export default function RoutesAdm() {
         element={
           <PrivateRoute>
             <ViewVeiculo />
+          </PrivateRoute>
+        }        
+      />
+      <Route
+        exact        
+        path="/add-abastecimento/:id"
+        element={
+          <PrivateRoute>
+            <AddAbastecimento />
           </PrivateRoute>
         }        
       />
