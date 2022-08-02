@@ -205,7 +205,7 @@ export const AddAbastecimento = () => {
               )}
               {status.type === "redSuccess" ? (
                 <Navigate
-                  to="/veiculos"
+                  to={"/view-veiculo/" + id}
                   state={{
                     type: "success",
                     mensagem: status.mensagem,
@@ -224,7 +224,7 @@ export const AddAbastecimento = () => {
                   <div className="column">
                     <label className="title-input">Data Abastecimento</label>
                     <input
-                      type="date"
+                      type="datetime-local"
                       name="data_abastecimento"
                       id="data_abastecimento"
                       className="input-adm"
