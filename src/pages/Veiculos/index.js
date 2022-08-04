@@ -3,6 +3,9 @@ import { Link, useLocation } from "react-router-dom";
 
 import { Navbar } from "../../components/Navbar";
 import { Sidebar } from "../../components/Sidebar";
+import { TopContentAdm } from "../../components/TopContentAdm";
+import { TopContentButton } from "../../components/TopContentButton";
+
 import { servDeleteVeiculo } from "../../service/servDeleteUser";
 
 import useDropdownList from "../../hooks/useDropdownList";
@@ -89,14 +92,21 @@ export const Veiculos = () => {
         <Sidebar active="veiculos" />
         <div className="wrapper">
           <div className="row">
-            <div className="top-content-adm">
+
+          <TopContentAdm title="Listar Veículos">
+            <TopContentButton tolink="/add-veiculo" stilo="btn-success">Cadastrar</TopContentButton>
+          </TopContentAdm>
+
+
+
+            {/*<div className="top-content-adm">
               <span className="title-content">Listar Veículos</span>
               <div className="top-content-adm-right">
                 <Link to="/add-veiculo">
                   <button type="button" className="btn-success">Cadastrar</button>
                 </Link>
               </div>
-            </div>
+  </div>*/}
 
             <div className="alert-content-adm">
              {status.type === "danger" ? (<p className="alert-danger">{status.mensagem}</p>) : ("")}

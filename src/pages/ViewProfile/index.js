@@ -3,6 +3,8 @@ import { Link, Navigate, useLocation } from "react-router-dom";
 
 import { Navbar } from "../../components/Navbar";
 import { Sidebar } from "../../components/Sidebar";
+import { TopContentAdm } from "../../components/TopContentAdm";
+import { TopContentButton } from "../../components/TopContentButton";
 import api from "../../config/configApi";
 
 export const ViewProfile = () => {
@@ -61,7 +63,17 @@ export const ViewProfile = () => {
 
         <div className="wrapper">
           <div className="row">
-            <div className="top-content-adm">
+
+            <TopContentAdm title="Perfil">
+
+              <TopContentButton tolink="/edit-profile" stilo="btn-warning">Editar</TopContentButton>
+              <TopContentButton tolink="/edit-profile-password" stilo="btn-warning">Editar a Senha</TopContentButton>
+              <TopContentButton tolink="/edit-profile-image" stilo="btn-warning">Editar Imagem</TopContentButton>
+
+            </TopContentAdm>
+
+
+            {/*<div className="top-content-adm">
               <span className="title-content">Perfil</span>
               <div className="top-content-adm-right">
                 <Link to="/edit-profile">
@@ -80,7 +92,7 @@ export const ViewProfile = () => {
                   </button>
                 </Link>{" "}
               </div>
-            </div>
+            </div>*/}
 
             <div className="alert-content-adm">
               {status.type === "redErro" ? (
