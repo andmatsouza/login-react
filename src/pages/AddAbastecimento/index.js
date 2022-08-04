@@ -20,6 +20,9 @@ export const AddAbastecimento = () => {
     postoId: "",   
     combustiveiId: "",   
   });
+
+  const [valorLancTarget, setValorLancTarget] = useState('');
+
   const [posto, setPosto] = useState("");
   const [combustivel, setCombustivel] = useState("");
   //const [modelos, setModelos] = useState([]);  
@@ -36,7 +39,22 @@ export const AddAbastecimento = () => {
     e.preventDefault();
     const { value, name } = e.target;
     setAbastecimento({ ...abastecimento, [name]: value });                   
-  }  
+  }
+  
+  const valorAbastecimento = async e => {
+    var valorLancamentoInput = e.target.value;    
+
+    valorLancamentoInput = valorLancamentoInput.replace(/\D/g, "");
+    valorLancamentoInput = valorLancamentoInput.replace(/(\d)(\d{2})$/, "$1,$2");
+    valorLancamentoInput = valorLancamentoInput.replace(/(?=(\d{3})+(\D))\B/g, ".");
+   
+    setValorLancTarget(valorLancamentoInput);
+
+    var valorSalvar = await valorLancamentoInput.replace(".", "");
+    valorSalvar = await valorSalvar.replace(",", ".");
+
+    setAbastecimento({ ...abastecimento, valor_litro: valorSalvar });
+}
 
 
   const addAbastecimento = async (e) => {
@@ -288,7 +306,8 @@ export const AddAbastecimento = () => {
                       id="valor_litro"
                       className="input-adm"
                       placeholder="Preço do combustível"
-                      onChange={valueInput}
+                      value={valorLancTarget}
+                      onChange={valorAbastecimento}
                     />
                 </div>
 
