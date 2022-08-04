@@ -114,20 +114,31 @@ export const Dasboard = () => {
 
             <Card stilo="box box-first" icon="icon fas fa-users" total={qtdUsuario}> 
               <span>Usuários</span>            
-            </Card> 
-
-            <Card stilo="box box-second" icon="icon fa-solid fa-truck" total={qtdVeiculo}> 
-              <span>Veículos</span>            
             </Card>
+            <div className="box box-first">
+              <span className=" icon fas fa-users"></span>
+              <span>{qtdUsuario}</span>
+              <span>Usuários</span>
+            </div>
 
-            <Card stilo="box box-third" icon="icon fas fa-check-circle" total="12"> 
-              <span>Completas</span>            
-            </Card>
+            <div className="box box-second">
+              <span className=" icon fa-solid fa-truck"></span>
+              <span>{qtdVeiculo}</span>
+              <span>Veículos</span>
+            </div>
 
-            <Card stilo="box box-fourth" icon="icon fas fa-exclamation-triangle" total="3"> 
-              <span>Completas</span>            
-            </Card>
-                       
+            <div className="box box-third">
+              <span className=" icon fas fa-check-circle"></span>
+              <span>12</span>
+              <span>Completas</span>
+            </div>
+
+            <div className="box box-fourth">
+              <span className=" icon fas fa-exclamation-triangle"></span>
+              <span>3</span>
+              <span>Alertas</span>
+            </div>
+            <Card stilo="box box-first" icon="icon fas fa-users" total="12.645"> Usuários cadastrados</Card>
           </div>
 
         </div>
