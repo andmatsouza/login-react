@@ -4,6 +4,8 @@ import * as yup from "yup";
 
 import { Navbar } from "../../components/Navbar";
 import { Sidebar } from "../../components/Sidebar";
+import { TopContentAdm } from "../../components/TopContentAdm";
+import { TopContentButton } from "../../components/TopContentButton";
 
 import api from "../../config/configApi";
 
@@ -108,7 +110,11 @@ export const AddUser = () => {
 
         <div class="wrapper">
           <div class="row">
-            <div class="top-content-adm">
+          <TopContentAdm title="Cadastrar Usuários">
+            <TopContentButton tolink="/users" stilo="btn-info">Listar</TopContentButton>
+          </TopContentAdm>
+
+            {/*<div class="top-content-adm">
               <span class="title-content">Cadastrar Usuários</span>
               <div class="top-content-adm-right">
                 <Link to="/users" reloadDocument>
@@ -117,7 +123,7 @@ export const AddUser = () => {
                   </button>
                 </Link>
               </div>
-            </div>
+  </div>*/}
 
             <div className="alert-content-adm">
               {status.type === "error" ? (
