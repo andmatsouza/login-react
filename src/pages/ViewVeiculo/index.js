@@ -15,6 +15,8 @@ export const ViewVeiculo = (props) => {
   //recebe o state que vem do redirecionamento de outra página, através do componente Navigate.
   const { state } = useLocation();
 
+  const { id } = useParams();
+
   const [data, setData] = useState("");
   const [fabricantes, setFabricantes] = useState([]);
   const [abastecimentos, setAbastecimentos] = useState([]);
@@ -22,44 +24,114 @@ export const ViewVeiculo = (props) => {
     type: state ? state.type : "",
     mensagem: state ? state.mensagem : "",
   });
-  const { id } = useParams();
- 
 
-  useEffect(() => {
-    const getVeiculo = async () => {
-      const headers = {
-        herders: {
-          Authorizaton: "Bearer " + localStorage.getItem("token"),
-        },
-      };
-      await api
-        .get("/veiculo/" + id, headers)
+  var dataAtual = moment().format();  
+  var ano = moment(dataAtual).year();
+  var mes = moment(dataAtual).month() + 1;
+
+  
+
+
+  const [dataView, setDataView] = useState({
+    ano,
+    mes
+});  
+
+  const anterior = async () => {
+    if (dataView.mes === 1) {
+        ano = dataView.ano - 1;
+        mes = 12;
+        setDataView({
+            ano,
+            mes
+        });
+        getVeiculo(mes, ano);
+    } else {
+        ano = dataView.ano;
+        mes = dataView.mes - 1;
+        setDataView({
+            ano,
+            mes
+        });
+        getVeiculo(mes, ano);
+    }
+};
+
+const proximo = async () => {
+  if (dataView.mes === 12) {
+      ano = dataView.ano + 1;
+      mes = 1;
+      setDataView({
+          ano,
+          mes
+      });
+      getVeiculo(mes, ano);
+  } else {
+      ano = dataView.ano;
+      mes = dataView.mes + 1;
+      setDataView({
+          ano,
+          mes
+      });
+      getVeiculo(mes, ano);
+  }
+};
+
+const getVeiculo = async (mes, ano) => {
+  const headers = {
+    herders: {
+      Authorizaton: "Bearer " + localStorage.getItem("token"),
+    },
+  };
+
+  if ((mes === undefined) && (ano === undefined)) {
+    dataAtual = moment().format();  
+    ano = moment(dataAtual).year();
+    mes = moment(dataAtual).month() + 1;
+  }
+
+
+  await api
+    .get("/veiculo/" + id + "/" + mes + "/" + ano, headers)
+    .then((response) => {
+      if (response.data.veiculo !== null) {            
+        setData(response.data.veiculo);
+        setFabricantes(response.data.veiculo.fabricante);
+        setAbastecimentos(response.data.veiculo.abastecimentos)
+      } else {
+        //setStatus({
+         // type: "redErro",
+         // mensagem: "Erro: Veículo não encontrado!",
+        //});
+        api.get("/veiculo/" + id , headers)
         .then((response) => {
-          if (response.data.veiculo) {            
+          if (response.data.veiculo !== null) {            
             setData(response.data.veiculo);
-            setFabricantes(response.data.veiculo.fabricante);
-            setAbastecimentos(response.data.veiculo.abastecimentos)
-          } else {
-            setStatus({
-              type: "redErro",
-              mensagem: "Erro: Veículo não encontrado!",
-            });
+            //setFabricantes(response.data.veiculo.fabricante);
+            //setAbastecimentos(response.data.veiculo.abastecimentos)
+            setFabricantes([]);
+            setAbastecimentos([])
           }
         })
-        .catch((err) => {
-          if (err.response.data.erro) {
-            setStatus({
-              type: "redErro",
-              mensagem: err.response.data.mensagem,
-            });
-          } else {
-            setStatus({
-              type: "redErro",
-              mensagem: "Erro: Tente mais tarde!",
-            });
-          }
+      }
+    })
+    .catch((err) => {
+      if (err.response.data.erro) {
+        setStatus({
+          type: "redErro",
+          mensagem: err.response.data.mensagem,
         });
-    };
+      } else {
+        setStatus({
+          type: "redErro",
+          mensagem: "Erro: Tente mais tarde!",
+        });
+      }
+    });
+};
+ 
+
+  useEffect(() => {    
     getVeiculo();
   }, [id]);
 
@@ -120,8 +192,14 @@ export const ViewVeiculo = (props) => {
                   >
                     Apagar
                   </button>
-  </Link>{" "}*/}
+                </Link>{" "}*/}
               </div>
+            </div>
+
+            <div className="top-content-adm-right">
+            <button type="button" className="btn-info" onClick={() => anterior()}>Anterior</button>
+            <span>{dataView.mes + "/" + dataView.ano}</span>
+            <button type="button" className="btn-info" onClick={() => proximo()}>Próximo</button>
             </div>
 
             <div className="alert-content-adm">
