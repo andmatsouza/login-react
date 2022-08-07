@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
+
 import * as yup from "yup";
 
 import { Navbar } from "../../components/Navbar";
@@ -163,30 +164,26 @@ export const AddAbastecimento = () => {
   }, []);  
 
   async function validate() {
-    let schema = yup.object({   
-     
-      data_abastecimento: yup.string("Erro: Necessário preencher o campo data abastecimento!")
-        .required("Erro: Necessário preencher o campo data abastecimento!"),
-      postoId: yup.string("Erro: Necessário preencher o campo posto abastecimento!")
-        .required("Erro: Necessário preencher o campo posto abastecimento!"),
-      combustiveiId: yup.string("Erro: Necessário preencher o campo combustível!")
-        .required("Erro: Necessário preencher o campo combustível!"),
-      qtd_litro: yup.string("Erro: Necessário preencher o campo litro!")
-        .required("Erro: Necessário preencher o campo litro!"),           
-      valor_litro: yup.string("Erro: Necessário preencher o campo valor litro!")
-        .required("Erro: Necessário preencher o campo valor litro!"),
-      odometro_km: yup.string("Erro: Necessário preencher o campo KM!")
-        .required("Erro: Necessário preencher o campo KM!")      
+    let schema = yup.object().shape({      
+
+      odometro_km: yup.number().typeError('Digite a valor p odômetro Km').required().positive("O campo deve ser positivo."),      
+      valor_litro: yup.number().typeError('Digite o valor do litro').required().positive("O campo deve ser positivo."),
+      qtd_litro: yup.number().typeError('O campo Qde Litros deve ser um número').required().positive('O campo qtd litros deve ser positivo').integer("O campo qtd litros deve ser um número inteiro."),
+      combustiveiId: yup.number().typeError('Selecione o Combustível').required().positive("O campo deve ser positivo.").integer("O campo deve ser um número inteiro."),
+      postoId: yup.number().typeError('Selecione um Posto').required("O campo é obrigatório.").positive("O campo deve ser positivo.").integer("O campo deve ser um número inteiro."),
+      data_abastecimento: yup.date().typeError('Digite uma Data Abastecimento válida').required(),
+
     });
 
     try {
-      await schema.validate({        
-        data_abastecimento: abastecimento.data_abastecimento,
-        postoId: abastecimento.postoId,
-        combustiveiId: abastecimento.combustiveiId,
-        qtd_litro: abastecimento.qtd_litro,
+      await schema.validate({       
+         
+        odometro_km: abastecimento.odometro_km,
         valor_litro: abastecimento.valor_litro, 
-        odometro_km: abastecimento.odometro_km              
+        qtd_litro: abastecimento.qtd_litro,
+        combustiveiId: abastecimento.combustiveiId,
+        postoId: abastecimento.postoId, 
+        data_abastecimento: abastecimento.data_abastecimento,            
       });
       return true;
     } catch (err) {
@@ -196,7 +193,7 @@ export const AddAbastecimento = () => {
       });
       return false;
     }
-  }
+  }  
 
   return (
     <div>
