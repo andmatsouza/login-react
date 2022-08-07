@@ -160,27 +160,20 @@ const getVeiculo = async (mes, ano) => {
     var odometroInicialMes;
     var odometroTotalMes = 0;
     var qtdLitrosMes = 0;
-    var ValorTotalqtdLitrosMes = 0;
-    var tam = abastecimentos.length;
-    var qtdLitroFinal = 0;
      abastecimentos.map((val, indice) => {
         if (indice === 0){
           odometroInicialMes = val.odometro_km;
         }
-        if (indice === (tam -1)){
-          qtdLitroFinal = val.qtd_litro;
-        }
         odometroTotalMes = odometroTotalMes + val.odometro_km;
         qtdLitrosMes = qtdLitrosMes + val.qtd_litro;
-        ValorTotalqtdLitrosMes = ValorTotalqtdLitrosMes + (val.qtd_litro * val.valor_litro);
     })
 
     var kmMes = odometroTotalMes - odometroInicialMes;
-    var mediaKmMesPorLitro = kmMes / (qtdLitrosMes - qtdLitroFinal); 
+    var mediaKmMesPorLitro = kmMes / qtdLitrosMes; 
 
-    //console.log("Aquiii : " + tam);
-    //console.log("Aquiii2 : " + qtdLitroFinal);
-    //console.log("Total Km mês: " + kmMes + " / Total litros mês: " + qtdLitrosMes + " - " + "Km rodado por litro: " + mediaKmMesPorLitro);
+    console.log("Aquiii : " + odometroInicialMes);
+    console.log("Aquiii : " + odometroTotalMes);
+    console.log("Total Km mês: " + kmMes + " / Total litros mês: " + qtdLitrosMes + " - " + "Km rodado por litro: " + mediaKmMesPorLitro);
 
   return (
     <div>
@@ -203,11 +196,29 @@ const getVeiculo = async (mes, ano) => {
                   <button type="button" className="btn-info">
                     Listar
                   </button>
-                </Link>{" "}                
+                </Link>{" "}
+                {/*<Link to={"/edit-fabricante/" + data.id}>
+                  <button type="button" className="btn-warning">
+                    Editar
+                  </button>
+                </Link>{" "}               
+                <Link to={"#"}>
+                  <button
+                    type="button"
+                    className="btn-danger"
+                    onClick={() => deleteFabricante(data.id)}
+                  >
+                    Apagar
+                  </button>
+                </Link>{" "}*/}
               </div>
             </div>
 
-            
+            <div className="top-content-adm-right">
+            <button type="button" className="btn-info" onClick={() => anterior()}>Anterior</button>
+            <span>{dataView.mes + "/" + dataView.ano}</span>
+            <button type="button" className="btn-info" onClick={() => proximo()}>Próximo</button>
+            </div>
 
             <div className="alert-content-adm">
               {status.type === "redSuccess" ? (
@@ -240,10 +251,9 @@ const getVeiculo = async (mes, ano) => {
                 ""
               )}
             </div>
-          </div>
 
-          <div className="row">
-            <div class="content-adm">
+            <div class="content-adm">            
+
              <div class="view-det-adm">
                 <span class="view-adm-title">Veículo:</span>
                 <span class="view-adm-info">{fabricantes.nome_fabricante}</span>
@@ -253,18 +263,8 @@ const getVeiculo = async (mes, ano) => {
                 <span class="view-adm-title">Placa:</span>
                 <span class="view-adm-info">{data.placa}</span>
               </div>
-            </div>
-          </div>
 
-          <div className="row">
-            <div class="content-adm2">            
-            <button type="button" className="btn-info" onClick={() => anterior()}>Anterior</button>
-            <span>{dataView.mes + "/" + dataView.ano}</span>
-            <button type="button" className="btn-info" onClick={() => proximo()}>Próximo</button>           
             </div>
-          </div>          
-
-          <div className="row">
             <table className="table-list">
               <thead className="list-head">
                 <tr>                
@@ -299,32 +299,7 @@ const getVeiculo = async (mes, ano) => {
                 ))}
               </tbody>
             </table>
-          </div> 
-
-          <div className="row">
-          <table className="table-list">
-          <thead className="list-head">
-                <tr>
-                  <th className="list-head-content">Custo Total</th>                
-                  <th className="list-head-content">Km Total</th>
-                  <th className="list-head-content">Custo/L Média</th>
-                  {/*<th className="list-head-content">Total litros mês</th>*/}
-                  <th className="list-head-content">Km/L Média</th> 
-                                   
-                </tr>
-          </thead>
-          <tbody className="list-body">
-                <tr>
-                  <td>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(ValorTotalqtdLitrosMes)}</td>
-                  <td>{kmMes}</td>
-                  <td>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(ValorTotalqtdLitrosMes/kmMes)}</td>
-                  {/*<td>{qtdLitrosMes}</td>*/}
-                  <td>{new Intl.NumberFormat('pt-BR').format(mediaKmMesPorLitro)}</td>
-                  
-                </tr>
-          </tbody>
-          </table>            
-          </div>
+          </div>          
         </div>       
       </div>
     </div>
