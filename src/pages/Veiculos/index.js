@@ -94,7 +94,9 @@ export const Veiculos = () => {
           <div className="row">
 
           <TopContentAdm title="Listar Veículos">
-            <TopContentButton tolink="/add-veiculo" stilo="btn-success">Cadastrar</TopContentButton>
+          <TopContentButton tolink="/add-servico" stilo="btn-success">Cadastrar Serviços</TopContentButton>            
+            <TopContentButton tolink="/add-oficina" stilo="btn-success">Cadastrar Oficina</TopContentButton>
+            <TopContentButton tolink="/add-veiculo" stilo="btn-success">Cadastrar Veículo</TopContentButton>
           </TopContentAdm>
 
 
