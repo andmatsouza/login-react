@@ -38,6 +38,12 @@ import { ViewVeiculo } from "../pages/ViewVeiculo";
 
 import { AddAbastecimento } from "../pages/AddAbastecimento";
 
+import { AddOficina } from "../pages/AddOficina";
+
+import { AddServico } from "../pages/AddServico";
+
+import { AddManutencao } from "../pages/AddManutencao";
+
 
 
 function PrivateRoute({ children }) {
@@ -239,6 +245,33 @@ export default function RoutesAdm() {
         element={
           <PrivateRoute>
             <AddAbastecimento />
+          </PrivateRoute>
+        }        
+      />
+      <Route
+        exact        
+        path="/add-oficina"
+        element={
+          <PrivateRoute>
+            <AddOficina />
+          </PrivateRoute>
+        }        
+      />
+      <Route
+        exact        
+        path="/add-servico"
+        element={
+          <PrivateRoute>
+            <AddServico />
+          </PrivateRoute>
+        }        
+      />
+      <Route
+        exact        
+        path="/add-manutencao/:id"
+        element={
+          <PrivateRoute>
+            <AddManutencao />
           </PrivateRoute>
         }        
       />
