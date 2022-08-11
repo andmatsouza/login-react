@@ -4,6 +4,8 @@ import * as yup from "yup";
 
 import { Navbar } from "../../components/Navbar";
 import { Sidebar } from "../../components/Sidebar";
+import { TopContentAdm } from "../../components/TopContentAdm";
+import { TopContentButton } from "../../components/TopContentButton";
 
 import api from "../../config/configApi";
 
@@ -188,16 +190,9 @@ export const AddVeiculo = () => {
 
         <div class="wrapper">
           <div class="row">
-            <div class="top-content-adm">
-              <span class="title-content">Cadastrar Veículos</span>
-              <div class="top-content-adm-right">
-                <Link to="/veiculos" reloadDocument>
-                  <button type="button" class="btn-info">
-                    Listar
-                  </button>
-                </Link>
-              </div>
-            </div>
+          <TopContentAdm title="Cadastrar Veículos">
+            <TopContentButton tolink="/veiculos" stilo="btn-info">Listar</TopContentButton>
+          </TopContentAdm>
 
             <div className="alert-content-adm">
               {status.type === "error" ? (

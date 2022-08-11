@@ -3,6 +3,9 @@ import { Link, Navigate } from "react-router-dom";
 
 import { Navbar } from "../../components/Navbar";
 import { Sidebar } from "../../components/Sidebar";
+import { TopContentAdm } from "../../components/TopContentAdm";
+import { TopContentButton } from "../../components/TopContentButton";
+
 import api from "../../config/configApi";
 
 export const EditProfileImage = () => {
@@ -98,7 +101,11 @@ export const EditProfileImage = () => {
 
         <div className="wrapper">
           <div className="row">
-            <div className="top-content-adm">
+          <TopContentAdm title="Editar Foto do Perfil">            
+            <TopContentButton tolink="/view-profile" stilo="btn-info">Perfil</TopContentButton>                       
+          </TopContentAdm>
+
+            {/*<div className="top-content-adm">
               <span className="title-content">Editar Foto do Perfil</span>
               <div className="top-content-adm-right">
                 <Link to="/view-profile" reloadDocument>
@@ -107,7 +114,9 @@ export const EditProfileImage = () => {
                   </button>
                 </Link>{" "}
               </div>
-            </div>
+            </div>*/}
+
+
 
             <div className="alert-content-adm">
               {status.type === "redSuccess" ? (

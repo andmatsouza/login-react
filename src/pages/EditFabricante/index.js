@@ -4,8 +4,11 @@ import * as yup from "yup";
 
 import { Navbar } from "../../components/Navbar";
 import { Sidebar } from "../../components/Sidebar";
+import { TopContentAdm } from "../../components/TopContentAdm";
+import { TopContentButton } from "../../components/TopContentButton";
+
 import api from "../../config/configApi";
-import { servDeleteUser } from "../../service/servDeleteUser";
+import { servDeleteFabricante } from "../../service/servDeleteUser";
 
 export const EditFabricante = () => {
   const { id } = useParams();
@@ -103,8 +106,8 @@ export const EditFabricante = () => {
     }
   }
 
-  const deleteUser = async (idUser) => {
-    const response = await servDeleteUser(idUser);
+  const deleteFabricante = async (idFabricante) => {
+    const response = await servDeleteFabricante(idFabricante);
     if (response) {
       if (response.type === "success") {
         setStatus({
@@ -133,7 +136,13 @@ export const EditFabricante = () => {
 
         <div className="wrapper">
           <div className="row">
-            <div className="top-content-adm">
+          <TopContentAdm title="Editar Fabricante">
+            <TopContentButton tolink={"#"} stilo="btn-danger" delete={() => deleteFabricante(id)}>Apagar</TopContentButton>
+            <TopContentButton tolink="/fabricantes" stilo="btn-info">Listar</TopContentButton>
+            <TopContentButton tolink={"/view-fabricante/" + id} stilo="btn-info">Visualizar</TopContentButton>            
+          </TopContentAdm>
+
+           {/*<div className="top-content-adm">
               <span className="title-content">Editar Fabricante</span>
               <div className="top-content-adm-right">
                 <Link to="/fabricantes" reloadDocument>
@@ -148,11 +157,13 @@ export const EditFabricante = () => {
                   <button
                     type="button"
                     className="btn-danger"
-                    onClick={() => deleteUser(id)}
+                    onClick={() => deleteFabricante(id)}
                   >Apagar</button>
                 </Link>{" "}                
               </div>
-            </div>
+            </div>*/}
+
+
 
             <div className="alert-content-adm">
               {status.type === "redWarning" ? (

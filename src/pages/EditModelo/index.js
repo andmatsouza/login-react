@@ -4,6 +4,9 @@ import * as yup from "yup";
 
 import { Navbar } from "../../components/Navbar";
 import { Sidebar } from "../../components/Sidebar";
+import { TopContentAdm } from "../../components/TopContentAdm";
+import { TopContentButton } from "../../components/TopContentButton";
+
 import api from "../../config/configApi";
 import { servDeleteModelo } from "../../service/servDeleteUser";
 
@@ -134,7 +137,13 @@ export const EditModelo = () => {
 
         <div className="wrapper">
           <div className="row">
-            <div className="top-content-adm">
+          <TopContentAdm title="Editar Modelos">
+            <TopContentButton tolink={"#"} stilo="btn-danger" delete={() => deleteModelo(id)}>Apagar</TopContentButton>
+            <TopContentButton tolink="/fabricantes" stilo="btn-info">Listar</TopContentButton>
+            <TopContentButton tolink={"/view-fabricante/" + fabricanteId} stilo="btn-info">Visualizar</TopContentButton>            
+          </TopContentAdm>
+
+            {/*<div className="top-content-adm">
               <span className="title-content">Editar Modelos</span>
               <div className="top-content-adm-right">
                 <Link to="/fabricantes" reloadDocument>
@@ -153,7 +162,8 @@ export const EditModelo = () => {
                   >Apagar</button>
                 </Link>{" "}                
               </div>
-            </div>
+            </div>*/}
+
 
             <div className="alert-content-adm">
               {status.type === "redWarning" ? (

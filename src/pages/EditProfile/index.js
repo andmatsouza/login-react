@@ -4,6 +4,9 @@ import * as yup from "yup";
 
 import { Navbar } from "../../components/Navbar";
 import { Sidebar } from "../../components/Sidebar";
+import { TopContentAdm } from "../../components/TopContentAdm";
+import { TopContentButton } from "../../components/TopContentButton";
+
 import api from "../../config/configApi";
 
 export const EditProfile = () => {
@@ -127,7 +130,11 @@ export const EditProfile = () => {
 
         <div className="wrapper">
           <div className="row">
-            <div className="top-content-adm">
+          <TopContentAdm title="Editar Perfil">            
+            <TopContentButton tolink="/view-profile" stilo="btn-info">Perfil</TopContentButton>                       
+          </TopContentAdm>
+
+            {/*<div className="top-content-adm">
               <span className="title-content">Editar Perfil</span>
               <div className="top-content-adm-right">
                 <Link to="/view-profile" reloadDocument>
@@ -136,7 +143,8 @@ export const EditProfile = () => {
                   </button>
                 </Link>{" "}
               </div>
-            </div>
+            </div>*/}
+
 
             <div className="alert-content-adm">
               {status.type === "redWarning" ? (

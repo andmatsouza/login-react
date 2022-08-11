@@ -4,6 +4,9 @@ import * as yup from "yup";
 
 import { Navbar } from "../../components/Navbar";
 import { Sidebar } from "../../components/Sidebar";
+import { TopContentAdm } from "../../components/TopContentAdm";
+import { TopContentButton } from "../../components/TopContentButton";
+
 import api from "../../config/configApi";
 
 export const EditProfilePassword = () => {
@@ -111,23 +114,26 @@ export const EditProfilePassword = () => {
 
         <div className="wrapper">
           <div className="row">
-            <div className="top-content-adm">
+            <TopContentAdm title="Editar Senha do Perfil">
+              <TopContentButton tolink="/view-profile" stilo="btn-info">
+                Perfil
+              </TopContentButton>
+            </TopContentAdm>
+
+            {/*<div className="top-content-adm">
               <span className="title-content">Editar Senha do Perfil</span>
               <div className="top-content-adm-right">
                 <Link to="/view-profile" reloadDocument>
                   <button type="button" className="btn-info">Perfil</button>
                 </Link>{" "}
               </div>
-            </div>
+            </div>*/}
 
             <div className="alert-content-adm">
               {status.type === "redWarning" ? (
                 <Navigate
                   to="/"
-                  state={{
-                    type: "erro",
-                    mensagem: status.mensagem,
-                  }}
+                  state={{ type: "erro", mensagem: status.mensagem }}
                 />
               ) : (
                 ""
@@ -160,7 +166,7 @@ export const EditProfilePassword = () => {
 
                 <div className="row-input">
                   <div className="column">
-                    <label className="title-input">Senha:</label>                    
+                    <label className="title-input">Senha:</label>
                     <input
                       type="password"
                       name="password"
