@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, Navigate, useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 
 import * as yup from "yup";
 
@@ -7,6 +7,7 @@ import { Navbar } from "../../components/Navbar";
 import { Sidebar } from "../../components/Sidebar";
 import { TopContentAdm } from "../../components/TopContentAdm";
 import { TopContentButton } from "../../components/TopContentButton";
+import { TopContentAdmVeiculo } from "../../components/TopContentAdmVeiculo";
 
 import api from "../../config/configApi";
 
@@ -29,7 +30,8 @@ export const AddAbastecimento = () => {
   //const [modelos, setModelos] = useState([]);  
   const [page, setPage] = useState("");
   
-  const [loading, setLoading] = useState(true);
+  const [loadingPosto, setLoadingPosto] = useState(true);
+  const [loadingComb, setLoadingComb] = useState(true);
 
   const [status, setStatus] = useState({
     type: "",
@@ -109,7 +111,7 @@ export const AddAbastecimento = () => {
           .get("/postos/" + page, headers)
           .then((response) => {
             setPosto(response.data.postos);
-            setLoading(false);            
+            setLoadingPosto(false);            
           })
           .catch((err) => {            
             if (err.response.data.erro) {              
@@ -138,7 +140,7 @@ export const AddAbastecimento = () => {
           .get("/combustiveis", headers)
           .then((response) => {
             setCombustivel(response.data.combustiveis);
-            setLoading(false);           
+            setLoadingComb(false);           
           })
           .catch((err) => {            
             if (err.response.data.erro) {              
@@ -204,7 +206,8 @@ export const AddAbastecimento = () => {
         <div class="wrapper">
           <div class="row">
           <TopContentAdm title="Cadastrar Abastecimentos">
-            <TopContentButton tolink="/veiculos" stilo="btn-info">Listar</TopContentButton>
+            <TopContentButton tolink="/veiculos" stilo="btn-info">Listar Veículos</TopContentButton>
+            <TopContentButton tolink={"/view-veiculo/" + id} stilo="btn-info">Visualizar</TopContentButton> 
           </TopContentAdm>
 
 
@@ -259,7 +262,7 @@ export const AddAbastecimento = () => {
                         <label className="title-input">Posto:</label>
                         <select name="postoId" className="select-adm" onChange={valueInput}>
                           <option value="">Selecione</option>
-                            {(!loading &&  posto.map((posto) => {
+                            {(!loadingPosto &&  posto.map((posto) => {
                               return (
                                 <option value={posto.id} key={posto.id}>{posto.nome_posto}</option>
                               )
@@ -271,7 +274,7 @@ export const AddAbastecimento = () => {
                         <label className="title-input">Combustível:</label>
                         <select name="combustiveiId" className="select-adm" onChange={valueInput}>
                           <option value="">Selecione</option>
-                            {(!loading && combustivel.map((combustivel) => {
+                            {(!loadingComb && combustivel.map((combustivel) => {
                               return (
                                 <option value={combustivel.id} key={combustivel.id}>{combustivel.nome_combustivel}</option>
                               )
