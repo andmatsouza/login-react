@@ -12,6 +12,7 @@ export const Dasboard = () => {
   //recebe o state que vem do redirecionamento de outra página, através do componente Navigate.
   const { state } = useLocation();
 
+  const [data, setData] = useState([]);
   const [qtdUsuario, setQtdUsuario] = useState("");
   const [qtdVeiculo, setQtdVeiculo] = useState("");
   //const [page, setPage] = useState("");
@@ -37,6 +38,7 @@ export const Dasboard = () => {
     await api
       .get("/users/" + page, headers)
       .then((response) => {
+        
         setQtdUsuario(response.data.countUser);        
       })
       .catch((err) => {
@@ -56,10 +58,10 @@ export const Dasboard = () => {
       });
   };
 
-  const getVeiculos = async (page) => {
-    if (page === undefined) {
-      page = 1;
-    }
+  const getVeiculos = async () => {
+    
+    var dt1 = "2022-08-01";
+    var dt2 = "2022-08-31";
     //setPage(page);
 
     const headers = {
@@ -69,8 +71,9 @@ export const Dasboard = () => {
     };
 
     await api
-      .get("/veiculos/" + page, headers)
+      .get("/veiculo-abast/" + dt1 + "/" + dt2, headers)
       .then((response) => {
+        setData(response.data.totVeiculosAbastecimentos);
         setQtdVeiculo(response.data.countVeiculo);
         
       })
@@ -111,22 +114,16 @@ export const Dasboard = () => {
              {status.type === "danger" ? (<p className="alert-danger">{status.mensagem}</p>) : ("")}
              {status.type === "success" ? (<p className="alert-success">{status.mensagem}</p>) : ("")}
             </div>
+            {data.map((veiculo) => (
+              <Card stilo="box box-first" icon="icon fa-solid fa-truck" total={veiculo.fabricante + "/" + veiculo.placa}>
 
-            <Card stilo="box box-first" icon="icon fas fa-users" total={qtdUsuario}> 
-              <span>Usuários</span>            
-            </Card> 
 
-            <Card stilo="box box-second" icon="icon fa-solid fa-truck" total={qtdVeiculo}> 
-              <span>Veículos</span>            
-            </Card>
 
-            <Card stilo="box box-third" icon="icon fas fa-check-circle" total="12"> 
-              <span>Completas</span>            
-            </Card>
-
-            <Card stilo="box box-fourth" icon="icon fas fa-exclamation-triangle" total="3"> 
-              <span>Completas</span>            
-            </Card>
+              <span>{"Litros: " + veiculo.totLitro}</span><br />
+              <span>{"Valor Pago: " + new Intl.NumberFormat("pt-BR", {style: "currency", currency: "BRL",}).format(veiculo.totValorAbast)}</span><br />
+              <span>{"Total KM: " + veiculo.totOdometro}</span>                                             
+              </Card> 
+            ))}           
                        
           </div>
 
