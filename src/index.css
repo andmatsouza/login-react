@@ -496,6 +496,15 @@ body {
 }
 
 
+.top-content-adm .title-content-veiculo {
+  float: left;
+  color: var(--danger-color);
+  padding: 10px 10px;
+  font-size: 17px;
+  border: 1px solid var(--primary-color);
+  border-radius: 4px;  
+}
+
 .top-content-adm .title-content {
   float: left;
   color: var(--main-bg-color);
