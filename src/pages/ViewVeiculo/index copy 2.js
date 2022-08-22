@@ -23,11 +23,6 @@ export const ViewVeiculo = (props) => {
 
   const { id } = useParams();
 
-  const [valorParcialLitro, setValorParcialLitro] = useState(0);
-  const [kmRodadoMes, setkmRodadoMes] = useState(0);
-  const [mediaKmMesPorLitro, setMediaKmMesPorLitro] = useState(0);
-  
-
   const [data, setData] = useState([]);
   const [fabricantes, setFabricantes] = useState([]);
   const [abastecimentos, setAbastecimentos] = useState([]);
@@ -106,17 +101,31 @@ export const ViewVeiculo = (props) => {
         if (response.data.veiculo !== null) {
           setData(response.data.veiculo);
           setFabricantes(response.data.veiculo.fabricante);
-          setAbastecimentos(response.data.veiculo.abastecimentos);         
-          setManutencoes(response.data.veiculo.manutencoes);         
+          setAbastecimentos(response.data.veiculo.abastecimentos);
+          if (response.data.veiculo.manutencoes !== undefined)
+          setManutencoes(response.data.veiculo.manutencoes);
+          if (response.data.veiculo.trocaoleos !== undefined)
           setTrocaOleo(response.data.veiculo.trocaoleos);
-          setValorParcialLitro(response.data.valorParcialLitro);
-          setkmRodadoMes(response.data.kmRodadoMes);
-          setMediaKmMesPorLitro(response.data.mediaKmMesPorLitro);
         } else {
-          setStatus({
-           type: "redErro",
-           mensagem: "Erro: Veículo não encontrado!",
-          });             
+          //setStatus({
+          // type: "redErro",
+          // mensagem: "Erro: Veículo não encontrado!",
+          //}); 
+              setFabricantes([]);
+              setAbastecimentos([]);
+              setManutencoes([]);
+              setTrocaOleo([]);         
+          api.get("/veiculo/" + id, headers).then((response) => {
+            if (response.data.veiculo !== null) {
+              setData(response.data.veiculo);
+              setFabricantes(response.data.veiculo.fabricante);
+              //setAbastecimentos(response.data.veiculo.abastecimentos)
+              //setFabricantes([]);
+              //setAbastecimentos([]);
+              //setManutencoes([]);
+              //setTrocaOleo([]);
+            }
+          });
         }
       })
       .catch((err) => {
@@ -158,7 +167,42 @@ export const ViewVeiculo = (props) => {
         mensagem: "Erro: tente mais tarde!",
       });
     }
-  };  
+  };
+
+  
+  var odometroInicialMes;
+  var odometroTotalMes = 0;
+  var qtdLitrosMes = 0;
+  var ValorTotalqtdLitrosMes = 0;
+  var tam = abastecimentos.length;
+  var qtdLitroFinal = 0;
+  var valorParcial = 0;
+  var valorParcialLitro = 0;
+  abastecimentos.map((val, indice) => {
+    if (indice === 0) {
+      odometroInicialMes = val.odometro_km;
+    }
+    if (indice === tam - 1) {
+      qtdLitroFinal = val.qtd_litro;
+    }
+    odometroTotalMes = odometroTotalMes + val.odometro_km;
+    valorParcial = odometroTotalMes - val.odometro_km;
+    qtdLitrosMes = qtdLitrosMes + val.qtd_litro;
+    ValorTotalqtdLitrosMes =
+    ValorTotalqtdLitrosMes + val.qtd_litro * val.valor_litro;
+    valorParcialLitro =
+    ValorTotalqtdLitrosMes - val.qtd_litro * val.valor_litro;
+  });
+
+  var kmMes = odometroTotalMes - odometroInicialMes;
+  var kmRodadoMes = kmMes - valorParcial;
+  //var mediaKmMesPorLitro = kmMes / (qtdLitrosMes - qtdLitroFinal);
+  var mediaKmMesPorLitro = kmRodadoMes / (qtdLitrosMes - qtdLitroFinal);
+
+  //console.log("Aquiii : " + valorParcial);
+  //console.log("Aquiii2 : " + kmRodadoMes);
+  //console.log("Aquiii3 : " + valorParcialLitro);
+  //console.log("Total Km mês: " + kmMes + " / Total litros mês: " + qtdLitrosMes + " - " + "Km rodado por litro: " + mediaKmMesPorLitro);
 
   return (
     <div>
@@ -174,7 +218,32 @@ export const ViewVeiculo = (props) => {
             <TopContentButton tolink={"/add-trocaoleo/" + data.id} stilo="btn-success">Cadastrar Troca de Óleo</TopContentButton> 
             <TopContentButton tolink={"/add-manutencao/" + data.id} stilo="btn-success">Cadastrar Manutenção</TopContentButton>
             <TopContentButton tolink={"/add-abastecimento/" + data.id} stilo="btn-success">Cadastrar Abastecimento</TopContentButton> 
-          </TopContentAdm>
+
+  </TopContentAdm>
+
+
+            {/*<div className="top-content-adm">
+              <span className="title-content">Visualizar Veículo</span>
+              <div className="top-content-adm-right">
+                <Link to={"/add-manutencao/" + data.id} reloadDocument>
+                  <button type="button" className="btn-success">
+                    Cadastrar Manutenção
+                  </button>
+                </Link>{" "}
+                <Link to={"/add-abastecimento/" + data.id} reloadDocument>
+                  <button type="button" className="btn-success">
+                    Cadastrar Abastecimento
+                  </button>
+                </Link>{" "}
+                <Link to="/veiculos" reloadDocument>
+                  <button type="button" className="btn-info">
+                    Listar
+                  </button>
+                </Link>{" "}
+              </div>
+  </div>*/}
+
+
 
             <div className="alert-content-adm">
               {status.type === "redSuccess" ? (
@@ -208,6 +277,18 @@ export const ViewVeiculo = (props) => {
               )}
             </div>
           </div>
+
+          {/*<div className="row">
+            <div class="content-adm">
+              <div class="view-det-adm">
+                <span class="view-adm-title">Veículo:</span>
+                <span class="view-adm-info">{fabricantes.nome_fabricante}</span>
+                <span class="view-adm-title">Placa:</span>
+                <span class="view-adm-info">{data.placa}</span>
+              </div>             
+            </div>
+              </div>*/}
+
           <div className="row">
             <div class="content-adm2">
               <button
@@ -245,9 +326,8 @@ export const ViewVeiculo = (props) => {
                 </tr>
               </thead>
               <tbody className="list-body">
-                {abastecimentos.map((abastecimento, indice) => ( 
-                                  
-                  <tr key={abastecimento.id}>                   
+                {abastecimentos.map((abastecimento, indice) => (
+                  <tr key={abastecimento.id}>
                     <td className="list-body-content">
                       {abastecimento.posto.nome_posto}
                     </td>
@@ -299,8 +379,7 @@ export const ViewVeiculo = (props) => {
                       </div>
                     </td>
                   </tr>
-                ))                 
-                }
+                ))}
               </tbody>
             </table>
           </div>
@@ -311,7 +390,8 @@ export const ViewVeiculo = (props) => {
                 <tr>
                   <th className="list-head-content">Custo Total Mês</th>
                   <th className="list-head-content">Total Km Mês</th>
-                  <th className="list-head-content">Custo/L Média</th>                  
+                  <th className="list-head-content">Custo/L Média</th>
+                  {/*<th className="list-head-content">Total litros mês</th>*/}
                   <th className="list-head-content">Km/L Média</th>
                 </tr>
               </thead>
@@ -329,7 +409,8 @@ export const ViewVeiculo = (props) => {
                       style: "currency",
                       currency: "BRL",
                     }).format(valorParcialLitro / kmRodadoMes)}
-                  </td>                  
+                  </td>
+                  {/*<td>{qtdLitrosMes}</td>*/}
                   <td>
                     {new Intl.NumberFormat("pt-BR").format(mediaKmMesPorLitro)}
                   </td>
