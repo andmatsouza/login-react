@@ -93,9 +93,7 @@ export const Veiculos = () => {
         <div className="wrapper">
           <div className="row">
 
-          <TopContentAdm title="Listar Veículos">
-          <TopContentButton tolink="/add-servico" stilo="btn-success">Cadastrar Serviços</TopContentButton>            
-            <TopContentButton tolink="/add-oficina" stilo="btn-success">Cadastrar Oficina</TopContentButton>
+          <TopContentAdm title="Listar Veículos">          
             <TopContentButton tolink="/add-veiculo" stilo="btn-success">Cadastrar Veículo</TopContentButton>
           </TopContentAdm>
 
@@ -122,7 +120,7 @@ export const Veiculos = () => {
                   <th className="list-head-content">Placa</th> 
                   <th className="list-head-content">Renavam</th>
                   <th className="list-head-content">Fabricante</th> 
-                  <th className="list-head-content">Modelo</th>                  
+                  <th className="list-head-content">Modelo</th>                                 
                   <th className="list-head-content">Ações</th>
                 </tr>
               </thead>
@@ -134,7 +132,6 @@ export const Veiculos = () => {
                     <td className="list-body-content">{veiculo.renavam}</td>                   
                     <td className="list-body-content">{veiculo.fabricante.nome_fabricante}</td>
                     <td className="list-body-content">{veiculo.modelo.nome_modelo}</td>
-
                     <td className="list-body-content">
                     <div className="dropdown-action">
                       <button onClick={() => { closeDropdownAction(); actionDropdown(veiculo.id) }} className="dropdown-btn-action">Ações</button>
