@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
 import * as yup from "yup";
 
 import { Navbar } from "../../components/Navbar";
@@ -10,6 +10,7 @@ import { TopContentButton } from "../../components/TopContentButton";
 import api from "../../config/configApi";
 
 export const AddServico = () => {
+  const { id } = useParams();
   const [servico, setServico] = useState({
     nome_servico: "",
    
@@ -100,7 +101,7 @@ export const AddServico = () => {
               )}
               {status.type === "redSuccess" ? (
                 <Navigate
-                  to="/veiculos"
+                  to={"/add-manutencao/" + id}
                   state={{
                     type: "success",
                     mensagem: status.mensagem,
