@@ -28,7 +28,8 @@ export const AddManutencao = () => {
   //const [modelos, setModelos] = useState([]);  
   const [page, setPage] = useState("");
   
-  const [loading, setLoading] = useState(true);
+  const [loadingOficina, setLoadingOficina] = useState(true);
+  const [loadingServ, setLoadingServ] = useState(true);
 
   const [status, setStatus] = useState({
     type: "",
@@ -108,7 +109,7 @@ export const AddManutencao = () => {
           .get("/oficinas/" + page, headers)
           .then((response) => {
             setOficina(response.data.oficinas);
-            setLoading(false);            
+            setLoadingOficina(false);            
           })
           .catch((err) => {            
             if (err.response.data.erro) {              
@@ -137,7 +138,7 @@ export const AddManutencao = () => {
           .get("/servicos", headers)
           .then((response) => {
             setServico(response.data.servicos);
-            setLoading(false);           
+            setLoadingServ(false);           
           })
           .catch((err) => {            
             if (err.response.data.erro) {              
@@ -201,7 +202,10 @@ export const AddManutencao = () => {
         <div class="wrapper">
           <div class="row">
           <TopContentAdm title="Cadastrar Manutenções">
-            <TopContentButton tolink="/veiculos" stilo="btn-info">Listar</TopContentButton>
+            <TopContentButton tolink="/veiculos" stilo="btn-info">Listar Veículos</TopContentButton>
+            <TopContentButton tolink={"/view-veiculo/" + id} stilo="btn-info">Visualizar</TopContentButton> 
+            <TopContentButton tolink={"/add-oficina/" + id} stilo="btn-success">Cadastrar Oficina</TopContentButton>
+            <TopContentButton tolink={"/add-servico/" + id}  stilo="btn-success">Cadastrar Serviços</TopContentButton>  
           </TopContentAdm>
 
 
@@ -256,7 +260,7 @@ export const AddManutencao = () => {
                         <label className="title-input">Oficina:</label>
                         <select name="oficinaId" className="select-adm" onChange={valueInput}>
                           <option value="">Selecione</option>
-                            {(!loading &&  oficina.map((oficina) => {
+                            {(!loadingOficina &&  oficina.map((oficina) => {
                               return (
                                 <option value={oficina.id} key={oficina.id}>{oficina.nome_oficina}</option>
                               )
@@ -268,7 +272,7 @@ export const AddManutencao = () => {
                         <label className="title-input">Serviço:</label>
                         <select name="servicoId" className="select-adm" onChange={valueInput}>
                           <option value="">Selecione</option>
-                            {(!loading && servico.map((servico) => {
+                            {(!loadingServ && servico.map((servico) => {
                               return (
                                 <option value={servico.id} key={servico.id}>{servico.nome_servico}</option>
                               )
