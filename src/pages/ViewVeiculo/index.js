@@ -311,7 +311,7 @@ export const ViewVeiculo = (props) => {
                 <tr>
                   <th className="list-head-content">Custo Total Mês</th>
                   <th className="list-head-content">Total Km Mês</th>
-                  <th className="list-head-content">Custo/L Média</th>                  
+                  <th className="list-head-content">Custo/Km Média</th>                  
                   <th className="list-head-content">Km/L Média</th>
                 </tr>
               </thead>
