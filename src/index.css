@@ -312,10 +312,10 @@ body {
 }
 
 .dropdown-menu.setting {
-  width: 150px;
+  width: 150px;  
 }
 
-.dropdown-menu-action {
+.dropdown-menu.setting.dropdown-menu-action {
   display: block;
 }
 
@@ -427,15 +427,15 @@ body {
 }
 
 .row .box {  
-  width: 23%;
-  margin: 5px 1%;
-  height: 150px;
+  width: 15%;
+  margin: 5px 0.5%;
+  height: 230px;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--fourth-color);
-  border-radius: 5px;
+  border-radius: 5px;  
   overflow: hidden;
   flex-direction: column;
   box-shadow: 0 3px 4px 1px rgba(0, 0, 0, 0.12);
@@ -460,7 +460,31 @@ body {
 
 .box span {
   margin: 5px 0;
-  font-size: 17px;
+  font-size: 12px;  
+  position: relative;
+}
+
+.div-head {
+  width: -webkit-fill-available;
+  height: 50px;
+  margin: 5px 0;
+  font-size: 25px;
+  text-align: center;
+  color: var(--fourth-color);
+  background: var(--site-color);
+  border: 1px solid var(--fourth-color);
+  position: relative;
+}
+
+.div-body {
+  width: -webkit-fill-available;
+  height: 25px;
+  margin: 2px 0;
+  font-size: 12px;
+  text-align: center;
+  color: var(--fourth-color);
+  background: var(--third-color);
+  border: 1px solid var(--fourth-color);
   position: relative;
 }
 
@@ -798,4 +822,11 @@ textarea.input-adm:focus {
   color: var(--second-bg-color);
   font-size: 15px;
   padding: 3px 10px;
+}
+
+/*Graficos*/
+
+#chart {
+  max-width: 650px;
+  margin: 35px auto;
 }
