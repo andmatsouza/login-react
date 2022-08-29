@@ -9,13 +9,11 @@ export const Navbar = () => {
   const { handleLogout } = useContext(Context);
 
   const dropdownUserNavbar = async () => {
-    document
-      .getElementById("dropNavbarUser")
-      .classList.toggle("dropdown-menu-action");
+    document.querySelector("#dropNavbarUser").classList.toggle("dropdown-menu-action");
   };
 
   const barsSidebar = async () => {
-    document.getElementById("barsSidebar").classList.toggle("sidebar-active");
+    document.querySelector("#barsSidebar").classList.toggle("sidebar-active");
   };
 
   return (
