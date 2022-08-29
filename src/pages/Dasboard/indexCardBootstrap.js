@@ -3,9 +3,7 @@ import { useLocation } from "react-router-dom";
 
 import { Navbar } from "../../components/Navbar";
 import { Sidebar } from "../../components/Sidebar";
-import { Card } from "../../components/Card";
-import { ChartAbastLitro, ChartAbastValor, ChartOdmetro } from "../../components/Chart";
-import {getVeiculosChart, getTotalLitrosChart, getTotalValorAbastChart, getTotalOdometroChart} from '../../service/DataService';
+import { Card } from "../../components/Card/indexCardBootstrap";
 
 import api from "../../config/configApi";
 
@@ -16,14 +14,11 @@ export const Dasboard = () => {
   //recebe o state que vem do redirecionamento de outra página, através do componente Navigate.
   const { state } = useLocation();
 
-  const [data, setData] = useState([]);  
-  const [dataGraficoVeiculo, setDataGraficoVeiculo] = useState([]);
-  const [dataGraficoTotLitro, setDataGraficoTotLitro] = useState([]);
-
-  const [dataGraficoTotAbast, setDataGraficoTotAbast] = useState([]);
-  const [dataGraficoTotOdometro, setDataGraficoTotOdometro] = useState([]);
-  
+  const [data, setData] = useState([]);
+  const [qtdUsuario, setQtdUsuario] = useState("");
   const [qtdVeiculo, setQtdVeiculo] = useState("");
+  //const [page, setPage] = useState("");
+
   
   const [status, setStatus] = useState({
     type: state ? state.type : "",
@@ -47,7 +42,7 @@ export const Dasboard = () => {
         ano,
         mes,
       });
-      getVeiculos(mes, ano);     
+      getVeiculos(mes, ano);
     } else {
       ano = dataView.ano;
       mes = dataView.mes - 1;
@@ -55,7 +50,7 @@ export const Dasboard = () => {
         ano,
         mes,
       });
-      getVeiculos(mes, ano);     
+      getVeiculos(mes, ano);
     }
   };
 
@@ -67,7 +62,7 @@ export const Dasboard = () => {
         ano,
         mes,
       });
-      getVeiculos(mes, ano);     
+      getVeiculos(mes, ano);
     } else {
       ano = dataView.ano;
       mes = dataView.mes + 1;
@@ -75,18 +70,15 @@ export const Dasboard = () => {
         ano,
         mes,
       });
-      getVeiculos(mes, ano);     
+      getVeiculos(mes, ano);
     }
   };
-  
 
-  const getVeiculos = async (mes, ano) => {
-
-    if (mes === undefined && ano === undefined) {
-      dataAtual = moment().format();
-      ano = moment(dataAtual).year();
-      mes = moment(dataAtual).month() + 1;
-    }   
+  const getUsers = async (page) => {
+    if (page === undefined) {
+      page = 1;
+    }
+    //setPage(page);
 
     const headers = {
       herders: {
@@ -95,10 +87,10 @@ export const Dasboard = () => {
     };
 
     await api
-      .get("/veiculo-abast/" + mes + "/" + ano, headers)
+      .get("/users/" + page, headers)
       .then((response) => {
-        setData(response.data.totVeiculosAbastecimentos);      
-        setQtdVeiculo(response.data.countVeiculo);        
+        
+        setQtdUsuario(response.data.countUser);        
       })
       .catch((err) => {
         // console.log(err.response);
@@ -114,32 +106,59 @@ export const Dasboard = () => {
             mensagem: "Erro: Tente mais tarde!",
           });
         }
-      });      
-  };  
+      });
+  };
 
+  const getVeiculos = async (mes, ano) => {
 
-  useEffect(() => {    
-    getVeiculos(dataView.mes,dataView.ano);    
-    getVeiculosChart(dataView.mes,dataView.ano)
-    .then(data => setDataGraficoVeiculo(data))
-    .catch(err => alert(err.response ? err.response.data : err.message));
-
-    getTotalLitrosChart(dataView.mes,dataView.ano)
-    .then(data => setDataGraficoTotLitro(data))
-    .catch(err => alert(err.response ? err.response.data : err.message));
-
-    getTotalValorAbastChart(dataView.mes,dataView.ano)
-    .then(data => setDataGraficoTotAbast(data))
-    .catch(err => alert(err.response ? err.response.data : err.message));
-
-    getTotalOdometroChart(dataView.mes,dataView.ano)
-    .then(data => setDataGraficoTotOdometro(data))
-    .catch(err => alert(err.response ? err.response.data : err.message))
-
+    if (mes === undefined && ano === undefined) {
+      dataAtual = moment().format();
+      ano = moment(dataAtual).year();
+      mes = moment(dataAtual).month() + 1;
+    }
     
+    var dt1 = ano;
+    var dt2 = mes;
+    //setPage(page);
+    console.log("Data1 :" + dt1);
+    console.log("Data2 :" + dt2);
 
-    
-  }, [dataView.mes,dataView.ano]); 
+    const headers = {
+      herders: {
+        Authorizaton: "Bearer " + localStorage.getItem("token"),
+      },
+    };
+
+    await api
+      .get("/veiculo-abast/" + dt2 + "/" + dt1, headers)
+      .then((response) => {
+        setData(response.data.totVeiculosAbastecimentos);
+        setQtdVeiculo(response.data.countVeiculo);
+        
+      })
+      .catch((err) => {
+        // console.log(err.response);
+        if (err.response.data.erro) {
+          //console.log(err.response.data.mensagem);
+          setStatus({
+            type: "erro",
+            mensagem: err.response.data.mensagem,
+          });
+        } else {
+          setStatus({
+            type: "erro",
+            mensagem: "Erro: Tente mais tarde!",
+          });
+        }
+      });
+  };
+
+  useEffect(() => {
+    getUsers();
+    getVeiculos();
+  }, []);
+
+
 
   
   return (
@@ -175,30 +194,24 @@ export const Dasboard = () => {
              {status.type === "danger" ? (<p className="alert-danger">{status.mensagem}</p>) : ("")}
              {status.type === "success" ? (<p className="alert-success">{status.mensagem}</p>) : ("")}
             </div>
-            
-            {data.map((veiculo) => (             
-             
-              <Card stilo="box box-second" icon="icon fa-solid fa-truck" total={veiculo.fabricante + "/" + veiculo.placa}>
-
-              <div className="div-body">{"Litros: " + veiculo.totLitro}</div>
-              <div className="div-body">{"Valor Pago: " + new Intl.NumberFormat("pt-BR", {style: "currency", currency: "BRL",}).format(veiculo.totValorAbast)}</div>
-              <div className="div-body">{"Total KM: " + veiculo.totOdometro}</div>
-              <div className="div-body">{"Custo/Km Média: " + new Intl.NumberFormat("pt-BR", {style: "currency", currency: "BRL",}).format(veiculo.totValorAbast/veiculo.totOdometro)}</div>
-              <div className="div-body">{"Km/L Média: " + veiculo.totOdometro/veiculo.totLitro}</div>                                                                                  
+            {data.map((veiculo) => (
+              <Card total={veiculo.fabricante + "/" + veiculo.placa}>
+              <div class="col">
+              <div class="card text-center">
+              <div class="card-header">{"Litros: " + veiculo.totLitro}</div>
+              <div class="card-header">{"Valor Pago: " + new Intl.NumberFormat("pt-BR", {style: "currency", currency: "BRL",}).format(veiculo.totValorAbast)}</div>
+              <div class="card-header">{"Total KM: " + veiculo.totOdometro}</div>
+              <div class="card-header">{"Custo/Km Média: " + veiculo.totValorAbast/veiculo.totOdometro}</div>
+              <div class="card-header">{"Km/L Média: " + veiculo.totOdometro/veiculo.totLitro}</div>
+              </div>
+              </div>                                                                                
               </Card> 
-              
             ))}           
                        
           </div>
+
          
-          <div className="row">
-          <div class="content-adm2">
-              <ChartAbastLitro dataveiculo={dataGraficoVeiculo} datalitro={dataGraficoTotLitro} />              
-              <ChartAbastValor dataveiculo={dataGraficoVeiculo} datalitro={dataGraficoTotAbast}/>
-              <ChartOdmetro dataveiculo={dataGraficoVeiculo} datalitro={dataGraficoTotOdometro}/> 
-          </div> 
-                 
-          </div>
+
         </div>
 
       </div>
