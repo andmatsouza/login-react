@@ -34,7 +34,7 @@ function AuthProvider({ children }) {
       },
     };
 
-    await api.get("/val-token", headers)
+    await api.get("api/val-token", headers)
       .then(() => {
         return true;
       })

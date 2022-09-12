@@ -30,7 +30,7 @@ export const EditProfilePassword = () => {
     };
 
     await api
-      .put("/edit-profile-password", { password }, headers)
+      .put("api/edit-profile-password", { password }, headers)
       .then((response) => {
         setStatus({
           type: "redSuccess",
@@ -60,7 +60,7 @@ export const EditProfilePassword = () => {
         },
       };
       await api
-        .get("/view-profile", headers)
+        .get("api/view-profile", headers)
         .then((response) => {
           if (response.data.user) {
             setName(response.data.user.name);

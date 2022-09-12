@@ -36,7 +36,7 @@ export const AddUser = () => {
     };
 
     await api
-      .post("/add-user-login", user, headers)
+      .post("api/add-user-login", user, headers)
       .then((response) => {
         setStatus({
           type: "redSuccess",

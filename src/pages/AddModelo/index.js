@@ -36,7 +36,7 @@ export const AddModelo = () => {
     };
     modelo.fabricanteId = id;
     await api
-      .post("/modelo", modelo, headers)
+      .post("api/modelo", modelo, headers)
       .then((response) => {
         setStatus({
           type: "redSuccess",

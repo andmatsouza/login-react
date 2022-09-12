@@ -32,7 +32,7 @@ export const EditModelo = () => {
     };
 
     await api
-      .put("/modelo", { id, nome_modelo }, headers)
+      .put("api/modelo", { id, nome_modelo }, headers)
       .then((response) => {
         setStatus({
           type: "redSuccess",
@@ -62,7 +62,7 @@ export const EditModelo = () => {
         },
       };
       await api
-        .get("/modelo/" + id, headers)
+        .get("api/modelo/" + id, headers)
         .then((response) => {
           if (response.data.modelo) {
             setNomeModelo(response.data.modelo.nome_modelo);

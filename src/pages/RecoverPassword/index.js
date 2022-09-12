@@ -6,7 +6,7 @@ import api from "../../config/configApi";
 export const RecoverPassword = () => {
   const [user, setUser] = useState({
     email: "",
-    url: "http://localhost:3000/update-password/",
+    url: "http://localhost:3001/api/update-password/",
   });
 
   const [status, setStatus] = useState({
@@ -26,7 +26,7 @@ export const RecoverPassword = () => {
     });
 
     await api
-      .post("/recover-password", user)
+      .post("api/recover-password", user)
       .then((response) => {
         setStatus({
           type: "redSuccess",

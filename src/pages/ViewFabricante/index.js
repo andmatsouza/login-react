@@ -30,7 +30,7 @@ export const ViewFabricante = (props) => {
         },
       };
       await api
-        .get("/fabricante/" + id, headers)
+        .get("api/fabricante/" + id, headers)
         .then((response) => {
           if (response.data.fabricante) {            
             setData(response.data.fabricante);

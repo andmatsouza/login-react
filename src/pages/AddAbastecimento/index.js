@@ -72,7 +72,7 @@ export const AddAbastecimento = () => {
     };
     abastecimento.veiculoId = id;
     await api
-      .post("/abastecimento", abastecimento, headers)
+      .post("api/abastecimento", abastecimento, headers)
       .then((response) => {
         setStatus({
           type: "redSuccess",
@@ -108,7 +108,7 @@ export const AddAbastecimento = () => {
         };
        
         await api
-          .get("/postos/" + page, headers)
+          .get("api/postos/" + page, headers)
           .then((response) => {
             setPosto(response.data.postos);
             setLoadingPosto(false);            
@@ -137,7 +137,7 @@ export const AddAbastecimento = () => {
         };
     
         await api
-          .get("/combustiveis", headers)
+          .get("api/combustiveis", headers)
           .then((response) => {
             setCombustivel(response.data.combustiveis);
             setLoadingComb(false);           

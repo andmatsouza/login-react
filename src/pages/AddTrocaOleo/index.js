@@ -74,7 +74,7 @@ export const AddTrocaOleo = () => {
     trocaOleo.odometro_troca = parseInt(trocaOleo.odometro_atual) + (oleo[0].km_oleo);
     
     await api
-      .post("/trocaoleo", trocaOleo, headers)
+      .post("api/trocaoleo", trocaOleo, headers)
       .then((response) => {
         setStatus({
           type: "redSuccess",
@@ -110,7 +110,7 @@ export const AddTrocaOleo = () => {
         };
        
         await api
-          .get("/oficinas/" + page, headers)
+          .get("api/oficinas/" + page, headers)
           .then((response) => {
             setOficina(response.data.oficinas);
             setLoading(false);            
@@ -139,7 +139,7 @@ export const AddTrocaOleo = () => {
         };
     
         await api
-          .get("/oleos", headers)
+          .get("api/oleos", headers)
           .then((response) => {
             setOleo(response.data.oleos);
             setLoading(false);           

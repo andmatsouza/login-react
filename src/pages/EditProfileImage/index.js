@@ -32,7 +32,7 @@ export const EditProfileImage = () => {
     };
 
     await api
-      .put("/edit-profile-image", formData, headers)
+      .put("api/edit-profile-image", formData, headers)
       .then((response) => {
         localStorage.setItem("image", response.data.image);
         setStatus({
@@ -63,7 +63,7 @@ export const EditProfileImage = () => {
         },
       };
       await api
-        .get("/view-profile", headers)
+        .get("api/view-profile", headers)
         .then((response) => {
           if (response.data.user) {
             setName(response.data.user.name);

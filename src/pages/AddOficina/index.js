@@ -36,7 +36,7 @@ export const AddOficina = () => {
     };
 
     await api
-      .post("/oficina", oficina, headers)
+      .post("api/oficina", oficina, headers)
       .then((response) => {
         setStatus({
           type: "redSuccess",

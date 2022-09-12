@@ -39,7 +39,7 @@ export const Users = () => {
     };
 
     await api
-      .get("/users/" + page, headers)
+      .get("api/users/" + page, headers)
       .then((response) => {
         setData(response.data.users);
         setLastPage(response.data.lastPage);

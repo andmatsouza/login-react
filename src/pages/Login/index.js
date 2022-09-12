@@ -36,7 +36,7 @@ export const Login = () => {
     });
 
     await api
-      .post("/login", user)
+      .post("api/login", user)
       .then((response) => {
         //console.log(response);
         setStatus({

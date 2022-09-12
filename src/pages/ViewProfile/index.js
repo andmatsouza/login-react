@@ -26,7 +26,7 @@ export const ViewProfile = () => {
         },
       };
       await api
-        .get("/view-profile/", headers)
+        .get("api/view-profile/", headers)
         .then((response) => {
           if (response.data.user) {
             setEndImg(response.data.endImage);

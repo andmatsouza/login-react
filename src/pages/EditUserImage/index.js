@@ -31,7 +31,7 @@ export const EditUserImage = () => {
     };
 
     await api
-      .put("/edit-user-image/" + id, formData, headers)
+      .put("api/edit-user-image/" + id, formData, headers)
       .then((response) => {
         setStatus({
           type: "redSuccess",
@@ -61,7 +61,7 @@ export const EditUserImage = () => {
         },
       };
       await api
-        .get("/user/" + id, headers)
+        .get("api/user/" + id, headers)
         .then((response) => {
           if (response.data.user) {
             setName(response.data.user.name);

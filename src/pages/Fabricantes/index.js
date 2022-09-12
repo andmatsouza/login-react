@@ -39,7 +39,7 @@ export const Fabricantes = () => {
     };
 
     await api
-      .get("/fabricantes/" + page, headers)
+      .get("api/fabricantes/" + page, headers)
       .then((response) => {
         setData(response.data.fabricantes);
         setLastPage(response.data.lastPage);

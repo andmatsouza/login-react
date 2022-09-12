@@ -42,7 +42,7 @@ export const Veiculos = () => {
     };
 
     await api
-      .get("/veiculos/" + page, headers)
+      .get("api/veiculos/" + page, headers)
       .then((response) => {
         setData(response.data.veiculos);
         setLastPage(response.data.lastPage);

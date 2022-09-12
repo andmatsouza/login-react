@@ -35,7 +35,7 @@ export const AddFabricante = () => {
     };
 
     await api
-      .post("/fabricante", fabricante, headers)
+      .post("api/fabricante", fabricante, headers)
       .then((response) => {
         setStatus({
           type: "redSuccess",

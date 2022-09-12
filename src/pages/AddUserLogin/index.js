@@ -31,7 +31,7 @@ export const AddUserLogin = () => {
     };
 
     await api
-      .post("/user", user, headers)
+      .post("api/user", user, headers)
       .then((response) => {
         setStatus({
           type: "success",

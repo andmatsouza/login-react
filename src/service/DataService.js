@@ -8,7 +8,7 @@ export async function getVeiculosChart(mes, ano) {
     },
   };
 
-  const response = await api.get("/veiculo-abast/" + mes + "/" + ano, headers);  
+  const response = await api.get("api/veiculo-abast/" + mes + "/" + ano, headers);  
   
   var VeiculoResumo = [];
  
@@ -26,7 +26,7 @@ export async function getTotalLitrosChart(mes, ano) {
     },
   };
 
-  const response = await api.get("/veiculo-abast/" + mes + "/" + ano, headers);  
+  const response = await api.get("api/veiculo-abast/" + mes + "/" + ano, headers);  
   
   var LitroResumo = [];
  
@@ -44,7 +44,7 @@ export async function getTotalValorAbastChart(mes, ano) {
     },
   };
 
-  const response = await api.get("/veiculo-abast/" + mes + "/" + ano, headers);  
+  const response = await api.get("api/veiculo-abast/" + mes + "/" + ano, headers);  
   
   var ValorAbastResumo = [];
  
@@ -62,7 +62,7 @@ export async function getTotalOdometroChart(mes, ano) {
     },
   };
 
-  const response = await api.get("/veiculo-abast/" + mes + "/" + ano, headers);  
+  const response = await api.get("api/veiculo-abast/" + mes + "/" + ano, headers);  
   
   var OdometroResumo = [];
  

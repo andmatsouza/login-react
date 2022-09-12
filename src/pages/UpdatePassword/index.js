@@ -16,7 +16,7 @@ export const UpdatePassword = () => {
   useEffect(() => {
     const valKey = async () => {
       await api
-        .get("/val-key-recover-pass/" + key)
+        .get("api/val-key-recover-pass/" + key)
         .then((response) => {
           /* setStatus({
             type: "success",
@@ -47,7 +47,7 @@ export const UpdatePassword = () => {
     if (!(await validate())) return;
 
     await api
-      .put("/update-password/" + key, { password })
+      .put("api/update-password/" + key, { password })
       .then((response) => {
         setStatus({
           type: "redSuccess",

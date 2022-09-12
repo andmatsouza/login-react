@@ -36,7 +36,7 @@ export const AddServico = () => {
     };
 
     await api
-      .post("/servico", servico, headers)
+      .post("api/servico", servico, headers)
       .then((response) => {
         setStatus({
           type: "redSuccess",

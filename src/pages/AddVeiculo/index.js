@@ -55,7 +55,7 @@ export const AddVeiculo = () => {
     };
     //modelo.fabricante_id = id;
     await api
-      .post("/veiculo", veiculo, headers)
+      .post("api/veiculo", veiculo, headers)
       .then((response) => {
         setStatus({
           type: "redSuccess",
@@ -91,7 +91,7 @@ export const AddVeiculo = () => {
         };
     
         await api
-          .get("/fabricantes/" + page, headers)
+          .get("api/fabricantes/" + page, headers)
           .then((response) => {
             setData(response.data.fabricantes);            
           })
@@ -117,7 +117,7 @@ export const AddVeiculo = () => {
           },
         };
         await api
-          .get("/fabricante/" + fabricanteId, headers)
+          .get("api/fabricante/" + fabricanteId, headers)
           .then((response) => {
             if (response.data.fabricante) {            
               setFabricante(response.data.fabricante);

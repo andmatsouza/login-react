@@ -101,7 +101,7 @@ export const ViewVeiculo = (props) => {
     }
 
     await api
-      .get("/veiculo/" + id + "/" + mes + "/" + ano, headers)
+      .get("api/veiculo/" + id + "/" + mes + "/" + ano, headers)
       .then((response) => {
         if (response.data.veiculo !== null) {
           setData(response.data.veiculo);

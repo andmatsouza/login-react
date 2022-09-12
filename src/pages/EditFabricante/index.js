@@ -31,7 +31,7 @@ export const EditFabricante = () => {
     };
 
     await api
-      .put("/fabricante", { id, nome_fabricante }, headers)
+      .put("api/fabricante", { id, nome_fabricante }, headers)
       .then((response) => {
         setStatus({
           type: "redSuccess",
@@ -61,7 +61,7 @@ export const EditFabricante = () => {
         },
       };
       await api
-        .get("/fabricante/" + id, headers)
+        .get("api/fabricante/" + id, headers)
         .then((response) => {
           if (response.data.fabricante) {
             setNomeFabricante(response.data.fabricante.nome_fabricante);

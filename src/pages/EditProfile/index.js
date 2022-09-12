@@ -29,7 +29,7 @@ export const EditProfile = () => {
     };
 
     await api
-      .put("/edit-profile", { name, email }, headers)
+      .put("api/edit-profile", { name, email }, headers)
       .then((response) => {
         localStorage.setItem("name", name);
         setStatus({
@@ -60,7 +60,7 @@ export const EditProfile = () => {
         },
       };
       await api
-        .get("/view-profile", headers)
+        .get("api/view-profile", headers)
         .then((response) => {
           if (response.data.user) {
             setName(response.data.user.name);

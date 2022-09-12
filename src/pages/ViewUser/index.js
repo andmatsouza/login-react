@@ -26,7 +26,7 @@ export const ViewUser = (props) => {
         },
       };
       await api
-        .get("/user/" + id, headers)
+        .get("api/user/" + id, headers)
         .then((response) => {
           if (response.data.user) {
             setEndImg(response.data.endImage);

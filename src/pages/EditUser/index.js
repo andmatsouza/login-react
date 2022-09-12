@@ -29,7 +29,7 @@ export const EditUser = () => {
     };
 
     await api
-      .put("/user", { id, name, email }, headers)
+      .put("api/user", { id, name, email }, headers)
       .then((response) => {
         setStatus({
           type: "redSuccess",
@@ -59,7 +59,7 @@ export const EditUser = () => {
         },
       };
       await api
-        .get("/user/" + id, headers)
+        .get("api/user/" + id, headers)
         .then((response) => {
           if (response.data.user) {
             setName(response.data.user.name);

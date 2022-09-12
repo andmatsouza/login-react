@@ -95,7 +95,7 @@ export const Dasboard = () => {
     };
 
     await api
-      .get("/veiculo-abast/" + mes + "/" + ano, headers)
+      .get("api/veiculo-abast/" + mes + "/" + ano, headers)
       .then((response) => {
         setData(response.data.totVeiculosAbastecimentos);      
         setQtdVeiculo(response.data.countVeiculo);        

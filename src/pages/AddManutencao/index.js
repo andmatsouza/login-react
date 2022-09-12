@@ -70,7 +70,7 @@ export const AddManutencao = () => {
     };
     manutencao.veiculoId = id;
     await api
-      .post("/manutencao", manutencao, headers)
+      .post("api/manutencao", manutencao, headers)
       .then((response) => {
         setStatus({
           type: "redSuccess",
@@ -106,7 +106,7 @@ export const AddManutencao = () => {
         };
        
         await api
-          .get("/oficinas/" + page, headers)
+          .get("api/oficinas/" + page, headers)
           .then((response) => {
             setOficina(response.data.oficinas);
             setLoadingOficina(false);            
@@ -135,7 +135,7 @@ export const AddManutencao = () => {
         };
     
         await api
-          .get("/servicos", headers)
+          .get("api/servicos", headers)
           .then((response) => {
             setServico(response.data.servicos);
             setLoadingServ(false);           

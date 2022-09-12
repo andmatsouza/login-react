@@ -11,7 +11,7 @@ export const servDeleteUser = async (idUser) => {
     };    
 
 
-    await api.delete("/user/" + idUser, headers )
+    await api.delete("api/user/" + idUser, headers )
     .then((response) => {
       status = {
         type: "success",
@@ -44,7 +44,7 @@ export const servDeleteFabricante = async (idFabricante) => {
       },
     };
 
-    await api.put("/fabricante/" + idFabricante, headers )
+    await api.put("api/fabricante/" + idFabricante, headers )
     .then((response) => {
       status = {
         type: "success",
@@ -77,7 +77,7 @@ export const servDeleteVeiculo = async (idVeiculo) => {
       },
     };
     
-    await api.put("/veiculo/" + idVeiculo, headers )
+    await api.put("api/veiculo/" + idVeiculo, headers )
     .then((response) => {
       status = {
         type: "success",
@@ -111,7 +111,7 @@ export const servDeleteModelo = async (idModelo) => {
     };    
 
 
-    await api.delete("/modelo/" + idModelo, headers )
+    await api.delete("api/modelo/" + idModelo, headers )
     .then((response) => {
       status = {
         type: "success",
