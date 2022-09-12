@@ -9,6 +9,10 @@ import {getVeiculosChart, getTotalLitrosChart, getTotalValorAbastChart, getTotal
 
 import api from "../../config/configApi";
 
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Tabs, Tab } from "react-bootstrap";
+
+
 const moment = require("moment");
 
 export const Dasboard = () => { 
@@ -169,8 +173,11 @@ export const Dasboard = () => {
             </div>
           </div>
 
-          <div className="row">
+          <Tabs defaultActiveKey="abast" id="uncontrolled-tab-example" className="mb-3">
+          <Tab eventKey="abast" title="Abastecimentos">
 
+          <div className="row">
+         
           <div className="alert-content-adm">
              {status.type === "danger" ? (<p className="alert-danger">{status.mensagem}</p>) : ("")}
              {status.type === "success" ? (<p className="alert-success">{status.mensagem}</p>) : ("")}
@@ -191,14 +198,21 @@ export const Dasboard = () => {
                        
           </div>
          
-          <div className="row">
-          <div class="content-adm2">
+            <div className="row">
+            <div class="content-adm2">
               <ChartAbastLitro dataveiculo={dataGraficoVeiculo} datalitro={dataGraficoTotLitro} />              
               <ChartAbastValor dataveiculo={dataGraficoVeiculo} datalitro={dataGraficoTotAbast}/>
               <ChartOdmetro dataveiculo={dataGraficoVeiculo} datalitro={dataGraficoTotOdometro}/> 
-          </div> 
-                 
-          </div>
+            </div>                 
+            </div>
+            </Tab>
+            <Tab eventKey="manu" title="Manutenções">
+
+            </Tab>
+            <Tab eventKey="troca" title="Troca de Óleo">
+              
+            </Tab>
+          </Tabs>
         </div>
 
       </div>
