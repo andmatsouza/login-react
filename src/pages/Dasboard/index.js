@@ -20,7 +20,8 @@ export const Dasboard = () => {
   //recebe o state que vem do redirecionamento de outra página, através do componente Navigate.
   const { state } = useLocation();
 
-  const [data, setData] = useState([]);  
+  const [data, setData] = useState([]); 
+  const [dataMnt, setDataMnt] = useState([]);  
   const [dataGraficoVeiculo, setDataGraficoVeiculo] = useState([]);
   const [dataGraficoTotLitro, setDataGraficoTotLitro] = useState([]);
 
@@ -118,7 +119,31 @@ export const Dasboard = () => {
             mensagem: "Erro: Tente mais tarde!",
           });
         }
-      });      
+      }); 
+
+      await api
+      .get("api/veiculo-mnt/" + mes + "/" + ano, headers)
+      .then((response) => {
+        setDataMnt(response.data.veiculos);                
+      })
+      .catch((err) => {
+        // console.log(err.response);
+        if (err.response.data.erro) {
+          //console.log(err.response.data.mensagem);
+          setStatus({
+            type: "erro",
+            mensagem: err.response.data.mensagem,
+          });
+        } else {
+          setStatus({
+            type: "erro",
+            mensagem: "Erro: Tente mais tarde!",
+          });
+        }
+      }); 
+      
+      
+
   };  
 
 
@@ -207,7 +232,45 @@ export const Dasboard = () => {
             </div>
             </Tab>
             <Tab eventKey="manu" title="Manutenções">
+            <div className="row">
+            <table className="table-list"> 
+            <thead className="list-head">
+                <tr>
+                  <th className="list-head-content">Placa</th>
+                  <th className="list-head-content">Lataria e Pintura</th>
+                  <th className="list-head-content">Mecânica</th>
+                  <th className="list-head-content">Pneus</th>
+                  <th className="list-head-content">Lavagem</th>                  
+                </tr>
+              </thead>
+              <tbody className="list-body">
+              {dataMnt.map((veiculo, indice) => (  
+                <tr key={veiculo.id}>
+                  <td className="list-body-content">
+                      {veiculo.placa}
+                  </td>
+                  {veiculo.manutencoes.map((mnt, indice) => (
+                    <td className="list-body-content">
+                    {mnt.valor_mnt}
+                    </td>
+                  ))}
+                </tr>
+              ))}  
+              </tbody>
 
+              <tfoot>
+                 <tr>
+                    <td className="list-body-content">total</td> 
+                    <td className="list-body-content"></td> 
+                    <td className="list-body-content"></td> 
+                    <td className="list-body-content"></td> 
+                    <td className="list-body-content"></td> 
+                    <td className="list-body-content"></td> 
+                    <td className="list-body-content"></td>                                 
+                 </tr>                
+              </tfoot>
+            </table>
+            </div> 
             </Tab>
             <Tab eventKey="troca" title="Troca de Óleo">
               
