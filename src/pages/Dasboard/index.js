@@ -17,6 +17,11 @@ const moment = require("moment");
 
 export const Dasboard = () => { 
 
+  var totPint =0;
+  var totMec =0;
+  var totPneu =0;
+  var totLav =0;
+
   //recebe o state que vem do redirecionamento de outra página, através do componente Navigate.
   const { state } = useLocation();
 
@@ -124,7 +129,7 @@ export const Dasboard = () => {
       await api
       .get("api/veiculo-mnt/" + mes + "/" + ano, headers)
       .then((response) => {
-        setDataMnt(response.data.veiculos);                
+        setDataMnt(response.data.totVeiculosManutencoes);                
       })
       .catch((err) => {
         // console.log(err.response);
@@ -240,32 +245,52 @@ export const Dasboard = () => {
                   <th className="list-head-content">Lataria e Pintura</th>
                   <th className="list-head-content">Mecânica</th>
                   <th className="list-head-content">Pneus</th>
-                  <th className="list-head-content">Lavagem</th>                  
+                  <th className="list-head-content">Lavagem</th>
+                  <th className="list-head-content">Total</th>                 
                 </tr>
               </thead>
-              <tbody className="list-body">
-              {dataMnt.map((veiculo, indice) => (  
-                <tr key={veiculo.id}>
+              <tbody className="list-body">                
+              {dataMnt.map((veiculo, indice) => {
+                
+                totPint = totPint + veiculo.valorTotLatariaPintura;
+                totMec = totMec + veiculo.valorTotMecanica;
+                totPneu = totPneu + veiculo.valorTotPneus;
+                totLav = totLav + veiculo.valorTotLavagem;
+                
+                return(  
+                <tr key={veiculo.indice}>
                   <td className="list-body-content">
-                      {veiculo.placa}
+                      {veiculo.placa + "/" + veiculo.fabricante}
                   </td>
-                  {veiculo.manutencoes.map((mnt, indice) => (
-                    <td className="list-body-content">
-                    {mnt.valor_mnt}
-                    </td>
-                  ))}
-                </tr>
-              ))}  
+                  <td className="list-body-content">
+                      {veiculo.valorTotLatariaPintura}
+                  </td>
+                  <td className="list-body-content">
+                      {veiculo.valorTotMecanica}
+                  </td>
+                  <td className="list-body-content">
+                      {veiculo.valorTotPneus}
+                  </td>
+                  <td className="list-body-content">
+                      {veiculo.valorTotLavagem}
+                  </td>
+                  <td className="list-body-content">
+                      {veiculo.valorTotalMnt}
+                  </td>                                                                   
+                </tr> 
+                                
+              )}
+              )}  
               </tbody>
 
               <tfoot>
                  <tr>
                     <td className="list-body-content">total</td> 
-                    <td className="list-body-content"></td> 
-                    <td className="list-body-content"></td> 
-                    <td className="list-body-content"></td> 
-                    <td className="list-body-content"></td> 
-                    <td className="list-body-content"></td> 
+                    <td className="list-body-content">{totPint}</td> 
+                    <td className="list-body-content">{totMec}</td> 
+                    <td className="list-body-content">{totPneu}</td> 
+                    <td className="list-body-content">{totLav}</td> 
+                    <td className="list-body-content">{totPint+totMec+totPneu+totLav}</td> 
                     <td className="list-body-content"></td>                                 
                  </tr>                
               </tfoot>
