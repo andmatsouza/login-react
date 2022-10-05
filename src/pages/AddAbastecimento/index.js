@@ -7,9 +7,11 @@ import { Navbar } from "../../components/Navbar";
 import { Sidebar } from "../../components/Sidebar";
 import { TopContentAdm } from "../../components/TopContentAdm";
 import { TopContentButton } from "../../components/TopContentButton";
-import { TopContentAdmVeiculo } from "../../components/TopContentAdmVeiculo";
+//import { TopContentAdmVeiculo } from "../../components/TopContentAdmVeiculo";
 
 import api from "../../config/configApi";
+
+const moment = require("moment");
 
 export const AddAbastecimento = () => {
   const { id } = useParams();
@@ -24,6 +26,9 @@ export const AddAbastecimento = () => {
   });
 
   const [valorLancTarget, setValorLancTarget] = useState('');
+
+  
+  const [odometro, setUltimoOdometro] = useState("");
 
   const [posto, setPosto] = useState("");
   const [combustivel, setCombustivel] = useState("");
@@ -59,6 +64,10 @@ export const AddAbastecimento = () => {
     setAbastecimento({ ...abastecimento, valor_litro: valorSalvar });
 }
 
+  //var dataAtual = moment().format();
+  //var ano = moment(dataAtual).year();
+  //var mes = moment(dataAtual).month() + 1;
+
 
   const addAbastecimento = async (e) => {
     e.preventDefault();
@@ -71,6 +80,9 @@ export const AddAbastecimento = () => {
       },
     };
     abastecimento.veiculoId = id;
+    if (odometro <= abastecimento.odometro_km){
+
+    
     await api
       .post("api/abastecimento", abastecimento, headers)
       .then((response) => {
@@ -92,6 +104,14 @@ export const AddAbastecimento = () => {
           });
         }
       });
+
+    } else {
+      setStatus({
+        type: "error",
+        mensagem: "Erro: Odômetro menor que o último odômetro: " + odometro,
+      });
+    }
+
   };
 
 
@@ -122,6 +142,67 @@ export const AddAbastecimento = () => {
             } else {
               setStatus({
                 type: "erro",
+                mensagem: "Erro: Tente mais tarde!",
+              });
+            }
+          });
+      };
+
+
+      /*const getVeiculo = async (mes, ano, dataAtual) => {
+        const headers = {
+          herders: {
+            Authorizaton: "Bearer " + localStorage.getItem("token"),
+          },
+        };
+    
+        if (mes === undefined && ano === undefined) {
+          dataAtual = moment().format();
+          ano = moment(dataAtual).year();
+          mes = moment(dataAtual).month() + 1;
+        }
+    
+        await api
+          .get("api/veiculo/" + id + "/" + mes + "/" + ano, headers)
+          .then((response) => {                      
+              setUltimoOdometro(response.data.valorUltimoOdometro);           
+          })
+          .catch((err) => {
+            if (err.response.data.erro) {
+              setStatus({
+                type: "redErro",
+                mensagem: err.response.data.mensagem,
+              });
+            } else {
+              setStatus({
+                type: "redErro",
+                mensagem: "Erro: Tente mais tarde!",
+              });
+            }
+          });
+      };*/
+
+      const getVeiculo = async () => {
+        const headers = {
+          herders: {
+            Authorizaton: "Bearer " + localStorage.getItem("token"),
+          },
+        };        
+    
+        await api
+          .get("api/veiculo/" + id , headers)
+          .then((response) => {                      
+              setUltimoOdometro(response.data.valorUltimoOdometro);           
+          })
+          .catch((err) => {
+            if (err.response.data.erro) {
+              setStatus({
+                type: "redErro",
+                mensagem: err.response.data.mensagem,
+              });
+            } else {
+              setStatus({
+                type: "redErro",
                 mensagem: "Erro: Tente mais tarde!",
               });
             }
@@ -162,7 +243,8 @@ export const AddAbastecimento = () => {
   
   useEffect(() => {
     getPostos();
-    getCombustiveis();        
+    getCombustiveis(); 
+    getVeiculo();       
   }, []);  
 
   async function validate() {
