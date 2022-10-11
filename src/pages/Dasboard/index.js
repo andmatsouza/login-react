@@ -26,7 +26,8 @@ export const Dasboard = () => {
   const { state } = useLocation();
 
   const [data, setData] = useState([]); 
-  const [dataMnt, setDataMnt] = useState([]);  
+  const [dataMnt, setDataMnt] = useState([]); 
+  const [dataTrocaOleo, setDataTrocaOleo] = useState([]);   
   const [dataGraficoVeiculo, setDataGraficoVeiculo] = useState([]);
   const [dataGraficoTotLitro, setDataGraficoTotLitro] = useState([]);
 
@@ -146,6 +147,27 @@ export const Dasboard = () => {
           });
         }
       }); 
+
+      await api
+      .get("api/veiculo-troca-oleo", headers)
+      .then((response) => {
+        setDataTrocaOleo(response.data.totVeiculosTrocaOleo);                
+      })
+      .catch((err) => {
+        // console.log(err.response);
+        if (err.response.data.erro) {
+          //console.log(err.response.data.mensagem);
+          setStatus({
+            type: "erro",
+            mensagem: err.response.data.mensagem,
+          });
+        } else {
+          setStatus({
+            type: "erro",
+            mensagem: "Erro: Tente mais tarde!",
+          });
+        }
+      });
       
       
 
@@ -298,7 +320,87 @@ export const Dasboard = () => {
             </div> 
             </Tab>
             <Tab eventKey="troca" title="Troca de Óleo">
-              
+            
+
+
+            <div className="row">
+            <table className="table-list"> 
+            <thead className="list-head">
+                <tr>
+                  <th className="list-head-content">Placa</th>
+                  <th className="list-head-content">Data Troca</th>
+                  <th className="list-head-content">Trocou Filtro Óleo</th>
+                  <th className="list-head-content">Trocou Filtro Combustível</th>
+                  <th className="list-head-content">Valor Troca</th>
+                  <th className="list-head-content">Odômetro Última Troca</th> 
+                  <th className="list-head-content">Odômetro Próxima Troca</th>
+                  <th className="list-head-content">Odômetro Atual Veículo</th>
+                  <th className="list-head-content">Alerta</th>               
+                </tr>
+              </thead>
+              <tbody className="list-body">                
+              {dataTrocaOleo.map((trocaOleo, indice) => {  
+                
+                if (trocaOleo.odometroProximaTroca <= (trocaOleo.odometroAtualVeiculo * 1,1)) {
+                  var msg = "Troca está próxima";
+                }
+
+                if (trocaOleo.filtroOleo === 1) {
+                  var msgTrocaFiltroOleo = "Sim";
+                }else {
+                  msgTrocaFiltroOleo = "Não";
+                }
+
+                if (trocaOleo.filtroCombustivel === 1) {
+                  var msgTrocaFiltroCombustivel = "Sim";
+                }else {
+                  msgTrocaFiltroCombustivel = "Não";
+                }
+                
+                
+                return(  
+                <tr key={trocaOleo.indice}>
+                  <td className="list-body-content">
+                      {trocaOleo.placa + "/" + trocaOleo.fabricante}
+                  </td>
+                  <td className="list-body-content">                      
+                      {moment(trocaOleo.dtUltimaTroca).format(
+                        "DD/MM/YYYY"
+                      )}
+                  </td>
+                  <td className="list-body-content">
+                      {msgTrocaFiltroOleo}
+                  </td>
+                  <td className="list-body-content">
+                      {msgTrocaFiltroCombustivel}
+                  </td>
+                  <td className="list-body-content">
+                      {new Intl.NumberFormat("pt-BR", {style: "currency", currency: "BRL",}).format(trocaOleo.valorUltimaTroca)}
+                  </td>
+                  <td className="list-body-content">
+                      {trocaOleo.odometroUltimaTroca}
+                  </td> 
+                  <td className="list-body-content">
+                      {trocaOleo.odometroProximaTroca}
+                  </td>
+                  <td className="list-body-content">
+                      {trocaOleo.odometroAtualVeiculo}
+                  </td> 
+                  <td className="list-body-content">
+                  {msg !== "" ? (<p className="alert-danger">{msg}</p>) : ("")}
+                  </td>                                                                        
+                </tr>
+                 
+                           
+              )}
+              )}  
+              </tbody>              
+            </table>
+            </div> 
+
+
+
+
             </Tab>
           </Tabs>
         </div>

@@ -31,7 +31,8 @@ export const AddTrocaOleo = () => {
   //const [modelos, setModelos] = useState([]);  
   const [page, setPage] = useState("");
   
-  const [loading, setLoading] = useState(true);
+  const [loadingOleo, setLoadingOleo] = useState(true);
+  const [loadingOficinaOleo, setLoadingOficinaOleo] = useState(true);
 
   const [status, setStatus] = useState({
     type: "",
@@ -113,7 +114,7 @@ export const AddTrocaOleo = () => {
           .get("api/oficinas/" + page, headers)
           .then((response) => {
             setOficina(response.data.oficinas);
-            setLoading(false);            
+            setLoadingOficinaOleo(false);            
           })
           .catch((err) => {            
             if (err.response.data.erro) {              
@@ -142,7 +143,7 @@ export const AddTrocaOleo = () => {
           .get("api/oleos", headers)
           .then((response) => {
             setOleo(response.data.oleos);
-            setLoading(false);           
+            setLoadingOleo(false);           
           })
           .catch((err) => {            
             if (err.response.data.erro) {              
@@ -209,7 +210,7 @@ export const AddTrocaOleo = () => {
 
         <div class="wrapper">
           <div class="row">
-          <TopContentAdm title="Cadastrar Manutenções">
+          <TopContentAdm title="Cadastrar Troca de Óleo">
             <TopContentButton tolink="/veiculos" stilo="btn-info">Listar Veículos</TopContentButton>
             <TopContentButton tolink={"/view-veiculo/" + id} stilo="btn-info">Visualizar</TopContentButton> 
             <TopContentButton tolink={"/add-oficina/" + id} stilo="btn-success">Cadastrar Oficina</TopContentButton>
@@ -268,11 +269,11 @@ export const AddTrocaOleo = () => {
                         <label className="title-input">Oficina:</label>
                         <select name="oficinaId" className="select-adm" onChange={valueInput}>
                           <option value="">Selecione</option>
-                            {/*(!loading &&  oficina.map((oficina) => {
+                            {(!loadingOficinaOleo &&  oficina.map((oficina) => {
                               return (
                                 <option value={oficina.id} key={oficina.id}>{oficina.nome_oficina}</option>
                               )
-                        }) )*/}
+                        }) )}
                         </select>
                   </div>
 
@@ -280,11 +281,11 @@ export const AddTrocaOleo = () => {
                         <label className="title-input">Tipo Óleo:</label>
                         <select name="oleoId" className="select-adm" onChange={valueInput}>
                           <option value="">Selecione</option>
-                            {/*(!loading && oleo.map((oleo) => {
+                            {(!loadingOleo && oleo.map((oleo) => {
                               return (
                                 <option value={oleo.id} key={oleo.id}>{oleo.nome_oleo}</option>
                               )
-                        }))*/}
+                        }))}
                         </select>
                   </div>
 

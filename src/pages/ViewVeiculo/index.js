@@ -424,7 +424,7 @@ export const ViewVeiculo = (props) => {
                   <th className="list-head-content">Filtro Óleo</th>
                   <th className="list-head-content">Filtro Combustível</th> 
                   <th className="list-head-content">Valor da Troca</th>  
-                  <th className="list-head-content">Km Atual</th>   
+                  <th className="list-head-content">Km Última Troca</th>   
                   <th className="list-head-content">Km Próxima Troca</th>             
                   <th className="list-head-content">Ações</th>
                 </tr>
