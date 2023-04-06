@@ -564,6 +564,34 @@ body {
   padding: 8px;
 }
 
+/*Dashboard table*/
+
+.table-list .list-head-dashboard .list-head-content-dashboard {
+  background-color: var(--main-color);
+  color: var(--fourth-bg-color);
+  padding: 10px;
+  text-align: center;
+}
+
+.table-list .list-body-dashboard .list-body-content-dashboard {
+  background-color: var(--fourth-color);
+  color: var(--fourth-bg-color);
+  padding: 8px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  /*border: 1px solid;*/
+}
+
+.table-list .list-body-dashboard .list-body-content-dashboard-alert {
+  background-color: var(--fourth-color);
+  color: var(--danger-color);
+  padding: 8px;
+  border-bottom: 1px solid #ddd;  
+  /*border: 1px solid;*/
+}
+
+/* Fim Dashboard table*/
+
 @media (max-width: 540px) {
   .table-sm-none {
     display: none;
