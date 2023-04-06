@@ -13,7 +13,7 @@ export async function getVeiculosChart(mes, ano) {
   var VeiculoResumo = [];
  
   const veiculos = response.data.totVeiculosAbastecimentos.map( (veiculo, indice) => {    
-    return VeiculoResumo[indice] = veiculo.placa;
+    return VeiculoResumo[indice] = veiculo.placa;    
   })
   return veiculos;
 }

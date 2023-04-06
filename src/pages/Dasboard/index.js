@@ -50,7 +50,7 @@ export const Dasboard = () => {
     mes,
   });
 
-  const anterior = async () => {
+  const anterior = async () => {         
     if (dataView.mes === 1) {
       ano = dataView.ano - 1;
       mes = 12;
@@ -70,7 +70,7 @@ export const Dasboard = () => {
     }
   };
 
-  const proximo = async () => {
+  const proximo = async () => {        
     if (dataView.mes === 12) {
       ano = dataView.ano + 1;
       mes = 1;
@@ -91,7 +91,7 @@ export const Dasboard = () => {
   };
   
 
-  const getVeiculos = async (mes, ano) => {
+  const getVeiculos = async (mes, ano) => {   
 
     if (mes === undefined && ano === undefined) {
       dataAtual = moment().format();
@@ -107,9 +107,9 @@ export const Dasboard = () => {
 
     await api
       .get("api/veiculo-abast/" + mes + "/" + ano, headers)
-      .then((response) => {
-        setData(response.data.totVeiculosAbastecimentos);      
-        setQtdVeiculo(response.data.countVeiculo);        
+      .then((response) => {      
+        setData(response.data.totVeiculosAbastecimentos);        
+        setQtdVeiculo(response.data.countVeiculo);                   
       })
       .catch((err) => {
         // console.log(err.response);
@@ -174,25 +174,28 @@ export const Dasboard = () => {
   };  
 
 
-  useEffect(() => {    
-    getVeiculos(dataView.mes,dataView.ano);    
+  useEffect(() => {  
+    //console.log("dataView.mes:" + dataView.mes)  
+    getVeiculos(dataView.mes,dataView.ano); 
+
     getVeiculosChart(dataView.mes,dataView.ano)
-    .then(data => setDataGraficoVeiculo(data))
-    .catch(err => alert(err.response ? err.response.data : err.message));
+    .then((data) => {
+      //console.log("data:" + data)
+      setDataGraficoVeiculo(data)
+    })
+    //.catch(err => alert(err.response ? "1" + err.response.data : err.message));
 
     getTotalLitrosChart(dataView.mes,dataView.ano)
     .then(data => setDataGraficoTotLitro(data))
-    .catch(err => alert(err.response ? err.response.data : err.message));
+   // .catch(err => alert(err.response ? "2" + err.response.data : err.message));
 
     getTotalValorAbastChart(dataView.mes,dataView.ano)
     .then(data => setDataGraficoTotAbast(data))
-    .catch(err => alert(err.response ? err.response.data : err.message));
+   // .catch(err => alert(err.response ? "3" + err.response.data : err.message));
 
     getTotalOdometroChart(dataView.mes,dataView.ano)
     .then(data => setDataGraficoTotOdometro(data))
-    .catch(err => alert(err.response ? err.response.data : err.message))
-
-    
+   // .catch(err => alert(err.response ? "4" + err.response.data : err.message))
 
     
   }, [dataView.mes,dataView.ano]); 
@@ -325,25 +328,31 @@ export const Dasboard = () => {
 
             <div className="row">
             <table className="table-list"> 
-            <thead className="list-head">
+            <thead className="list-head-dashboard">
                 <tr>
-                  <th className="list-head-content">Placa</th>
-                  <th className="list-head-content">Data Troca</th>
-                  <th className="list-head-content">Trocou Filtro Óleo</th>
-                  <th className="list-head-content">Trocou Filtro Combustível</th>
-                  <th className="list-head-content">Valor Troca</th>
-                  <th className="list-head-content">Odômetro Última Troca</th> 
-                  <th className="list-head-content">Odômetro Próxima Troca</th>
-                  <th className="list-head-content">Odômetro Atual Veículo</th>
-                  <th className="list-head-content">Alerta</th>               
+                  <th className="list-head-content-dashboard">Placa</th>
+                  <th className="list-head-content-dashboard">Data Troca</th>
+                  <th className="list-head-content-dashboard">Trocou Filtro Óleo</th>
+                  <th className="list-head-content-dashboard">Trocou Filtro Combustível</th>
+                  <th className="list-head-content-dashboard">Valor Troca</th>
+                  <th className="list-head-content-dashboard">Odômetro Última Troca</th> 
+                  <th className="list-head-content-dashboard">Odômetro Próxima Troca</th>
+                  <th className="list-head-content-dashboard">Odômetro Atual Veículo</th>
+                  <th className="list-head-content-dashboard">Alerta</th>               
                 </tr>
               </thead>
-              <tbody className="list-body">                
+              <tbody className="list-body-dashboard">                
               {dataTrocaOleo.map((trocaOleo, indice) => {  
+                var msg = "";
+               // var msg5 = "";
                 
-                if (trocaOleo.odometroProximaTroca <= (trocaOleo.odometroAtualVeiculo * 1,1)) {
-                  var msg = "Troca está próxima";
+                if ((trocaOleo.odometroProximaTroca - (trocaOleo.odometroProximaTroca*10/100)) <= (trocaOleo.odometroAtualVeiculo)) {
+                  msg = "Km atual: " + trocaOleo.odometroAtualVeiculo + " próxima troca prevista para: " + trocaOleo.odometroProximaTroca;                  
                 }
+
+                /*if ((trocaOleo.odometroProximaTroca - (trocaOleo.odometroProximaTroca*5/100)) <= (trocaOleo.odometroAtualVeiculo)) {
+                  msg = "Km atual5: " + trocaOleo.odometroAtualVeiculo + " próxima troca prevista para: " + trocaOleo.odometroProximaTroca;                  
+                }*/
 
                 if (trocaOleo.filtroOleo === 1) {
                   var msgTrocaFiltroOleo = "Sim";
@@ -360,35 +369,35 @@ export const Dasboard = () => {
                 
                 return(  
                 <tr key={trocaOleo.indice}>
-                  <td className="list-body-content">
+                  <td className="list-body-content-dashboard">
                       {trocaOleo.placa + "/" + trocaOleo.fabricante}
                   </td>
-                  <td className="list-body-content">                      
+                  <td className="list-body-content-dashboard">                      
                       {moment(trocaOleo.dtUltimaTroca).format(
                         "DD/MM/YYYY"
                       )}
                   </td>
-                  <td className="list-body-content">
+                  <td className="list-body-content-dashboard">
                       {msgTrocaFiltroOleo}
                   </td>
-                  <td className="list-body-content">
+                  <td className="list-body-content-dashboard">
                       {msgTrocaFiltroCombustivel}
                   </td>
-                  <td className="list-body-content">
+                  <td className="list-body-content-dashboard">
                       {new Intl.NumberFormat("pt-BR", {style: "currency", currency: "BRL",}).format(trocaOleo.valorUltimaTroca)}
                   </td>
-                  <td className="list-body-content">
+                  <td className="list-body-content-dashboard">
                       {trocaOleo.odometroUltimaTroca}
                   </td> 
-                  <td className="list-body-content">
+                  <td className="list-body-content-dashboard">
                       {trocaOleo.odometroProximaTroca}
                   </td>
-                  <td className="list-body-content">
+                  <td className="list-body-content-dashboard">
                       {trocaOleo.odometroAtualVeiculo}
-                  </td> 
-                  <td className="list-body-content">
-                  {msg !== "" ? (<p className="alert-danger">{msg}</p>) : ("")}
-                  </td>                                                                        
+                  </td>                   
+                  {msg !== "" ? <td className="list-body-content-dashboard-alert">{msg}</td> : <td className="list-body-content-dashboard"></td>}
+                  
+                                                                                   
                 </tr>
                  
                            
